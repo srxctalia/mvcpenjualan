@@ -7,6 +7,7 @@ public class MstSupplierDto {
 	private String alamatSupplier;
 	private String emailSupplier;
 	private String kodeKota;
+	private String namaKota;
 	private String namaSupplier;
 	private String telpSupplier;
 	public String getKodeSupplier() {
@@ -44,6 +45,12 @@ public class MstSupplierDto {
 	}
 	public void setTelpSupplier(String telpSupplier) {
 		this.telpSupplier = telpSupplier;
+	}
+	public String getNamaKota() {
+		return namaKota;
+	}
+	public void setNamaKota(String namaKota) {
+		this.namaKota = namaKota;
 	}
 	
 	

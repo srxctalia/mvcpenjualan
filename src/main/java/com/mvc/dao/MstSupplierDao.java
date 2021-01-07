@@ -26,4 +26,5 @@ public interface MstSupplierDao extends JpaRepository<MstSupplier, MstSupplierPK
 	@Query("select a, k.nama from MstSupplier a, MstKota k  "
 			+ "where a.kodeKota = k.kodeKota AND a.kodeSupplier like %:kodeSupplier%")
 	public Object[] findOneSupplier(@Param("kodeSupplier")String kodeSupplier);
+
 }

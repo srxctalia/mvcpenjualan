@@ -21,10 +21,11 @@ public class MstCustomerDto {
 	private String kodeKota;
 	
 	private String namaKota;
-
-	@NotEmpty(message="please fill nama customer")
+  
+  @NotEmpty(message="please fill customer")
 	private String namaCustomer;
-	
+
+  
 	public String getKodeCustomer() {
 		return kodeCustomer;
 	}
@@ -80,6 +81,7 @@ public class MstCustomerDto {
 	public void setNamaKota(String namaKota) {
 		this.namaKota = namaKota;
 	}
+
 
 }
 

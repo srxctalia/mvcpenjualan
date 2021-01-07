@@ -11,6 +11,7 @@ import com.mvc.entity.MstCustomer;
 import com.mvc.entity.MstCustomerPK;
 
 public interface MstCustomerDao extends JpaRepository<MstCustomer, MstCustomerPK>{
+
 	@Query("select a, k.nama from MstCustomer a, MstKota k  "
 			+ "where a.kodeKota = k.kodeKota AND (a.kodeCustomer like %:cari% or "
 			+ "a.namaCustomer like %:cari% or k.namaKota like %:cari%)")

@@ -14,6 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name="TR_HEADER_PENJUALAN")
 @NamedQuery(name="TrHeaderPenjualan.findAll", query="SELECT t FROM TrHeaderPenjualan t")
+@IdClass(TrHeaderPenjualanPK.class)
 public class TrHeaderPenjualan implements Serializable {
 	private static final long serialVersionUID = 1L;
 

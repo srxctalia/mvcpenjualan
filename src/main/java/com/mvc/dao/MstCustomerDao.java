@@ -12,7 +12,7 @@ import com.mvc.entity.MstCustomerPK;
 
 public interface MstCustomerDao extends JpaRepository<MstCustomer, MstCustomerPK>{
 	@Query("select a, k.namaKota from MstCustomer a, MstKota k "
-			+ "where a.kodeKota = k.kodeKota a.kodeCustomer AND "
+			+ "where a.kodeKota = k.kodeKota AND "
 			+ "(a.kodeCustomer like %:cari% or a.namaCustomer like %:cari% or k.namaKota like %:cari%")
 	public List<Object[]> search(@Param("cari") String cari, Pageable pageable);
 

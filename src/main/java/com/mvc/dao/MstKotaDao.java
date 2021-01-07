@@ -11,9 +11,10 @@ import com.mvc.entity.MstKota;
 import com.mvc.entity.MstKotaPK;
 
 public interface MstKotaDao extends JpaRepository<MstKota,MstKotaPK>{
-	@Query("select a from MstKota a "
-			+ "where a.kodeKota like %:cari% or a.namaKota like %:cari%")
-	public List<MstKota> search(@Param("cari") String cari, Pageable pageable);
+	@Query("select a,b.namaProvinsi from MstKota a, MstProvinsi b "
+			+ "where a.kodeProvinsi = b.kodeProvinsi AND "
+			+ "(b.namaProvinsi like %:cari% or a.namaKota like %:cari%)")
+	public List<Object[]> search(@Param("cari") String cari, Pageable pageable);
 
 	
 	@Query("select count(a.kodeKota) from MstKota a "

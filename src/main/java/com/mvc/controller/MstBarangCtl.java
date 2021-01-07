@@ -88,6 +88,7 @@ public class MstBarangCtl {
 	public String detail(Model model, @PathVariable("kodeBarang") String kodeBarang){
 		MstBarangDto dto = svc.findOneBarang(kodeBarang);
 		model.addAttribute("dto",dto);
+		kondisi="detail";
 		return "editBarang";
 	}
 	

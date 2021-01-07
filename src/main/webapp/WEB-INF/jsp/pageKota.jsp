@@ -25,14 +25,14 @@
 	  <tr>
 	    <th>Kode Kota</th>
 	    <th>Nama Kota</th>
-	    <th>Kode Provinsi</th>
+	    <th>Nama Provinsi</th>
 	    <th>Action</th>
 	  </tr>
 		<c:forEach items="${kota}" var="k">
 			<tr>
 				<td>${k.kodeKota}</td>
 				<td>${k.namaKota}</td>
-				<td>${k.kodeProvinsi}</td>
+				<td>${k.namaProvinsi}</td>
 				<td> <input type="button" value="Edit"
 				onclick="location.href='${pageContext.request.contextPath}/kota/detail/${k.kodeKota}';">
 				<input type="button" value="Delete"

@@ -85,13 +85,16 @@ public class MstKotaSvcImpl implements MstKotaSvc{
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
 				new Sort(new Sort.Order(Direction.fromString("asc"),"namaKota")));
-		List<MstKota> list = dao.search(cari, paging);
+		List<Object[]> list = dao.search(cari, paging);
 		List<MstKotaDto> dtos = new ArrayList<>();
-		for(MstKota kot : list){
+		for(Object[] o : list){
+			MstKota kot = (MstKota) o[0];
+			String namaProvinsi = (String) o[1];
 			MstKotaDto dto = new MstKotaDto();
 			dto.setKodeKota(kot.getKodeKota());
 			dto.setNamaKota(kot.getNamaKota());
 			dto.setKodeProvinsi(kot.getKodeProvinsi());
+			dto.setNamaProvinsi(namaProvinsi);
 			dtos.add(dto);
 		}
 		int jumlahData = dao.countData(cari);

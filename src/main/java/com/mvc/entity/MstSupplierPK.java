@@ -7,6 +7,7 @@ public class MstSupplierPK implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private String kodeSupplier;
 
 	public String getKodeSupplier() {

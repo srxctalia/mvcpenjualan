@@ -28,53 +28,6 @@ public class MstCustomerSvcImpl implements MstCustomerSvc {
 	private MstCustomerDao dao;
 	
 	@Override
-	public void save(MstCustomerDto dto) {
-		// TODO Auto-generated method stub
-		MstCustomer cs = new MstCustomer();
-		cs.setKodeCustomer(dto.getKodeCustomer());
-		cs.setNamaCustomer(dto.getNamaCustomer());
-		cs.setJenisKelamin(dto.getJenisKelamin());
-		cs.setEmailCustomer(dto.getEmailCustomer());
-		cs.setAlamatCustomer(dto.getAlamatCustomer());
-		cs.setKodeKota(dto.getKodeKota());
-		dao.save(cs);
-
-	}
-
-	@Override
-	public void update(MstCustomerDto dto) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(String kodeCustomer) {
-		// TODO Auto-generated method stub
-		MstCustomerPK pk = new MstCustomerPK();
-		pk.setKodeCustomer(kodeCustomer);
-		dao.delete(pk);
-	}
-
-	@Override
-	public MstCustomerDto findOne(String kodeCustomer) {
-		// TODO Auto-generated method stub
-		MstCustomerPK pk = new MstCustomerPK();
-		pk.setKodeCustomer(kodeCustomer);
-		MstCustomer cs = dao.findOne(pk);
-		if (cs != null){
-			MstCustomerDto dto = new MstCustomerDto();
-			dto.setKodeCustomer(cs.getKodeCustomer());
-			dto.setNamaCustomer(cs.getNamaCustomer());
-			dto.setJenisKelamin(cs.getJenisKelamin());
-			dto.setEmailCustomer(cs.getEmailCustomer());
-			dto.setAlamatCustomer(cs.getAlamatCustomer());
-			dto.setKodeKota(cs.getKodeKota());
-			return dto;
-		}
-		return null;
-	}
-
-	@Override
 	public Map<String, Object> listAll(String cari, int page) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<>(); 
@@ -104,6 +57,53 @@ public class MstCustomerSvcImpl implements MstCustomerSvc {
 		map.put("list", dtos);
 		map.put("jumlah", jumlahHalaman);
 		return map;
+	}
+	
+	@Override
+	public void save(MstCustomerDto dto) {
+		// TODO Auto-generated method stub
+		MstCustomer cs = new MstCustomer();
+		cs.setKodeCustomer(dto.getKodeCustomer());
+		cs.setNamaCustomer(dto.getNamaCustomer());
+		cs.setJenisKelamin(dto.getJenisKelamin());
+		cs.setEmailCustomer(dto.getEmailCustomer());
+		cs.setAlamatCustomer(dto.getAlamatCustomer());
+		cs.setKodeKota(dto.getKodeKota());
+		dao.save(cs);
+
+	}
+
+	@Override
+	public void update(MstCustomerDto dto) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete(String kodeCustomer) {
+		// TODO Auto-generated method stub
+		MstCustomerPK pk = new MstCustomerPK();
+		pk.setKodeCostumer(kodeCustomer);
+		dao.delete(pk);
+	}
+
+	@Override
+	public MstCustomerDto findOne(String kodeCustomer) {
+		// TODO Auto-generated method stub
+		Object[] o = dao.findOne(kodeCustomer);
+		if (o != null){
+			MstCustomer cs = (MstCustomer) o[0];
+			MstCustomerDto dto = new MstCustomerDto();
+			dto.setKodeCustomer(cs.getKodeCustomer());
+			dto.setNamaCustomer(cs.getNamaCustomer());
+			dto.setJenisKelamin(cs.getJenisKelamin());
+			dto.setEmailCustomer(cs.getEmailCustomer());
+			dto.setAlamatCustomer(cs.getAlamatCustomer());
+			dto.setKodeKota(cs.getKodeKota());
+			dto.setNamaKota((String)o[1]);
+			return dto;
+		}
+		return null;
 	}
 
 }

@@ -27,49 +27,17 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 	private MstSupplierDao dao;
 	
 	@Override
-	public Map<String, Object> listAll(String cari, int page) {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<>(); 
-		int perPage = 1;
-		Pageable paging = new PageRequest(page-1, perPage, new Sort(new Sort.Order(Direction.fromString("asc"), "nama")));
-		List<Object[]> list = dao.search(cari, paging);
-		List<MstSupplierDto> dtos = new ArrayList<>();
-		for (Object[] o : list){
-			MstSupplier s = (MstSupplier) o[0];
-			MstSupplierDto dto = new MstSupplierDto();
-			dto.setKodeSupplier(s.getKodeSupplier());
-			dto.setNamaSupplier(s.getNamaSupplier());
-			dto.setEmailSupplier(s.getEmailSupplier());
-			dto.setAlamatSupplier(s.getAlamatSupplier());
-			dto.setTelpSupplier(s.getTelpSupplier());
-			dto.setKodeKota(s.getKodeKota());
-			dto.setNamaKota((String)o[1]);
-			dtos.add(dto);
-		}
-
-		int jumlahData = dao.countData(cari);
-		int jumlahHalaman = 0;
-		jumlahHalaman = jumlahData/perPage;
-		if (jumlahData % perPage > 0){
-			jumlahHalaman++;
-		}
-		map.put("list", dtos);
-		map.put("jumlah", jumlahHalaman);
-		return map;
-	}
-
-	@Override
 	public void save(MstSupplierDto dto) {
 		// TODO Auto-generated method stub
-		MstSupplier s = new MstSupplier();
-		s.setKodeSupplier(dto.getKodeSupplier());
-		s.setNamaSupplier(dto.getNamaSupplier());
-		s.setAlamatSupplier(dto.getAlamatSupplier());
-		s.setEmailSupplier(dto.getEmailSupplier());
-		s.setKodeKota(dto.getKodeKota());
-		s.setTelpSupplier(dto.getTelpSupplier());
-		dao.save(s);
-		
+		MstSupplier cs = new MstSupplier();
+		cs.setKodeSupplier(dto.getKodeSupplier());
+		cs.setNamaSupplier(dto.getNamaSupplier());
+		cs.setEmailSupplier(dto.getEmailSupplier());
+		cs.setAlamatSupplier(dto.getAlamatSupplier());
+		cs.setKodeKota(dto.getKodeKota());
+		cs.setTelpSupplier(dto.getTelpSupplier());
+		dao.save(cs);
+
 	}
 
 	@Override
@@ -84,27 +52,57 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 		MstSupplierPK pk = new MstSupplierPK();
 		pk.setKodeSupplier(kodeSupplier);
 		dao.delete(pk);
-		
-
 	}
 
 	@Override
 	public MstSupplierDto findOne(String kodeSupplier) {
 		// TODO Auto-generated method stub
-		Object[] o = dao.findOneSupplier(kodeSupplier);
+		Object[] o = dao.findOne(kodeSupplier);
 		if (o != null){
+			MstSupplier cs = (MstSupplier) o[0];
 			MstSupplierDto dto = new MstSupplierDto();
-			MstSupplier s = (MstSupplier) o[0];
-			dto.setKodeSupplier(s.getKodeSupplier());
-			dto.setNamaSupplier(s.getNamaSupplier());
-			dto.setKodeKota(s.getKodeKota());
-			dto.setNamaKota((String) o[1]);
-			dto.setEmailSupplier(s.getEmailSupplier());
-			dto.setAlamatSupplier(s.getAlamatSupplier());
-			dto.setTelpSupplier(s.getTelpSupplier());
+			dto.setKodeSupplier(cs.getKodeSupplier());
+			dto.setNamaSupplier(cs.getNamaSupplier());
+			dto.setTelpSupplier(cs.getTelpSupplier());
+			dto.setEmailSupplier(cs.getEmailSupplier());
+			dto.setAlamatSupplier(cs.getAlamatSupplier());
+			dto.setKodeKota(cs.getKodeKota());
+			dto.setNamaKota((String)o[1]);
 			return dto;
 		}
 		return null;
+	}
+
+	@Override
+	public Map<String, Object> listAll(String cari, int page) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<>(); 
+		int perPage = 1;
+		Pageable paging = new PageRequest(page-1, perPage, new Sort(new Sort.Order(Direction.fromString("asc"), "nama")));
+		List<Object[]> list = dao.search(cari, paging);
+		List<MstSupplierDto> dtos = new ArrayList<>();
+		for (Object[] o : list){
+			MstSupplier cs = (MstSupplier) o[0];
+			MstSupplierDto dto = new MstSupplierDto();
+			dto.setKodeSupplier(cs.getKodeSupplier());
+			dto.setNamaSupplier(cs.getNamaSupplier());
+			dto.setTelpSupplier(cs.getTelpSupplier());
+			dto.setEmailSupplier(cs.getEmailSupplier());
+			dto.setAlamatSupplier(cs.getAlamatSupplier());
+			dto.setKodeKota(cs.getKodeKota());
+			dto.setNamaKota((String)o[1]);
+			dtos.add(dto);
+		}
+		
+		int jumlahData = dao.countData(cari);
+		int jumlahHalaman = 0;
+		jumlahHalaman = jumlahData/perPage;
+		if (jumlahData % perPage > 0){
+			jumlahHalaman++;
+		}
+		map.put("list", dtos);
+		map.put("jumlah", jumlahHalaman);
+		return map;
 	}
 
 }

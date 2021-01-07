@@ -10,21 +10,19 @@ import org.springframework.data.repository.query.Param;
 import com.mvc.entity.MstSupplier;
 import com.mvc.entity.MstSupplierPK;
 
-public interface MstSupplierDao extends JpaRepository<MstSupplier, MstSupplierPK> {
-
-	@Query("select a, k.namaKota from MstSupplier a, MstKota k  "
-			+ "where a.kodeKota = k.kodeKota AND (a.kodeSupplier like %:cari% or "
-			+ "a.namaSupplier like %:cari% or k.namaKota like %:cari%)")
+public interface MstSupplierDao extends JpaRepository<MstSupplier,MstSupplierPK>{
+	@Query("select a, k.namaKota from MstSupplier a, MstKota k "
+			+ "where a.kodeKota = k.kodeKota a.kodeSupplier AND "
+			+ "(a.kodeSupplier like %:cari% or a.namaSupplier like %:cari% or k.namaKota like %:cari%")
 	public List<Object[]> search(@Param("cari") String cari, Pageable pageable);
 
 	
-	@Query("select count(a.kodeSupplier) from MstSupplier a, MstKota k "
-			+ "where a.kodeKota = k.kodeKota AND (a.kodeSupplier like %:cari% or "
-			+ "a.namaSupplier like %:cari% or k.namaKota like %:cari%)")
+	@Query("select count(a.kodeSupplier) from MstSupplier a "
+			+ "where a.kodeSupplier like %:cari%")
 	public int countData(@Param("cari") String cari);
 	
-	@Query("select a, k.namaKota from MstSupplier a, MstKota k  "
-			+ "where a.kodeKota = k.kodeKota AND a.kodeSupplier like %:kodeSupplier%")
-	public Object[] findOneSupplier(@Param("kodeSupplier")String kodeSupplier);
-
+	@Query("select a, k.namaKota from MstSupplier a, MstKota k "
+			+ "where a.kodeKota = k.kodeKota a.kodeSupplier AND "
+			+ "(a.kodeSupplier like %:kodeSupplier%")
+	public Object[] findOne(@Param("kodeSupplier") String kodeSupplier);
 }

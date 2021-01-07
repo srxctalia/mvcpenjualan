@@ -16,7 +16,6 @@ public interface MstProvinsiDao extends JpaRepository<MstProvinsi,MstProvinsiPK>
 			+ "where a.kodeProvinsi like %:cari%")
 	public List<MstProvinsi> search(@Param("cari") String cari, Pageable pageable);
 	
-	
 	@Query("select count(a.kodeProvinsi) from MstProvinsi a "
 			+ "where a.kodeProvinsi like %:cari%")
 	public int countData(@Param("cari") String cari);

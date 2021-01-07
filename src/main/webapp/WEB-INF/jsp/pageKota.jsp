@@ -28,16 +28,15 @@
 	    <th>Kode Provinsi</th>
 	    <th>Action</th>
 	  </tr>
-		<c:forEach items="${barang}" var="b">
+		<c:forEach items="${kota}" var="k">
 			<tr>
-				<td>${b.kodeBarang}</td>
-				<td>${b.namaBarang}</td>
-				<td>${b.stokBarang}</td>
-				<td>${b.kodeSupplier}</td>
+				<td>${k.kodeKota}</td>
+				<td>${k.namaKota}</td>
+				<td>${k.kodeProvinsi}</td>
 				<td> <input type="button" value="Edit"
-				onclick="location.href='${pageContext.request.contextPath}/barang/detail/${b.kodeBarang}';">
+				onclick="location.href='${pageContext.request.contextPath}/kota/detail/${k.kodeKota}';">
 				<input type="button" value="Delete"
-				onclick="location.href='${pageContext.request.contextPath}/barang/delete/${b.kodeBarang}';">
+				onclick="location.href='${pageContext.request.contextPath}/kota/delete/${k.kodeKota}';">
 				</td> 
 			</tr>
 		</c:forEach>
@@ -46,7 +45,7 @@
 	<br>
 	<c:forEach var="i" begin="1" end="${total}">
 		<a href="${pageContext.request.contextPath}
-		/barang/page-barang?page=${i}&cari=${param.cari}">${i}
+		/barang/page-kota?page=${i}&cari=${param.cari}">${i}
 		</a>&nbsp 
 	</c:forEach>
 	<br>
@@ -54,7 +53,7 @@
 	<input type="button" value="Logout"
 	onclick="location.href='${pageContext.request.contextPath}/user/login';">
 	<input type="button" value="Back"
-	onclick="location.href='${pageContext.request.contextPath}/barang/page-barang';">
+	onclick="location.href='${pageContext.request.contextPath}/kota/page-kota';">
 	${penjelasan}
 
 </body>

@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mvc.dto.MstCustomerDto;
-import com.mvc.service.MstCustomerSvc;
+import com.mvc.dto.MstSupplierDto;
+import com.mvc.service.MstSupplierSvc;
 
 @Controller
-@RequestMapping("customer")
-public class MstCustomerCtl {
+@RequestMapping("supplier")
+public class MstSupplierCtl {
 	
 	@Autowired
-	private MstCustomerSvc svc;
+	private MstSupplierSvc svc;
 	
-	private String cekCustomer = "";
+private String cekSupplier = "";
 	
 	@RequestMapping("/all")
 	public String listAll(Model model,
@@ -38,12 +38,12 @@ public class MstCustomerCtl {
 		
 		String username = (String) session.getAttribute("login");
 		Map<String, Object> map = svc.listAll(cari, page);
-		List<MstCustomerDto> list = (List<MstCustomerDto>) map.get("list");
+		List<MstSupplierDto> list = (List<MstSupplierDto>) map.get("list");
 		int totalHalaman = (int) map.get("jumlah");
 		model.addAttribute("penduduk", list);
 		model.addAttribute("total", totalHalaman);
 		model.addAttribute("username", username);
-		return "customer";
+		return "supplier";
 	}
 	
 	@RequestMapping("/add")
@@ -52,11 +52,11 @@ public class MstCustomerCtl {
 		if (session.getAttribute("login") == null){
 			return "redirect:/user/login";
 		} 
-		MstCustomerDto dto = new MstCustomerDto();
+		MstSupplierDto dto = new MstSupplierDto();
 		
-		cekCustomer = "add";
+		cekSupplier = "add";
 		model.addAttribute("dto", dto);
-		return "addCustomer";
+		return "addSupplier";
 		
 	}
 	
@@ -66,41 +66,41 @@ public class MstCustomerCtl {
 		if (session.getAttribute("login") == null){
 			return "redirect:/user/login";
 		} 
-		MstCustomerDto dto = new MstCustomerDto();
+		MstSupplierDto dto = new MstSupplierDto();
 		
-		cekCustomer = "edit";
+		cekSupplier = "edit";
 		model.addAttribute("dto", dto);
-		return "editCustomer";
+		return "editSupplier";
 		
 	}
 	
 	@RequestMapping("/save")
-	public String save(@Valid @ModelAttribute("dto") MstCustomerDto dto, BindingResult result, Model model){
+	public String save(@Valid @ModelAttribute("dto") MstSupplierDto dto, BindingResult result, Model model){
 		
-		if (svc.findOne(dto.getKodeCustomer()) == null){
+		if (svc.findOne(dto.getKodeSupplier()) == null){
 			if (result.hasErrors()){
-				return "addCustomer";
+				return "addSupplier";
 			}
 			svc.save(dto);
-			return "redirect:/customer/all";
+			return "redirect:/supplier/all";
 		} else {
-			if (cekCustomer.equalsIgnoreCase("edit")){
+			if (cekSupplier.equalsIgnoreCase("edit")){
 				if (!result.hasErrors()){
 					svc.save(dto);
-					return "redirect:/customer/all";				
+					return "redirect:/supplier/all";				
 				}
-				return "addCustomer";
+				return "addSupplier";
 			}
-			model.addAttribute("validasi", "kode customer sudah ada");
-			return "addCustomer";
+			model.addAttribute("validasi", "kode supplier sudah ada");
+			return "addSupplier";
 		}
 	}
 	
-	@RequestMapping("/delete/{kodeCustomer}")
-	public String delete(@PathVariable("kodeCustomer")String kodeCustomer){
-		svc.delete(kodeCustomer);
+	@RequestMapping("/delete/{kodeSupplier}")
+	public String delete(@PathVariable("kodeSupplier")String kodeSupplier){
+		svc.delete(kodeSupplier);
 		
-		return "redirect:/customer/all";
+		return "redirect:/supplier/all";
 	}
 
 }

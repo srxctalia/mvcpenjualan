@@ -6,6 +6,16 @@ public class MstKotaDto {
 	private String kodeKota;
 	private String kodeProvinsi;
 	private String namaKota;
+	
+	private String namaProvinsi;
+	
+	
+	public String getNamaProvinsi() {
+		return namaProvinsi;
+	}
+	public void setNamaProvinsi(String namaProvinsi) {
+		this.namaProvinsi = namaProvinsi;
+	}
 	public String getKodeKota() {
 		return kodeKota;
 	}

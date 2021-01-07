@@ -118,7 +118,7 @@ public class DropDownSvcImpl implements DropDownSvc {
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaBarang")));
 		List<MstBarang> list = daoBar.search(cari, paging);
 		List<MstBarangDto> dtos = new ArrayList<>();
 		for(MstBarang bar : list){
@@ -201,7 +201,7 @@ public class DropDownSvcImpl implements DropDownSvc {
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaKaryawan")));
 		List<MstKaryawan> list = daoKar.search(cari, paging);
 		List<MstKaryawanDto> dtos = new ArrayList<>();
 		for(MstKaryawan kar : list){
@@ -290,7 +290,7 @@ public class DropDownSvcImpl implements DropDownSvc {
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaCustomer")));
 		List<MstCustomer> list = daoCus.search(cari, paging);
 		List<MstCustomerDto> dtos = new ArrayList<>();
 		for(MstCustomer cus : list){
@@ -372,7 +372,7 @@ public class DropDownSvcImpl implements DropDownSvc {
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaKota")));
 		List<MstKota> list = daoKot.search(cari, paging);
 		List<MstKotaDto> dtos = new ArrayList<>();
 		for(MstKota kot : list){
@@ -448,7 +448,7 @@ public class DropDownSvcImpl implements DropDownSvc {
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaProvinsi")));
 		List<MstProvinsi> list = daoProv.search(cari, paging);
 		List<MstProvinsiDto> dtos = new ArrayList<>();
 		for(MstProvinsi prov : list){
@@ -536,7 +536,7 @@ public class DropDownSvcImpl implements DropDownSvc {
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaSupplier")));
 		List<MstSupplier> list = daoSup.search(cari, paging);
 		List<MstSupplierDto> dtos = new ArrayList<>();
 		for(MstSupplier sup : list){

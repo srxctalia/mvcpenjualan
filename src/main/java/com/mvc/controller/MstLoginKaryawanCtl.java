@@ -39,7 +39,7 @@ public class MstLoginKaryawanCtl {
 			if(findOne.getPassword().equals(dto.getPassword())){
 				session.setAttribute("login",dto.getNamaKaryawan());
 //				session.setMaxInactiveInterval(5);
-				return "redirect:/penduduk/pagependuduk"; //belum dibuat
+				return "redirect:/barang/page-barang";
 			}else{
 				model.addAttribute("validasi","User ID & Password Salah");
 				return "loginMenu";

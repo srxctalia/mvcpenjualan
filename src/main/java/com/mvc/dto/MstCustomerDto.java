@@ -8,6 +8,15 @@ public class MstCustomerDto {
 	private String kodeKota;
 	private String namaCustomer;
 	
+	private String namaKota;
+	
+	
+	public String getNamaKota() {
+		return namaKota;
+	}
+	public void setNamaKota(String namaKota) {
+		this.namaKota = namaKota;
+	}
 	public String getKodeCustomer() {
 		return kodeCustomer;
 	}

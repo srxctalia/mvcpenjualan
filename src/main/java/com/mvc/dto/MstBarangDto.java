@@ -6,6 +6,14 @@ public class MstBarangDto {
 	private String namaBarang;
 	private int stokBarang;
 	
+	private String namaSupplier;
+	
+	public String getNamaSupplier() {
+		return namaSupplier;
+	}
+	public void setNamaSupplier(String namaSupplier) {
+		this.namaSupplier = namaSupplier;
+	}
 	public String getKodeBarang() {
 		return kodeBarang;
 	}

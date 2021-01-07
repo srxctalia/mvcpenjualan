@@ -36,9 +36,9 @@
 				<td>${b.stokBarang}</td>
 				<td>${b.kodeSupplier}</td>
 				<td> <input type="button" value="Edit"
-				onclick="location.href='${pageContext.request.contextPath}/barang/detail/${pddk.nik}';">
+				onclick="location.href='${pageContext.request.contextPath}/barang/detail/${b.kodeBarang}';">
 				<input type="button" value="Delete"
-				onclick="location.href='${pageContext.request.contextPath}/barang/delete/${pddk.nik}';">
+				onclick="location.href='${pageContext.request.contextPath}/barang/delete/${b.kodeBarang}';">
 				</td> 
 			</tr>
 		</c:forEach>

@@ -1,8 +1,10 @@
 package com.mvc.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+
+import java.util.Date;
 
 
 /**
@@ -32,7 +34,7 @@ public class TrHeaderPenjualan implements Serializable {
 	private String kodeKaryawan;
 
 	@Column(name="TANGGAL_TRANSAKSI")
-	private Timestamp tanggalTransaksi;
+	private Date tanggalTransaksi;
 
 	public TrHeaderPenjualan() {
 	}
@@ -77,11 +79,11 @@ public class TrHeaderPenjualan implements Serializable {
 		this.kodeKaryawan = kodeKaryawan;
 	}
 
-	public Timestamp getTanggalTransaksi() {
+	public Date getTanggalTransaksi() {
 		return this.tanggalTransaksi;
 	}
 
-	public void setTanggalTransaksi(Timestamp tanggalTransaksi) {
+	public void setTanggalTransaksi(Date tanggalTransaksi) {
 		this.tanggalTransaksi = tanggalTransaksi;
 	}
 

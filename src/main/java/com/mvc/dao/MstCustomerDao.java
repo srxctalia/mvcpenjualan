@@ -11,9 +11,10 @@ import com.mvc.entity.MstCustomer;
 import com.mvc.entity.MstCustomerPK;
 
 public interface MstCustomerDao extends JpaRepository<MstCustomer, MstCustomerPK>{
-	@Query("select a, k.namaKota from MstCustomer a, MstKota k "
-			+ "where a.kodeKota = k.kodeKota AND "
-			+ "(a.kodeCustomer like %:cari% or a.namaCustomer like %:cari% or k.namaKota like %:cari%")
+	@Query("select a, k.namaKota "
+			+ "from MstCustomer a, MstKota k "
+			+ "where a.kodeKota=k.kodeKota AND "
+			+ "(a.kodeCustomer like %:cari% or a.namaCustomer like %:cari% or k.namaKota like %:cari%)")
 	public List<Object[]> search(@Param("cari") String cari, Pageable pageable);
 
 	
@@ -22,7 +23,7 @@ public interface MstCustomerDao extends JpaRepository<MstCustomer, MstCustomerPK
 	public int countData(@Param("cari") String cari);
 	
 	@Query("select a, k.namaKota from MstCustomer a, MstKota k "
-			+ "where a.kodeKota = k.kodeKota a.kodeCustomer AND "
-			+ "(a.kodeCustomer like %:kodeCustomer%")
+			+ "where a.kodeKota = k.kodeKota AND "
+			+ "(a.kodeCustomer like %:kodeCustomer%)")
 	public Object[] findOne(@Param("kodeCustomer") String kodeCustomer);
 }

@@ -1,9 +1,15 @@
 package com.mvc.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +35,7 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	public List<TrDetailPenjualanDto> findAllDetail(String noNota) {
 		// TODO Auto-generated method stub
 		List<TrDetailPenjualanDto> dtos = new ArrayList<>();
-		List<Object[]> list = daoD.findAllDetailPenjualanBySearch(noNota);
+		List<Object[]> list = daoD.search(noNota);
 		for(Object[] o : list){
 			TrDetailPenjualanDto dto = new TrDetailPenjualanDto();
 			TrDetailPenjualan td = (TrDetailPenjualan) o[0];
@@ -66,53 +72,6 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	}
 
 	@Override
-	public List<TrHeaderPenjualanDto> findAllHeaderPenjualan() {
-		// TODO Auto-generated method stub
-		List<TrHeaderPenjualanDto> dtos = new ArrayList<>();
-		List<Object[]> list = daoH.findAllPenjualanWithName();
-		for(Object[] o : list){
-			TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
-			TrHeaderPenjualan th = (TrHeaderPenjualan) o[0];
-			
-			dto.setGlobalDiskon(th.getGlobalDiskon());
-			dto.setHargaTotal(th.getHargaTotal());
-			dto.setKodeCustomer(th.getKodeCustomer());
-			dto.setKodeKaryawan(th.getKodeKaryawan());
-			dto.setNoNota(th.getNoNota());
-			dto.setTanggalTransaksi(th.getTanggalTransaksi());
-			dto.setNamaCustomer((String) o[2]);
-			dto.setNamaKaryawan((String) o[1]);
-			
-			
-			dtos.add(dto);
-		}
-		return dtos;
-	}
-
-	@Override
-	public List<TrHeaderPenjualanDto> findAllHeaderPenjualan(String kataKunci) {
-		// TODO Auto-generated method stub
-		List<TrHeaderPenjualanDto> dtos = new ArrayList<>();
-		List<Object[]> list = daoH.findAllPenjualanBySearch(kataKunci);
-		for(Object[] o : list){
-			TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
-			TrHeaderPenjualan th = (TrHeaderPenjualan) o[0];
-			
-			dto.setGlobalDiskon(th.getGlobalDiskon());
-			dto.setHargaTotal(th.getHargaTotal());
-			dto.setKodeCustomer(th.getKodeCustomer());
-			dto.setKodeKaryawan(th.getKodeKaryawan());
-			dto.setNoNota(th.getNoNota());
-			dto.setTanggalTransaksi(th.getTanggalTransaksi());
-			dto.setNamaCustomer((String) o[2]);
-			dto.setNamaKaryawan((String) o[1]);
-			
-			dtos.add(dto);
-		}
-		return dtos;
-	}
-
-	@Override
 	public void saveHeader(TrHeaderPenjualanDto dto) {
 		// TODO Auto-generated method stub
 		TrHeaderPenjualan th = new TrHeaderPenjualan();
@@ -124,6 +83,7 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 		th.setNoNota(dto.getNoNota());
 		th.setTanggalTransaksi(dto.getTanggalTransaksi());
 		
+		daoH.save(th);
 		for(TrDetailPenjualanDto tdp : dto.getDetailTransaksi()){
 			TrDetailPenjualan td = new TrDetailPenjualan();
 			td.setDiskon(tdp.getDiskon());
@@ -135,7 +95,6 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 			td.setSubtotal(tdp.getSubtotal());
 			daoD.save(td);
 		}
-		daoH.save(th);
 	}
 
 	@Override
@@ -152,28 +111,59 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	@Override
 	public TrHeaderPenjualanDto findOneHeaderDetail(String noNota) {
 		// TODO Auto-generated method stub
-		TrHeaderPenjualanPK pk = new TrHeaderPenjualanPK();
-		pk.setNoNota(noNota);
-		List<Object[]> list = daoH.findOnePenjualanBySearch(noNota);
+		Object[] o = daoH.findOnePenjualan(noNota);
 		
+		TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
+		TrHeaderPenjualan th = (TrHeaderPenjualan) o[0];
+		if(th != null){
+			dto.setGlobalDiskon(th.getGlobalDiskon());
+			dto.setHargaTotal(th.getHargaTotal());
+			dto.setKodeCustomer(th.getKodeCustomer());
+			dto.setKodeKaryawan(th.getKodeKaryawan());
+			dto.setNoNota(th.getNoNota());
+			dto.setTanggalTransaksi(th.getTanggalTransaksi());
+			dto.setNamaCustomer((String) o[2]);
+			dto.setNamaKaryawan((String) o[1]);
+
+			dto.setDetailTransaksi(findAllDetail(noNota));
+			return dto;
+		}	
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> listAll(String cari, int page) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<>();
+		int perPage = 1;
+		Pageable paging = new PageRequest(page-1, perPage, new Sort(new Sort.Order(Direction.fromString("asc"), "noNota")));
+		List<Object[]> list = daoH.search(cari, paging);
+		List<TrHeaderPenjualanDto> dtos = new ArrayList<>();
 		for(Object[] o : list){
 			TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
 			TrHeaderPenjualan th = (TrHeaderPenjualan) o[0];
-			if(th != null){
-				dto.setGlobalDiskon(th.getGlobalDiskon());
-				dto.setHargaTotal(th.getHargaTotal());
-				dto.setKodeCustomer(th.getKodeCustomer());
-				dto.setKodeKaryawan(th.getKodeKaryawan());
-				dto.setNoNota(th.getNoNota());
-				dto.setTanggalTransaksi(th.getTanggalTransaksi());
-				dto.setNamaCustomer((String) o[2]);
-				dto.setNamaKaryawan((String) o[1]);
-	
-				dto.setDetailTransaksi(findAllDetail(noNota));
-				return dto;
-			}
+			
+			dto.setGlobalDiskon(th.getGlobalDiskon());
+			dto.setHargaTotal(th.getHargaTotal());
+			dto.setKodeCustomer(th.getKodeCustomer());
+			dto.setKodeKaryawan(th.getKodeKaryawan());
+			dto.setNoNota(th.getNoNota());
+			dto.setTanggalTransaksi(th.getTanggalTransaksi());
+			dto.setNamaCustomer((String) o[2]);
+			dto.setNamaKaryawan((String) o[1]);
+			
+			dtos.add(dto);
 		}
-		return null;
+		
+		int jumlahData = daoH.countData(cari);
+		int jumlahHalaman = 0;
+		jumlahHalaman = jumlahData/perPage;
+		if (jumlahData % perPage > 0){
+			jumlahHalaman++;
+		}
+		map.put("list", dtos);
+		map.put("jumlah", jumlahHalaman);
+		return map;
 	}
 
 }

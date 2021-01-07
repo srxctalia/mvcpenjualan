@@ -1,15 +1,24 @@
 package com.mvc.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 
 public class MstSupplierDto {
+	@NotEmpty(message="Please fill kode supplier")
 	private String kodeSupplier;
+	@NotEmpty(message="Please fill alamat supplier")
 	private String alamatSupplier;
+	@NotEmpty(message="Please fill email supplier")
 	private String emailSupplier;
+	@NotEmpty(message="Please fill kota")
 	private String kodeKota;
 	private String namaKota;
+	@NotEmpty(message="Please fill nama supplier")
 	private String namaSupplier;
+	@NotEmpty(message="Please fill no telp")
 	private String telpSupplier;
+	
 	public String getKodeSupplier() {
 		return kodeSupplier;
 	}

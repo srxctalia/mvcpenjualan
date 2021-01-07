@@ -15,7 +15,7 @@ public interface TrDetailPenjualanDao extends JpaRepository<TrDetailPenjualan, T
 			+ "from TrDetailPenjualan as a,MstBarang as b "
 			+ "where a.kodeBarang = b.kodeBarang "
 			+ "AND (a.noNota like %:noNota%) ")
-	List<Object[]> findAllDetailPenjualanBySearch(@Param("noNota") String noNota);
+	List<Object[]> search(@Param("noNota") String noNota);
 
 	@Modifying
 	@Query("DELETE TrDetailPenjualan as a where a.noNota = :noNota")

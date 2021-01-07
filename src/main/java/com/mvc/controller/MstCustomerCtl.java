@@ -40,7 +40,7 @@ public class MstCustomerCtl {
 		Map<String, Object> map = svc.listAll(cari, page);
 		List<MstCustomerDto> list = (List<MstCustomerDto>) map.get("list");
 		int totalHalaman = (int) map.get("jumlah");
-		model.addAttribute("penduduk", list);
+		model.addAttribute("customer", list);
 		model.addAttribute("total", totalHalaman);
 		model.addAttribute("username", username);
 		return "customer";

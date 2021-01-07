@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
 
 import com.mvc.dao.MstKaryawanDao;
 import com.mvc.dto.MstKaryawanDto;
@@ -17,6 +20,8 @@ import com.mvc.entity.MstKaryawan;
 import com.mvc.entity.MstKaryawanPK;
 import com.mvc.service.MstKaryawanSvc;
 
+@Service
+@Transactional
 public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 
 	@Autowired

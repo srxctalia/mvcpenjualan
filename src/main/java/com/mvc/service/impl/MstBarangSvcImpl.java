@@ -23,7 +23,7 @@ import com.mvc.service.MstBarangSvc;
 @Transactional
 public class MstBarangSvcImpl implements MstBarangSvc{
 	@Autowired
-	MstBarangDao dao;
+	private MstBarangDao dao;
 	
 	@Override
 	public List<MstBarangDto> findAllBarang() {

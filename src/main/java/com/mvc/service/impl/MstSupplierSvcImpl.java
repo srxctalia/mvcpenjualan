@@ -78,7 +78,7 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<>(); 
 		int perPage = 1;
-		Pageable paging = new PageRequest(page-1, perPage, new Sort(new Sort.Order(Direction.fromString("asc"), "nama")));
+		Pageable paging = new PageRequest(page-1, perPage, new Sort(new Sort.Order(Direction.fromString("asc"), "namaSupplier")));
 		List<Object[]> list = dao.search(cari, paging);
 		List<MstSupplierDto> dtos = new ArrayList<>();
 		for (Object[] o : list){

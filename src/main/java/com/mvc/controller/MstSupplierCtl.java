@@ -40,7 +40,7 @@ private String cekSupplier = "";
 		Map<String, Object> map = svc.listAll(cari, page);
 		List<MstSupplierDto> list = (List<MstSupplierDto>) map.get("list");
 		int totalHalaman = (int) map.get("jumlah");
-		model.addAttribute("penduduk", list);
+		model.addAttribute("supplier", list);
 		model.addAttribute("total", totalHalaman);
 		model.addAttribute("username", username);
 		return "supplier";

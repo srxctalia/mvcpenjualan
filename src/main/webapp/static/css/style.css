@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+body {
+  background-color: white;
+}
+/* input{
+  border: 4px solid #dddddd;
+  font-family: arial, sans-serif;
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  font-size: 110%;
+}  */
+input{
+  /* width: 100%; */
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 2px solid #dddddd;
+  text-align: left;
+  padding: 9px;
+}
+
+/* tr:nth-child(even) { // genap
+  background-color: #dddddd;
+} */
+tr:nth-child(1) {
+  background-color: #dddddd;

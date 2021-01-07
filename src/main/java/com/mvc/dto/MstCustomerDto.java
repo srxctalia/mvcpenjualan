@@ -6,6 +6,7 @@ public class MstCustomerDto {
 	private String emailCustomer;
 	private String jenisKelamin;
 	private String kodeKota;
+	private String namaKota;
 	private String namaCustomer;
 	
 	public String getKodeCustomer() {
@@ -43,5 +44,11 @@ public class MstCustomerDto {
 	}
 	public void setNamaCustomer(String namaCustomer) {
 		this.namaCustomer = namaCustomer;
+	}
+	public String getNamaKota() {
+		return namaKota;
+	}
+	public void setNamaKota(String namaKota) {
+		this.namaKota = namaKota;
 	}
 }

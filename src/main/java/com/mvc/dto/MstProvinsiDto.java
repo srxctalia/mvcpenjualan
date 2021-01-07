@@ -5,6 +5,7 @@ package com.mvc.dto;
 public class MstProvinsiDto {
 	private String kodeProvinsi;
 	private String namaProvinsi;
+	
 	public String getKodeProvinsi() {
 		return kodeProvinsi;
 	}

@@ -27,7 +27,7 @@
 			<tr>
 				<td>Stok Barang</td>
 				<td>:</td>
-				<td><f:input path="stokBarang" /></td>
+				<td><f:input type="number" path="stokBarang" min="1" /></td>
 				<td><f:errors path="stokBarang" /></td>
 			</tr>
 			<tr>

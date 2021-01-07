@@ -82,7 +82,7 @@ public class MstKotaCtl {
 
 	}
 	
-	@RequestMapping("detail/{kodeBarang}")
+	@RequestMapping("detail/{kodeKota}")
 	public String detail(Model model, @PathVariable("kodeKota") String kodeKota){
 		MstKotaDto dto = svc.findOneKota(kodeKota);
 		model.addAttribute("dto",dto);

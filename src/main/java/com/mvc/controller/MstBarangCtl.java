@@ -29,14 +29,7 @@ public class MstBarangCtl {
 	@RequestMapping("page-barang")
 	public String listBarangWithPaging(Model model,
 			@RequestParam(value = "cari",defaultValue = "", required = false) String cari,
-			@RequestParam(value = "page",defaultValue = "1", required = false) int page,
-			HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		}else{
-			String username = (String) session.getAttribute("login");
-			model.addAttribute("datauser", username);
+			@RequestParam(value = "page",defaultValue = "1", required = false) int page) {
 			Map<String,Object> map = svc.listAllPageBarang(cari, page);
 			List<MstBarangDto> list = (List<MstBarangDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
@@ -51,20 +44,17 @@ public class MstBarangCtl {
 				model.addAttribute("penjelasan",out);
 			}
 			return "pageBarang";
-		}
+		
 	}
 	
 	@RequestMapping("add")
-	public String add(Model model, HttpServletRequest request){
-		HttpSession session = request.getSession();
-		if(session.getAttribute("login") == null){ 
-			return "redirect:/user/login";
-		}else{
+	public String add(Model model){
+
 		MstBarangDto dto = new MstBarangDto();
 		model.addAttribute("dto",dto);
 		kondisi = "add";
 		return "addBarang";
-		}
+		
 	}
 	
 	@RequestMapping("save")

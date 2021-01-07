@@ -177,6 +177,20 @@ public class DropDownSvcImpl implements DropDownSvc {
 		return null;
 	}
 	
+	public MstKaryawanDto findOneKaryawanByUsername(String username){
+		MstKaryawan kar = daoKar.searchByUsername(username);
+		
+		if(kar != null){
+			MstKaryawanDto dto = new MstKaryawanDto();
+			
+			dto.setKodeKaryawan(kar.getKodeKaryawan());
+			dto.setNamaKaryawan(kar.getNamaKaryawan());
+			dto.setPassword(kar.getPassword());
+			dto.setUsername(kar.getUsername());
+		}
+		return null;
+	}
+	
 	@Override
 	public void saveKaryawan(MstKaryawanDto dto) {
 		MstKaryawan kar = new MstKaryawan();

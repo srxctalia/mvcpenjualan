@@ -1,7 +1,5 @@
 package com.mvc.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +27,16 @@ public class MstLoginKaryawanCtl {
 	
 	@RequestMapping("check")
 	public String check(@Valid @ModelAttribute("dto") MstKaryawanDto dto, 
-			BindingResult result, Model model,HttpServletRequest request){
-		HttpSession session = request.getSession(); 
-		MstKaryawanDto findOne = svc.findOneKaryawan(dto.getKodeKaryawan());
+			BindingResult result, Model model){
+		MstKaryawanDto findOne = svc.findOneKaryawanByUsername(dto.getUsername());
 		if(findOne == null){
-			model.addAttribute("validasi","User ID & Password Salah");
+			model.addAttribute("validasi","User ID & Password Salah ga kedetect");
 			return "loginMenu";
 		}else{
 			if(findOne.getPassword().equals(dto.getPassword())){
-				session.setAttribute("login",dto.getNamaKaryawan());
-//				session.setMaxInactiveInterval(5);
 				return "redirect:/barang/page-barang";
 			}else{
-				model.addAttribute("validasi","User ID & Password Salah");
+				model.addAttribute("validasi","User ID & Password Salah kedectect");
 				return "loginMenu";
 			}
 		}

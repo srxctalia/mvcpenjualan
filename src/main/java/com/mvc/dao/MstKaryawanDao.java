@@ -12,10 +12,14 @@ import com.mvc.entity.MstKaryawanPK;
 
 public interface MstKaryawanDao extends JpaRepository<MstKaryawan, MstKaryawanPK>{
 	@Query("select a from MstKaryawan a "
-			+ "where a.kodeKaryawan like %:cari%")
+			+ "where a.kodeKaryawan like %:cari% or a.namaKaryawan like %:cari%")
 	public List<MstKaryawan> search(@Param("cari") String cari, Pageable pageable);
 
 	@Query("select count(a.kodeKaryawan) from MstKaryawan a "
 			+ "where a.kodeKaryawan like %:cari%")
 	public int countData(@Param("cari") String cari);
+	
+	@Query("select a from MstKaryawan a "
+			+ "where a.username like %:username% ")
+	public MstKaryawan searchByUsername(@Param("username") String username);
 }

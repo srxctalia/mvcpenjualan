@@ -22,6 +22,7 @@ public interface DropDownSvc {
 	//KARYAWAN
 	public List<MstKaryawanDto> findAllKaryawan();
 	public MstKaryawanDto findOneKaryawan(String kodeKaryawan);
+	public MstKaryawanDto findOneKaryawanByUsername(String username);
 	public void saveKaryawan(MstKaryawanDto dto);
 	public void deleteKaryawan(String kodeKaryawan);
 	public Map<String, Object> listAllPageKaryawan(String cari, int page);

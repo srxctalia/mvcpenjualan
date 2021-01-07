@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstBarangDto;
-import com.mvc.service.DropDownSvc;
+import com.mvc.service.MstBarangSvc;
 
 @Controller
 @RequestMapping("barang")
 public class MstBarangCtl {
 	@Autowired
-	private DropDownSvc svc;
+	private MstBarangSvc svc;
 	String kondisi ="";
 	
 	@RequestMapping("page-barang")

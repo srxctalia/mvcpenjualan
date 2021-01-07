@@ -1,6 +1,7 @@
 package com.mvc.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="TR_DETAIL_PENJUALAN")
 @NamedQuery(name="TrDetailPenjualan.findAll", query="SELECT t FROM TrDetailPenjualan t")
+@IdClass(TrDetailPenjualanPK.class)
 public class TrDetailPenjualan implements Serializable {
 	private static final long serialVersionUID = 1L;
 

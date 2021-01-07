@@ -45,7 +45,7 @@
 	<br>
 	<c:forEach var="i" begin="1" end="${total}">
 		<a href="${pageContext.request.contextPath}
-		/barang/page-kota?page=${i}&cari=${param.cari}">${i}
+		/kota/page-kota?page=${i}&cari=${param.cari}">${i}
 		</a>&nbsp 
 	</c:forEach>
 	<br>

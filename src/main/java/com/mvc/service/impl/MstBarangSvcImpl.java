@@ -87,16 +87,20 @@ public class MstBarangSvcImpl implements MstBarangSvc{
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
 				new Sort(new Sort.Order(Direction.fromString("asc"),"namaBarang")));
-		List<MstBarang> list = dao.search(cari, paging);
+		List<Object[]> list = dao.search(cari, paging);
 		List<MstBarangDto> dtos = new ArrayList<>();
-		for(MstBarang bar : list){
+		for(Object[] o : list){
+			MstBarang bar = (MstBarang) o[0];
+			String namaSupplier = (String) o[1];
 			MstBarangDto dto = new MstBarangDto();
 			dto.setKodeBarang(bar.getKodeBarang());
 			dto.setKodeSupplier(bar.getKodeSupplier());
 			dto.setNamaBarang(bar.getNamaBarang());
 			dto.setStokBarang(bar.getStokBarang());
+			dto.setNamaSupplier(namaSupplier);
 			dtos.add(dto);
 		}
+		
 		int jumlahData = dao.countData(cari);
 		int jumlahHalaman = 0;
 		jumlahHalaman = (jumlahData / perPage);

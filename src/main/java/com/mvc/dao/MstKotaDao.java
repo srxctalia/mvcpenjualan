@@ -12,7 +12,7 @@ import com.mvc.entity.MstKotaPK;
 
 public interface MstKotaDao extends JpaRepository<MstKota,MstKotaPK>{
 	@Query("select a from MstKota a "
-			+ "where a.kodeKota like %:cari%")
+			+ "where a.kodeKota like %:cari% or a.namaKota like %:cari%")
 	public List<MstKota> search(@Param("cari") String cari, Pageable pageable);
 
 	

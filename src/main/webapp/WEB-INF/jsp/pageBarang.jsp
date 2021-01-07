@@ -26,7 +26,7 @@
 	    <th>Kode Barang</th>
 	    <th>Nama Barang</th>
 	    <th>Stok Barang</th>
-	    <th>Kode Supplier</th>
+	    <th>Nama Supplier</th>
 	    <th>Action</th>
 	  </tr>
 		<c:forEach items="${barang}" var="b">
@@ -34,7 +34,7 @@
 				<td>${b.kodeBarang}</td>
 				<td>${b.namaBarang}</td>
 				<td>${b.stokBarang}</td>
-				<td>${b.kodeSupplier}</td>
+				<td>${b.namaSupplier}</td>
 				<td> <input type="button" value="Edit"
 				onclick="location.href='${pageContext.request.contextPath}/barang/detail/${b.kodeBarang}';">
 				<input type="button" value="Delete"

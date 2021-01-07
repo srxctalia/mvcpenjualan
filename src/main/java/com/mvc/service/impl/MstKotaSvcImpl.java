@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.dao.MstKotaDao;
 import com.mvc.dto.MstKotaDto;
@@ -17,6 +19,8 @@ import com.mvc.entity.MstKota;
 import com.mvc.entity.MstKotaPK;
 import com.mvc.service.MstKotaSvc;
 
+@Service
+@Transactional
 public class MstKotaSvcImpl implements MstKotaSvc{
 
 	@Autowired

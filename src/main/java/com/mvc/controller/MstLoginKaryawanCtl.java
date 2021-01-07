@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mvc.dto.MstKaryawanDto;
-import com.mvc.service.DropDownSvc;
 
 @Controller
 @RequestMapping("user")
 public class MstLoginKaryawanCtl {
-	@Autowired
+/*	@Autowired
 	private DropDownSvc svc;
 	
 	@RequestMapping("login")
@@ -40,7 +39,7 @@ public class MstLoginKaryawanCtl {
 				return "loginMenu";
 			}
 		}
-	}
+	}*/
 	
 }
 

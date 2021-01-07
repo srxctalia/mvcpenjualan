@@ -12,18 +12,18 @@ import com.mvc.entity.MstSupplierPK;
 
 public interface MstSupplierDao extends JpaRepository<MstSupplier, MstSupplierPK> {
 
-	@Query("select a, k.nama from MstSupplier a, MstKota k  "
+	@Query("select a, k.namaKota from MstSupplier a, MstKota k  "
 			+ "where a.kodeKota = k.kodeKota AND (a.kodeSupplier like %:cari% or "
 			+ "a.namaSupplier like %:cari% or k.namaKota like %:cari%)")
 	public List<Object[]> search(@Param("cari") String cari, Pageable pageable);
 
 	
-	@Query("select count(a.kodeSupplier) from MstSupplier a, MStKota k "
+	@Query("select count(a.kodeSupplier) from MstSupplier a, MstKota k "
 			+ "where a.kodeKota = k.kodeKota AND (a.kodeSupplier like %:cari% or "
 			+ "a.namaSupplier like %:cari% or k.namaKota like %:cari%)")
 	public int countData(@Param("cari") String cari);
 	
-	@Query("select a, k.nama from MstSupplier a, MstKota k  "
+	@Query("select a, k.namaKota from MstSupplier a, MstKota k  "
 			+ "where a.kodeKota = k.kodeKota AND a.kodeSupplier like %:kodeSupplier%")
 	public Object[] findOneSupplier(@Param("kodeSupplier")String kodeSupplier);
 

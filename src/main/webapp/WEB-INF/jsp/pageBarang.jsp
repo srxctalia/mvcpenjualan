@@ -10,15 +10,16 @@
 <title>Page Barang</title>
 </head>
 <body>
-<div class="container p-3 my-3 bg-primary text-white">
+
 <h1>Data Barang </h1>
-</div>
-	<input type="button" value="Tambah Barang"
-	onclick="location.href='${pageContext.request.contextPath}/barang/add';">
-	<h3>Wellcome Back, ${datauser}</h3>
+
+	<br>
+	<h4>Wellcome Back, ${datauser}</h4>
 	<form action="${pageContext.request.contextPath}/barang/page-barang">
 			Cari : <input type="text" name=cari>
 			<input type="submit" value="cari">
+			<input type="button" value="Tambah Barang"
+			onclick="location.href='${pageContext.request.contextPath}/barang/add';">
 			${keterangan}
 	</form>
 	<br>

@@ -45,11 +45,14 @@
 	</table>
 	
 	<br>
+	<ul class="pagination">
 	<c:forEach var="i" begin="1" end="${total}">
+		<li class="page-item">
 		<a href="${pageContext.request.contextPath}
-		/kota/page-kota?page=${i}&cari=${param.cari}">${i}
-		</a>&nbsp 
+		/kota/page-kota?page=${i}&cari=${param.cari}" class="page-link" href="#" >${i}
+		</a></li>
 	</c:forEach>
+	</ul>
 	<br>
 	<br>
 	<input type="button" value="Logout" class="btn btn-secondary"

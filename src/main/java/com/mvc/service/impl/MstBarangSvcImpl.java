@@ -65,7 +65,7 @@ public class MstBarangSvcImpl implements MstBarangSvc{
 	@Override
 	public void saveBarang(MstBarangDto dto) {
 		MstBarang bar = new MstBarang();
-		bar.setKodeBarang(dto.getKodeBarang());
+		bar.setKodeBarang(dto.getKodeBarang().toUpperCase());
 		bar.setKodeSupplier(dto.getKodeSupplier());
 		bar.setNamaBarang(dto.getNamaBarang());
 		bar.setStokBarang(dto.getStokBarang());

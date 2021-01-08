@@ -106,4 +106,21 @@ public class MstCustomerSvcImpl implements MstCustomerSvc {
 		return null;
 	}
 
+	@Override
+	public List<MstCustomerDto> findAll() {
+		// TODO Auto-generated method stub
+		List<MstCustomer> cs = dao.findAll();
+		List<MstCustomerDto> dtos = new ArrayList<>();
+		for (MstCustomer c : cs){
+			MstCustomerDto dto = new MstCustomerDto();
+			dto.setKodeCustomer(c.getKodeCustomer());
+			dto.setNamaCustomer(c.getNamaCustomer());
+			dto.setJenisKelamin(c.getJenisKelamin());
+			dto.setAlamatCustomer(c.getAlamatCustomer());
+			dto.setKodeKota(c.getKodeKota());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
 }

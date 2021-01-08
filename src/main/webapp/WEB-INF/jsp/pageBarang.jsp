@@ -23,7 +23,7 @@
 <title>Page Barang</title>
 </head>
 <body>
-
+<br>
  <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -80,6 +80,7 @@
 						</a></li>
 					</c:forEach>
 					</ul>
+					    ${penjelasan}
 					</div>
                 	</div>
                 		<input type="button" value="Logout" class="btn btn-secondary"
@@ -87,9 +88,7 @@
 						<input type="button" value="Back" class="btn btn-secondary"
 						onclick="location.href='${pageContext.request.contextPath}/barang/page-barang';">
 						<br>
-					    ${penjelasan}
             	
         	</div>
-        
 </body>
 </html>

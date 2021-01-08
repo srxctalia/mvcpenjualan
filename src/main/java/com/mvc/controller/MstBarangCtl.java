@@ -59,13 +59,13 @@ public class MstBarangCtl {
 	@RequestMapping("add")
 	public String add(Model model){
 		MstBarangDto dto = new MstBarangDto();
-//		List<MstSupplierDto> sup = svcSup.
-//		Map<String, String> listSup = new HashMap<>();
-//		for (MstBarangDto b : sup ){
-//			listSup.put(b.getKodeSupplier(), b.getNamaSupplier());
-//		}
+		List<MstSupplierDto> sup = svcSup.findAll();
+		Map<String, String> listSup = new HashMap<>();
+		for (MstSupplierDto b : sup ){
+			listSup.put(b.getKodeSupplier(), b.getNamaSupplier());
+		}
 		model.addAttribute("dto",dto);
-//		model.addAttribute("supplier", listSup);
+		model.addAttribute("supplier", listSup);
 		kondisi = "add";
 		return "addBarang";
 		
@@ -74,7 +74,7 @@ public class MstBarangCtl {
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstBarangDto dto, 
 			BindingResult result, Model model){ 
-		MstBarangDto findOne = svc.findOneBarang(dto.getKodeBarang());
+		MstBarangDto findOne = svc.findOneBarang(dto.getKodeBarang().toUpperCase());
 		if(findOne == null){
 			if(result.hasErrors()){
 				return "addBarang";

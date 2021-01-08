@@ -1,9 +1,20 @@
 package com.mvc.dto;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class MstBarangDto {
+	@NotEmpty(message="Please fill kode barang")
 	private String kodeBarang;
+	
+	@NotEmpty(message="Please fill supplier")
 	private String kodeSupplier;
+	
+	@NotEmpty(message="Please fill nama barang")
 	private String namaBarang;
+	
+	@NotNull(message="Please fill jumlah stok barang")
 	private int stokBarang;
 	
 	private String namaSupplier;

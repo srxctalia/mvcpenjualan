@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Tambah Barang</title>
+<title>Add Barang</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 	<f:form action="${pageContext.request.contextPath}/barang/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<label for="exampleInputEmail1" class="form-label">Kode Barang</label>
-				<f:input type="text" path="kodeBarang" class="form-control"/>
+				<f:input type="text" path="kodeBarang" class="form-control" placeholder="Masukan kode barang"/>
 				<f:errors path="kodeBarang" />
 	  		</div>
 	  		<div class="mb-3">

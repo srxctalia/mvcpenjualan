@@ -105,4 +105,22 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 		return map;
 	}
 
+	@Override
+	public List<MstSupplierDto> findAll() {
+		// TODO Auto-generated method stub
+		List<MstSupplier> list = dao.findAll();
+		List<MstSupplierDto> dtos = new ArrayList<>();
+		for (MstSupplier s : list){
+			MstSupplierDto dto = new MstSupplierDto();
+			dto.setKodeSupplier(s.getKodeSupplier());
+			dto.setNamaSupplier(s.getNamaSupplier());
+			dto.setEmailSupplier(s.getEmailSupplier());
+			dto.setTelpSupplier(s.getTelpSupplier());
+			dto.setAlamatSupplier(s.getAlamatSupplier());
+			dto.setKodeKota(s.getKodeKota());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
 }

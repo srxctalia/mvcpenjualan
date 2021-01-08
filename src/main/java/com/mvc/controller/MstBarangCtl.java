@@ -1,7 +1,11 @@
 package com.mvc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+
 
 /*import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;*/
@@ -17,13 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstBarangDto;
+import com.mvc.dto.MstKotaDto;
+import com.mvc.dto.MstSupplierDto;
 import com.mvc.service.MstBarangSvc;
+import com.mvc.service.MstSupplierSvc;
 
 @Controller
 @RequestMapping("barang")
 public class MstBarangCtl {
 	@Autowired
 	private MstBarangSvc svc;
+	@Autowired
+	private MstSupplierSvc svcSup;
 	String kondisi ="";
 	
 	@RequestMapping("page-barang")
@@ -49,9 +58,14 @@ public class MstBarangCtl {
 	
 	@RequestMapping("add")
 	public String add(Model model){
-
 		MstBarangDto dto = new MstBarangDto();
+//		List<MstSupplierDto> sup = svcSup.
+//		Map<String, String> listSup = new HashMap<>();
+//		for (MstBarangDto b : sup ){
+//			listSup.put(b.getKodeSupplier(), b.getNamaSupplier());
+//		}
 		model.addAttribute("dto",dto);
+//		model.addAttribute("supplier", listSup);
 		kondisi = "add";
 		return "addBarang";
 		

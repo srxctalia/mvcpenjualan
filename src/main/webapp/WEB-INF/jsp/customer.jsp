@@ -48,7 +48,7 @@
 		  <tr>
 		    <td>${c.kodeCustomer}</td>
 		    <td>${c.namaCustomer}</td>
-		    <td>${c.jenisKelamin} </td>
+		    <td>${c.jenisKelamin}</td>
 		    <td>${c.alamatCustomer}</td>
 		    <td>${c.namaKota} </td>
 		    <td>${c.emailCustomer} </td>

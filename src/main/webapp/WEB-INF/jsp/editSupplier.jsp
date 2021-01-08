@@ -11,49 +11,46 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<title>Add Customer</title>
+<title>Add Supplier</title>
 
 </head>
 <body>
 <div class="container">
-	<h2>Add Customer</h2>
+	<h2>Add Supplier</h2>
 	<div class="alert alert-danger" role="alert">
   		${validasi}
 	</div>
 	<f:form action="${pageContext.request.contextPath}/customer/save" modelAttribute="dto">
 		<div class="mb-3">
-	    		<label for="exampleInputEmail1" class="form-label">Kode Customer</label>
-				<f:input type="text" path="kodeCustomer" class="form-control"/>
-				<f:errors path="kodeCustomer" />
+	    		<label for="exampleInputEmail1" class="form-label" readonly="true">Kode Supplier</label>
+				<f:input type="text" path="kodeSupplier" class="form-control"/>
+				<f:errors path="kodeSupplier" />
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Nama</label>
-				<f:input type="text" class="form-control" path="namaCustomer" placeholder="Masukan nama"/>
-				<f:errors path="namaCustomer"/>
+				<f:input type="text" class="form-control" path="namaSupplier" placeholder="Masukan nama"/>
+				<f:errors path="namaSupplier"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Email</label>
-				<f:input type="email" class="form-control" path="emailCustomer" placeholder="Masukan Email"/>
-				<f:errors path="emailCustomer"/>
+				<f:input type="email" class="form-control" path="emailSupplier" placeholder="Masukan Email"/>
+				<f:errors path="emailSupplier"/>
 	  		</div>
 	  		<div class="mb-3">
-	  			<label for="exampleInputPassword1" class="form-label">Jenis Kelamin</label>
-	  			<f:select path="jenisKelamin"  class="custom-select mr-sm-2">
-		  			<f:option value="male" label="Laki-laki"/>
-		  			<f:option value="female" label="Perempuan"/>
-	  			</f:select>
-				<f:errors path="jenisKelamin"/>
+	    		<label for="exampleInputPassword1" class="form-label">No Telp</label>
+				<f:input type="text" class="form-control" path="telpSupplier" placeholder="Masukan No Telp"/>
+				<f:errors path="telpSupplier"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Alamat</label>
-				<f:textarea class="form-control" path="alamatCustomer" placeholder="Masukan Alamat" rows="3"/>
-				<f:errors path="alamatCustomer"/>
+				<f:textarea class="form-control" path="alamatSupplier" placeholder="Masukan Alamat" rows="3"/>
+				<f:errors path="alamatSupplier"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Kota</label>
 			      <f:select path="kodeKota" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 			        <f:option value="NONE" label="--- Select ---"/>
-			        <f:options items="${kota}"/>			      
+			        <f:options items="${mapkota}"/>			      
 			      </f:select>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">

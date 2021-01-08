@@ -22,7 +22,7 @@ public class MstCustomerDto {
 	
 	private String namaKota;
   
-  @NotEmpty(message="please fill customer")
+	@NotEmpty(message="please fill customer")
 	private String namaCustomer;
   
 	public String getKodeCustomer() {

@@ -90,9 +90,10 @@ public class MstCustomerSvcImpl implements MstCustomerSvc {
 	@Override
 	public MstCustomerDto findOne(String kodeCustomer) {
 		// TODO Auto-generated method stub
-		Object[] o = dao.findOne(kodeCustomer);
-		if (o != null){
-			MstCustomer cs = (MstCustomer) o[0];
+		MstCustomerPK pk = new MstCustomerPK();
+		pk.setKodeCostumer(kodeCustomer);
+		MstCustomer cs = dao.findOne(pk);
+		if (cs != null){
 			MstCustomerDto dto = new MstCustomerDto();
 			dto.setKodeCustomer(cs.getKodeCustomer());
 			dto.setNamaCustomer(cs.getNamaCustomer());
@@ -100,7 +101,6 @@ public class MstCustomerSvcImpl implements MstCustomerSvc {
 			dto.setEmailCustomer(cs.getEmailCustomer());
 			dto.setAlamatCustomer(cs.getAlamatCustomer());
 			dto.setKodeKota(cs.getKodeKota());
-			dto.setNamaKota((String)o[1]);
 			return dto;
 		}
 		return null;

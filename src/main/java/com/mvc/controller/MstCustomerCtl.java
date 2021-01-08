@@ -1,5 +1,6 @@
 package com.mvc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstCustomerDto;
+import com.mvc.dto.MstKotaDto;
 import com.mvc.service.MstCustomerSvc;
+import com.mvc.service.MstKotaSvc;
 
 @Controller
 @RequestMapping("customer")
@@ -25,6 +28,9 @@ public class MstCustomerCtl {
 	
 	@Autowired
 	private MstCustomerSvc svc;
+	
+	@Autowired 
+	private MstKotaSvc svcK;
 	
 	private String cekCustomer = "";
 	
@@ -49,13 +55,19 @@ public class MstCustomerCtl {
 	@RequestMapping("/add")
 	public String save(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("login") == null){
+/*		if (session.getAttribute("login") == null){
 			return "redirect:/user/login";
-		} 
+		} */
 		MstCustomerDto dto = new MstCustomerDto();
+		List<MstKotaDto> kotas = svcK.findAllKota();
+		Map<String, String> listkota = new HashMap<>();
+		for (MstKotaDto kota : kotas ){
+			listkota.put(kota.getKodeKota(), kota.getNamaKota());
+		}
 		
 		cekCustomer = "add";
 		model.addAttribute("dto", dto);
+		model.addAttribute("kota", listkota);
 		return "addCustomer";
 		
 	}

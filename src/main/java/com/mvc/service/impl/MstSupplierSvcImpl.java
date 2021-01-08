@@ -57,9 +57,10 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 	@Override
 	public MstSupplierDto findOne(String kodeSupplier) {
 		// TODO Auto-generated method stub
-		Object[] o = dao.findOne(kodeSupplier);
-		if (o != null){
-			MstSupplier cs = (MstSupplier) o[0];
+		MstSupplierPK pk = new MstSupplierPK();
+		pk.setKodeSupplier(kodeSupplier);
+		MstSupplier cs = dao.findOne(pk);
+		if (pk != null){
 			MstSupplierDto dto = new MstSupplierDto();
 			dto.setKodeSupplier(cs.getKodeSupplier());
 			dto.setNamaSupplier(cs.getNamaSupplier());
@@ -67,7 +68,6 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 			dto.setEmailSupplier(cs.getEmailSupplier());
 			dto.setAlamatSupplier(cs.getAlamatSupplier());
 			dto.setKodeKota(cs.getKodeKota());
-			dto.setNamaKota((String)o[1]);
 			return dto;
 		}
 		return null;

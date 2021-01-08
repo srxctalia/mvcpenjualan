@@ -1,5 +1,6 @@
 package com.mvc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.dto.MstKotaDto;
 import com.mvc.dto.MstSupplierDto;
+import com.mvc.service.MstKotaSvc;
 import com.mvc.service.MstSupplierSvc;
 
 @Controller
@@ -25,6 +28,9 @@ public class MstSupplierCtl {
 	
 	@Autowired
 	private MstSupplierSvc svc;
+	
+	@Autowired
+	private MstKotaSvc svcK;
 	
 private String cekSupplier = "";
 	
@@ -49,13 +55,19 @@ private String cekSupplier = "";
 	@RequestMapping("/add")
 	public String save(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} 
+//		if (session.getAttribute("login") == null){
+//			return "redirect:/user/login";
+//		} 
 		MstSupplierDto dto = new MstSupplierDto();
+		List<MstKotaDto> kotas = svcK.findAllKota();
+		Map<String, String> listkota = new HashMap<>();
+		for (MstKotaDto kota : kotas ){
+			listkota.put(kota.getKodeKota(), kota.getNamaKota());
+		}
 		
 		cekSupplier = "add";
 		model.addAttribute("dto", dto);
+		model.addAttribute("kota", listkota);
 		return "addSupplier";
 		
 	}
@@ -63,9 +75,9 @@ private String cekSupplier = "";
 	@RequestMapping("/edit")
 	public String edit(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} 
+//		if (session.getAttribute("login") == null){
+//			return "redirect:/user/login";
+//		} 
 		MstSupplierDto dto = new MstSupplierDto();
 		
 		cekSupplier = "edit";

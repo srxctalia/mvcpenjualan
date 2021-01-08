@@ -72,16 +72,22 @@ public class MstCustomerCtl {
 		
 	}
 	
-	@RequestMapping("/edit")
-	public String edit(Model model, HttpServletRequest request){
+	@RequestMapping("/edit/{kodeCustomer}")
+	public String edit(Model model, @PathVariable("kodeCustomer")String kodeCustomer, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} 
-		MstCustomerDto dto = new MstCustomerDto();
+//		if (session.getAttribute("login") == null){
+//			return "redirect:/user/login";
+//		} 
+		MstCustomerDto dto = svc.findOne(kodeCustomer);
+		List<MstKotaDto> listkota = svcK.findAllKota();
+		Map<String, String> mapkota = new HashMap<>();
+		for (MstKotaDto kota : listkota ){
+			mapkota.put(kota.getKodeKota(), kota.getNamaKota());
+		}
 		
 		cekCustomer = "edit";
 		model.addAttribute("dto", dto);
+		model.addAttribute("kota", mapkota);
 		return "editCustomer";
 		
 	}

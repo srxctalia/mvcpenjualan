@@ -38,7 +38,7 @@ public class MstCustomerSvcImpl implements MstCustomerSvc {
 		for (Object[] o : list){
 			MstCustomerDto dto = new MstCustomerDto();
 			MstCustomer c = (MstCustomer) o[0];
-			dto.setKodeCustomer(c.getJenisKelamin());
+			dto.setKodeCustomer(c.getKodeCustomer());
 			dto.setNamaCustomer(c.getNamaCustomer());
 			dto.setKodeKota(c.getKodeKota());
 			dto.setJenisKelamin(c.getJenisKelamin());

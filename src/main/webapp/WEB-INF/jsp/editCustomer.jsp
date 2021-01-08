@@ -11,19 +11,19 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<title>Add Customer</title>
+<title>Edit Customer</title>
 
 </head>
 <body>
 <div class="container">
-	<h2>Add Customer</h2>
+	<h2>Edit Customer</h2>
 	<div class="alert alert-danger" role="alert">
   		${validasi}
 	</div>
 	<f:form action="${pageContext.request.contextPath}/customer/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<label for="exampleInputEmail1" class="form-label">Kode Customer</label>
-				<f:input type="text" path="kodeCustomer" class="form-control"/>
+				<f:input type="text" path="kodeCustomer" class="form-control" readonly="true"/>
 				<f:errors path="kodeCustomer" />
 	  		</div>
 	  		<div class="mb-3">
@@ -39,8 +39,8 @@
 	  		<div class="mb-3">
 	  			<label for="exampleInputPassword1" class="form-label">Jenis Kelamin</label>
 	  			<f:select path="jenisKelamin"  class="custom-select mr-sm-2">
-		  			<f:option value="male" label="Laki-laki"/>
 		  			<f:option value="female" label="Perempuan"/>
+		  			<f:option value="male" label="Laki-laki"/>
 	  			</f:select>
 				<f:errors path="jenisKelamin"/>
 	  		</div>
@@ -51,9 +51,8 @@
 	  		</div>
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Kota</label>
-			      <f:select path="kodeKota" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <f:option value="NONE" label="--- Select ---"/>
-			        <f:options items="${kota}"/>			      
+			      <f:select path="kodeKota" class="custom-select mr-sm-2">
+			        <f:options items="${mapKota}"/>			      
 			      </f:select>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.dto.MstBarangDto;
 import com.mvc.dto.MstKotaDto;
 import com.mvc.dto.MstProvinsiDto;
 import com.mvc.dto.MstSupplierDto;
@@ -62,6 +63,7 @@ public class MstKotaCtl {
 		MstKotaDto dto = new MstKotaDto();
 		model.addAttribute("dto",dto);
 		model.addAttribute("provinsi", listProv);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		kondisi = "add";
 		return "addKota";
 		
@@ -97,7 +99,13 @@ public class MstKotaCtl {
 	@RequestMapping("detail/{kodeKota}")
 	public String detail(Model model, @PathVariable("kodeKota") String kodeKota){
 		MstKotaDto dto = svc.findOneKota(kodeKota);
+		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
+		Map<String, String> listProv = new HashMap<>();
+		for (MstProvinsiDto p : prov ){
+			listProv.put(p.getKodeProvinsi(), p.getNamaProvinsi());
+		}
 		model.addAttribute("dto",dto);
+		model.addAttribute("provinsi", listProv);
 		kondisi ="detail";
 		return "editKota";
 	}
@@ -106,5 +114,17 @@ public class MstKotaCtl {
 	public String delete(@PathVariable("kodeKota") String kodeKota){
 		svc.deleteKota(kodeKota);
 		return "redirect:/kota/page-kota"; 
+	}
+	
+	public String kodeTerakhir(){
+		String out = ""; 
+		List<MstKotaDto> kodeTerakhir = svc.findAllKota();
+		if(kodeTerakhir.size() < 10){
+			out = String.format(", Kode kota yang terdaftar terakhir B00%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
+			out = String.format(", Kode kota yang terdaftar terakhir B0%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 100){
+			out = String.format(", Kode kota yang terdaftar terakhir B%d", kodeTerakhir.size());
+		}return out;
 	}
 }

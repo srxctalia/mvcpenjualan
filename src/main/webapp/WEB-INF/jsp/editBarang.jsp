@@ -25,7 +25,7 @@
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Stok Barang</label>
-				<f:input type="number" class="form-control" path="stokBarang"/>
+				<f:input type="number" class="form-control" path="stokBarang" min="1"/>
 				<f:errors path="stokBarang"/>
 	  		</div>
 	  		<div class="mb-3">

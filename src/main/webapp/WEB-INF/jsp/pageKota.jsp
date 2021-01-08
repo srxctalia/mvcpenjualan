@@ -84,7 +84,7 @@
                 		<input type="button" value="Logout" class="btn btn-secondary"
 						onclick="location.href='${pageContext.request.contextPath}/user/login';">
 						<input type="button" value="Back" class="btn btn-secondary"
-						onclick="location.href='${pageContext.request.contextPath}/barang/page-barang';">
+						onclick="location.href='${pageContext.request.contextPath}/kota/page-kota';">
 						<br>
             	
         	</div>

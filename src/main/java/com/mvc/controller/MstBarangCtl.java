@@ -66,6 +66,7 @@ public class MstBarangCtl {
 		}
 		model.addAttribute("dto",dto);
 		model.addAttribute("supplier", listSup);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		kondisi = "add";
 		return "addBarang";
 		
@@ -116,6 +117,18 @@ public class MstBarangCtl {
 	public String delete(@PathVariable("kodeBarang") String kodeBarang){
 		svc.deleteBarang(kodeBarang);
 		return "redirect:/barang/page-barang"; 
+	}
+	
+	public String kodeTerakhir(){
+		String out = ""; 
+		List<MstBarangDto> kodeTerakhir = svc.findAllBarang();
+		if(kodeTerakhir.size() < 10){
+			out = String.format(", Kode barang yang terdaftar terakhir B00%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
+			out = String.format(", Kode barang yang terdaftar terakhir B0%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 100){
+			out = String.format(", Kode barang yang terdaftar terakhir B%d", kodeTerakhir.size());
+		}return out;
 	}
 	
 

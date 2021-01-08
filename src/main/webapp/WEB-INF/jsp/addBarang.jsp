@@ -19,7 +19,7 @@
 	<f:form action="${pageContext.request.contextPath}/barang/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<label for="exampleInputEmail1" class="form-label">Kode Barang</label>
-				<f:input type="text" path="kodeBarang" class="form-control" placeholder="Masukan kode barang"/>
+				<f:input type="text" path="kodeBarang" class="form-control" placeholder="Masukan kode barang${kodeTerakhir}"/>
 				<f:errors path="kodeBarang" />
 	  		</div>
 	  		<div class="mb-3">
@@ -29,7 +29,7 @@
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Stok Barang</label>
-				<f:input type="number" class="form-control" path="stokBarang" placeholder="Masukan jumlah barang"/>
+				<f:input type="number" class="form-control" path="stokBarang" value="1" min="1"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Supplier</label>

@@ -19,7 +19,7 @@
 	<f:form action="${pageContext.request.contextPath}/kota/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<label for="exampleInputEmail1" class="form-label">Kode Kota</label>
-				<f:input type="text" path="kodeKota" class="form-control" placeholder="Masukan kode kota"/>
+				<f:input type="text" path="kodeKota" class="form-control" placeholder="Masukan kode kota${kodeTerakhir}"/>
 				<f:errors path="kodeKota" />
 	  		</div>
 	  		<div class="mb-3">
@@ -33,6 +33,7 @@
 			        <option disabled selected value> -- select an option -- </option>
 			        <f:options items="${provinsi}"/>			      
 			      </f:select>
+			      <f:errors path="kodeProvinsi"/>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

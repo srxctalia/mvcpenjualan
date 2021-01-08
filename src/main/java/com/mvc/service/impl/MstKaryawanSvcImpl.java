@@ -88,7 +88,7 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"namaKaryawan")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
 		List<MstKaryawan> list = daoKar.search(cari, paging);
 		List<MstKaryawanDto> dtos = new ArrayList<>();
 		for(MstKaryawan kar : list){

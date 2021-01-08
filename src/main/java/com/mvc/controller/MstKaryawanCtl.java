@@ -47,7 +47,7 @@ public class MstKaryawanCtl {
 				return "addKaryawan";
 			} else {
 				svc.saveKaryawan(dto);
-				return "redirect:/karyawan/pagekaryawan";	
+				return "redirect:/karyawan/pageKaryawan";	
 			}
 		} else {
 			if(kondisi.equalsIgnoreCase("add")){
@@ -58,7 +58,7 @@ public class MstKaryawanCtl {
 					return "editKaryawan";
 				} else {
 					svc.saveKaryawan(dto);
-					return "redirect:/karyawan/pagekaryawan";	
+					return "redirect:/karyawan/pageKaryawan";	
 				}
 			}
 		}
@@ -75,43 +75,28 @@ public class MstKaryawanCtl {
 	@RequestMapping("delete/{kode}")
 	public String delete(@PathVariable("kode") String kode){
 		svc.deleteKaryawan(kode);
-		return "redirect:/karyawan/pagekaryawan";
+		return "redirect:/karyawan/pageKaryawan";
 	}
 	
-//	@RequestMapping("pageKaryawan")
-//	public String listPendudukWithPaging(Model model, 
-//			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
-//			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
-//			HttpServletRequest request){
-//		HttpSession session = request.getSession();
-//		if(session.getAttribute("login") == null){
-//			return "redirect:/user/login";
-//		} else {
-//			String userID = (String) session.getAttribute("login");
-//			Map<String, Object> map = svc.listAllPageKaryawan(cari, page);
-//			List<MstKaryawanDto> list = (List<MstKaryawanDto>) map.get("list");
-//			int totalHalaman = (int) map.get("jumlah");
-//			model.addAttribute("karyawan", list);
-//			model.addAttribute("total", totalHalaman);
-//			model.addAttribute("userID", userID);
-//			
-//			return "pageKaryawan";	
-//		}
-//	}
-	
-	@RequestMapping("pagekaryawan")
+	@RequestMapping("pageKaryawan")
 	public String listPendudukWithPaging(Model model, 
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
-			@RequestParam(value = "page", defaultValue = "1", required = false) int page){
-
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login") == null){
+			return "redirect:/user/login";
+		} else {
+			String userID = (String) session.getAttribute("login");
 			Map<String, Object> map = svc.listAllPageKaryawan(cari, page);
 			List<MstKaryawanDto> list = (List<MstKaryawanDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
 			model.addAttribute("karyawan", list);
 			model.addAttribute("total", totalHalaman);
+			model.addAttribute("userID", userID);
 			
 			return "pageKaryawan";	
-
+		}
 	}
 	
 }

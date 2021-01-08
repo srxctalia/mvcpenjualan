@@ -47,7 +47,7 @@ public class MstProvinsiCtl {
 				return "addProvinsi";
 			} else {
 				svc.saveProvinsi(dto);
-				return "redirect:/provinsi/pageprovinsi";	
+				return "redirect:/provinsi/pageProvinsi";	
 			}
 		} else {
 			if(kondisi.equalsIgnoreCase("add")){
@@ -58,7 +58,7 @@ public class MstProvinsiCtl {
 					return "editProvinsi";
 				} else {
 					svc.saveProvinsi(dto);
-					return "redirect:/provinsi/pageprovinsi";	
+					return "redirect:/provinsi/pageProvinsi";	
 				}
 			}
 		}
@@ -75,41 +75,28 @@ public class MstProvinsiCtl {
 	@RequestMapping("delete/{kode}")
 	public String delete(@PathVariable("kode") String kode){
 		svc.deleteProvinsi(kode);
-		return "redirect:/provinsi/pageprovinsi";
+		return "redirect:/provinsi/pageProvinsi";
 	}
 	
-//	@RequestMapping("pageProvinsi")
-//	public String listPendudukWithPaging(Model model, 
-//			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
-//			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
-//			HttpServletRequest request){
-//		HttpSession session = request.getSession();
-//		if(session.getAttribute("login") == null){
-//			return "redirect:/user/login";
-//		} else {
-//			String userID = (String) session.getAttribute("login");
-//			Map<String, Object> map = svc.listAllPageProvinsi(cari, page);
-//			List<MstProvinsiDto> list = (List<MstProvinsiDto>) map.get("list");
-//			int totalHalaman = (int) map.get("jumlah");
-//			model.addAttribute("provinsi", list);
-//			model.addAttribute("total", totalHalaman);
-//			model.addAttribute("userID", userID);
-//			
-//			return "pageProvinsi";	
-//		}
-//	}
-	
-	@RequestMapping("pageprovinsi")
+	@RequestMapping("pageProvinsi")
 	public String listPendudukWithPaging(Model model, 
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
-			@RequestParam(value = "page", defaultValue = "1", required = false) int page){
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login") == null){
+			return "redirect:/user/login";
+		} else {
+			String userID = (String) session.getAttribute("login");
 			Map<String, Object> map = svc.listAllPageProvinsi(cari, page);
 			List<MstProvinsiDto> list = (List<MstProvinsiDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
 			model.addAttribute("provinsi", list);
 			model.addAttribute("total", totalHalaman);
+			model.addAttribute("userID", userID);
 			
 			return "pageProvinsi";	
+		}
 	}
 	
 	

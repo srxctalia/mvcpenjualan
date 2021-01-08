@@ -29,9 +29,6 @@ public class MstKaryawan implements Serializable {
 	@Column(name="USERNAME")
 	private String username;
 
-	@Column(name="LEVEL")
-	private String level;
-	
 	public MstKaryawan() {
 	}
 
@@ -67,13 +64,4 @@ public class MstKaryawan implements Serializable {
 		this.username = username;
 	}
 
-	public String getLevel() {
-		return level;
-	}
-
-	public void setLevel(String level) {
-		this.level = level;
-	}
-
-	
 }

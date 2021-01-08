@@ -35,20 +35,30 @@
 			<td>${listKaryawan.kodeKaryawan}</td>
 			<td>${listKaryawan.namaKaryawan}</td>
 			<td>${listKaryawan.username}</td>
-			<td>${listPenduduk.password}</td>
+			<td>${listKaryawan.password}</td>
 			<td style="width:18%">
 				<input type="button" value="Edit Data" style="background-color:MediumSeaGreen;" onclick="location.href='${pageContext.request.contextPath}/karyawan/findone/${listKaryawan.kodeKaryawan}';" />
 				<input type="button" value="Delete Data" style="background-color:Tomato;" onclick="location.href='${pageContext.request.contextPath}/karyawan/delete/${listKaryawan.kodeKaryawan}';" />
 			</td>
 		</tr>
-	</c:forEach>	
+	</c:forEach>
+		<tr>
+			<td>${karyawan.kodeKaryawan}</td>
+			<td>${karyawan.namaKaryawan}</td>
+			<td>${karyawan.username}</td>
+			<td>${karyawan.password}</td>
+			<td style="width:18%">
+				<input type="button" value="Edit Data" style="background-color:MediumSeaGreen;" onclick="location.href='${pageContext.request.contextPath}/karyawan/findone/${karyawan.kodeKaryawan}';" />
+				<input type="button" value="Delete Data" style="background-color:Tomato;" onclick="location.href='${pageContext.request.contextPath}/karyawan/delete/${karyawan.kodeKaryawan}';" />
+			</td>
+		</tr>
 	</table>
 	<input type="button" value="Tambah Data" style="background-color:DodgerBlue; width:100%;" onclick="location.href='${pageContext.request.contextPath}/karyawan/add';" /><br>
 
 	<c:forEach var="i" begin="1" end="${total}">
 		<a href="${pageContext.request.contextPath}/karyawan/pagekaryawan?page=${i}&cari=${param.cari}">${i}</a>&nbsp <%--buat spasi--%>
 	</c:forEach>
-	<input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/user/login';" />
+	<input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/karyawan/login';" />
 	
 </body>
 </html>

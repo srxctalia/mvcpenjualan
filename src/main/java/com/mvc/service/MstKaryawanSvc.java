@@ -12,4 +12,5 @@ public interface MstKaryawanSvc {
 	public void saveKaryawan(MstKaryawanDto dto);
 	public void deleteKaryawan(String kodeKaryawan);
 	public Map<String, Object> listAllPageKaryawan(String cari, int page);
+	public MstKaryawanDto login(String username);
 }

@@ -15,7 +15,7 @@
 			<label for="kode">Kode : </label><br>
 			<f:input path="kodeProvinsi" readonly="true" type="text" id="kode" name="kode" style="background-color:LightGray;"/><br> <%-- path ini diambil dr propertinya --%>
 			
-			<label for="nama">Nama : <f:errors path="nama" style="color: Tomato"></f:errors></label><br>
+			<label for="nama">Nama : <f:errors path="namaProvinsi" style="color: Tomato"></f:errors></label><br>
 			<f:input path="namaProvinsi" type="text" id="nama" name="nama" placeholder="Input Nama.."/><br>
 			
 		    <input type="submit" value="Simpan" /> <%-- kl submit gabisa pake onClick harus pake action di form --%>

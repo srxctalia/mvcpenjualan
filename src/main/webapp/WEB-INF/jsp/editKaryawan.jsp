@@ -15,7 +15,7 @@
 			<label for="kode">Kode : </label><br>
 			<f:input path="kodeKaryawan" readonly="true" type="text" id="kode" name="kode" style="background-color:LightGray;"/><br> <%-- path ini diambil dr propertinya --%>
 			
-			<label for="nama">Nama : <f:errors path="nama" style="color: Tomato"></f:errors></label><br>
+			<label for="nama">Nama : <f:errors path="namaKaryawan" style="color: Tomato"></f:errors></label><br>
 			<f:input path="namaKaryawan" type="text" id="nama" name="nama" placeholder="Input Nama.."/><br>
 			
 			<label for="uname">Username : <f:errors path="username" style="color: Tomato"></f:errors></label><br>
@@ -23,6 +23,9 @@
 			
 			<label for="pwd">Password : <f:errors path="password" style="color: Tomato"></f:errors></label><br>
 			<f:input path="password" type="text" id="pwd" name="pwd" placeholder="Input password.."/><br>
+			
+			<label for="lvl">Level : <f:errors path="level" style="color: Tomato"></f:errors></label><br>
+			<f:input path="level" type="text" id="lvl" name="lvl" placeholder="Input Level.."/><br>
 			
 		    <input type="submit" value="Simpan" /> <%-- kl submit gabisa pake onClick harus pake action di form --%>
 		    <input type="button" value="Batal" style="background-color:#ff6347;" onclick="location.href='${pageContext.request.contextPath}/karyawan/pagekaryawan';" /> <%-- balik lagi ke penduduk all kl batal --%>

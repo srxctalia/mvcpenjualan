@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mvc.dto.MstKaryawanDto;
-import com.mvc.service.MstKaryawanSvc;
+import com.mvc.dto.MstProvinsiDto;
+import com.mvc.service.MstProvinsiSvc;
 
 @Controller
-@RequestMapping("karyawan")
-public class MstKaryawanCtl {
+@RequestMapping("provinsi")
+public class MstProvinsiCtl {
 
 	@Autowired
-	private MstKaryawanSvc svc;
+	private MstProvinsiSvc svc;
 	String kondisi = "";
 	
 	@RequestMapping("add")
@@ -33,32 +33,32 @@ public class MstKaryawanCtl {
 		if(session.getAttribute("login") == null){
 			return "redirect:/user/login";
 		} else {
-			MstKaryawanDto dto = new MstKaryawanDto();
+			MstProvinsiDto dto = new MstProvinsiDto();
 			model.addAttribute("dto", dto);
-			return "addKaryawan";
+			return "addProvinsi";
 		}
 	}
 	
 	@RequestMapping("save")
-	public String save(@Valid @ModelAttribute("dto") MstKaryawanDto dto, BindingResult result){
-		MstKaryawanDto findOne = svc.findOneKaryawan(dto.getKodeKaryawan());
+	public String save(@Valid @ModelAttribute("dto") MstProvinsiDto dto, BindingResult result){
+		MstProvinsiDto findOne = svc.findOneProvinsi(dto.getKodeProvinsi());
 		if (findOne == null){
 			if(result.hasErrors()){
-				return "addKaryawan";
+				return "addProvinsi";
 			} else {
-				svc.saveKaryawan(dto);
-				return "redirect:/karyawan/pageKaryawan";	
+				svc.saveProvinsi(dto);
+				return "redirect:/provinsi/pageProvinsi";	
 			}
 		} else {
 			if(kondisi.equalsIgnoreCase("add")){
-				dto.setKodeKaryawan("Kode Karyawan sudah ada! masukkan input lain.");
-				return "addKaryawan";
+				dto.setKodeProvinsi("Kode Karyawan sudah ada! masukkan input lain.");
+				return "addProvinsi";
 			} else {
 				if(result.hasErrors()){
-					return "editKaryawan";
+					return "editProvinsi";
 				} else {
-					svc.saveKaryawan(dto);
-					return "redirect:/karyawan/pageKaryawan";	
+					svc.saveProvinsi(dto);
+					return "redirect:/provinsi/pageProvinsi";	
 				}
 			}
 		}
@@ -66,19 +66,19 @@ public class MstKaryawanCtl {
 	
 	@RequestMapping("findone/{kode}")
 	public String detail(Model model, @PathVariable("kode") String kode){
-		MstKaryawanDto dto = svc.findOneKaryawan(kode);
+		MstProvinsiDto dto = svc.findOneProvinsi(kode);
 		model.addAttribute("dto", dto);
 		kondisi = "detail";
-		return "editKaryawan";
+		return "editProvinsi";
 	}
 	
 	@RequestMapping("delete/{kode}")
 	public String delete(@PathVariable("kode") String kode){
-		svc.deleteKaryawan(kode);
-		return "redirect:/karyawan/pageKaryawan";
+		svc.deleteProvinsi(kode);
+		return "redirect:/provinsi/pageProvinsi";
 	}
 	
-	@RequestMapping("pageKaryawan")
+	@RequestMapping("pageProvinsi")
 	public String listPendudukWithPaging(Model model, 
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
@@ -88,15 +88,16 @@ public class MstKaryawanCtl {
 			return "redirect:/user/login";
 		} else {
 			String userID = (String) session.getAttribute("login");
-			Map<String, Object> map = svc.listAllPageKaryawan(cari, page);
-			List<MstKaryawanDto> list = (List<MstKaryawanDto>) map.get("list");
+			Map<String, Object> map = svc.listAllPageProvinsi(cari, page);
+			List<MstProvinsiDto> list = (List<MstProvinsiDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
-			model.addAttribute("karyawan", list);
+			model.addAttribute("provinsi", list);
 			model.addAttribute("total", totalHalaman);
 			model.addAttribute("userID", userID);
 			
-			return "pageKaryawan";	
+			return "pageProvinsi";	
 		}
 	}
+	
 	
 }

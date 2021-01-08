@@ -12,12 +12,13 @@
 <body>
 
 <h1>Data Kota </h1>
-	<input type="button" value="Tambah Kota"
-	onclick="location.href='${pageContext.request.contextPath}/kota/add';">
-	<h3>Wellcome Back, ${datauser}</h3>
+	<br>
+	<h4>Wellcome Back, ${datauser}</h4>
 	<form action="${pageContext.request.contextPath}/kota/page-kota">
 			Cari : <input type="text" name=cari>
 			<input type="submit" value="cari">
+			<input type="button" value="Tambah Kota"
+			onclick="location.href='${pageContext.request.contextPath}/kota/add';">
 			${keterangan}
 	</form>
 	<br>

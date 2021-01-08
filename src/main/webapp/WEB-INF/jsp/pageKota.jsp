@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Page Kota</title>
@@ -16,8 +17,8 @@
 	<h4>Wellcome Back, ${datauser}</h4>
 	<form action="${pageContext.request.contextPath}/kota/page-kota">
 			Cari : <input type="text" name=cari>
-			<input type="submit" value="cari">
-			<input type="button" value="Tambah Kota"
+			<input type="submit" value="cari" class="btn btn-secondary">
+			<input type="button" value="Tambah Kota" class="btn btn-secondary"
 			onclick="location.href='${pageContext.request.contextPath}/kota/add';">
 			${keterangan}
 	</form>
@@ -34,9 +35,9 @@
 				<td>${k.kodeKota}</td>
 				<td>${k.namaKota}</td>
 				<td>${k.namaProvinsi}</td>
-				<td> <input type="button" value="Edit"
+				<td> <input type="button" value="Edit" class="btn btn-secondary"
 				onclick="location.href='${pageContext.request.contextPath}/kota/detail/${k.kodeKota}';">
-				<input type="button" value="Delete"
+				<input type="button" value="Delete" class="btn btn-secondary"
 				onclick="location.href='${pageContext.request.contextPath}/kota/delete/${k.kodeKota}';">
 				</td> 
 			</tr>
@@ -51,9 +52,9 @@
 	</c:forEach>
 	<br>
 	<br>
-	<input type="button" value="Logout"
+	<input type="button" value="Logout" class="btn btn-secondary"
 	onclick="location.href='${pageContext.request.contextPath}/user/login';">
-	<input type="button" value="Back"
+	<input type="button" value="Back" class="btn btn-secondary"
 	onclick="location.href='${pageContext.request.contextPath}/kota/page-kota';">
 	${penjelasan}
 

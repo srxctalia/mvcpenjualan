@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.dao.MstProvinsiDao;
 import com.mvc.dto.MstProvinsiDto;
@@ -17,6 +19,8 @@ import com.mvc.entity.MstProvinsi;
 import com.mvc.entity.MstProvinsiPK;
 import com.mvc.service.MstProvinsiSvc;
 
+@Service
+@Transactional
 public class MstProvinsiSvcImpl implements MstProvinsiSvc{
 
 	@Autowired
@@ -37,6 +41,7 @@ public class MstProvinsiSvcImpl implements MstProvinsiSvc{
 		}
 		return dtos;
 	}
+	
 
 	@Override
 	public MstProvinsiDto findOneProvinsi(String kodeProvinsi) {
@@ -77,7 +82,7 @@ public class MstProvinsiSvcImpl implements MstProvinsiSvc{
 		int perPage = 3;
 		Pageable paging =
 				new PageRequest(page - 1, perPage,
-				new Sort(new Sort.Order(Direction.fromString("asc"),"nama")));
+				new Sort(new Sort.Order(Direction.fromString("asc"),"namaProvinsi")));
 		List<MstProvinsi> list = daoProv.search(cari, paging);
 		List<MstProvinsiDto> dtos = new ArrayList<>();
 		for(MstProvinsi prov : list){

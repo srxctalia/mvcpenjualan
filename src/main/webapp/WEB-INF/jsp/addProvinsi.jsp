@@ -19,7 +19,7 @@
 			<f:input path="namaProvinsi" type="text" id="nama" name="nama" placeholder="Input Nama.."/><br>
 			
 		    <input type="submit" value="Simpan" /> <%-- kl submit gabisa pake onClick harus pake action di form --%>
-		    <input type="button" value="Batal" style="background-color:#ff6347;" onclick="location.href='${pageContext.request.contextPath}/karyawan/pageProvinsi';" /> <%-- balik lagi ke penduduk all kl batal --%>
+		    <input type="button" value="Batal" style="background-color:#ff6347;" onclick="location.href='${pageContext.request.contextPath}/karyawan/pageprovinsi';" /> <%-- balik lagi ke penduduk all kl batal --%>
 	  </f:form>
 	</div>
 </body>

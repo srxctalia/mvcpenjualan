@@ -15,7 +15,7 @@
 
 	<h2 style="text-align: center;">Table Data Penduduk</h2>
 	
-	<form action="${pageContext.request.contextPath}/karyawan/pageKaryawan">
+	<form action="${pageContext.request.contextPath}/karyawan/pagekaryawan">
 		<input type="text" name=cari style="width:30%; height: 30px; background-color: #f1f1f1;"/>
 		<input type=submit value="Cari" style="width: 60px; height: 37px; background-color: lightgrey;" >
 	</form><br><br>
@@ -37,7 +37,7 @@
 			<td>${listKaryawan.username}</td>
 			<td>${listPenduduk.password}</td>
 			<td style="width:18%">
-				<input type="button" value="Edit Data" style="background-color:MediumSeaGreen;" onclick="location.href='${pageContext.request.contextPath}/karyawan/detail/${listKaryawan.kodeKaryawan}';" />
+				<input type="button" value="Edit Data" style="background-color:MediumSeaGreen;" onclick="location.href='${pageContext.request.contextPath}/karyawan/findone/${listKaryawan.kodeKaryawan}';" />
 				<input type="button" value="Delete Data" style="background-color:Tomato;" onclick="location.href='${pageContext.request.contextPath}/karyawan/delete/${listKaryawan.kodeKaryawan}';" />
 			</td>
 		</tr>
@@ -46,7 +46,7 @@
 	<input type="button" value="Tambah Data" style="background-color:DodgerBlue; width:100%;" onclick="location.href='${pageContext.request.contextPath}/karyawan/add';" /><br>
 
 	<c:forEach var="i" begin="1" end="${total}">
-		<a href="${pageContext.request.contextPath}/karyawan/pageKaryawan?page=${i}&cari=${param.cari}">${i}</a>&nbsp <%--buat spasi--%>
+		<a href="${pageContext.request.contextPath}/karyawan/pagekaryawan?page=${i}&cari=${param.cari}">${i}</a>&nbsp <%--buat spasi--%>
 	</c:forEach>
 	<input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/user/login';" />
 	

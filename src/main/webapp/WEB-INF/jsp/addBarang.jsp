@@ -30,14 +30,14 @@
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Stok Barang</label>
 				<f:input type="number" class="form-control" path="stokBarang" placeholder="Masukan jumlah barang"/>
-				<f:errors path="stokBarang"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Supplier</label>
 			      <f:select path="kodeSupplier" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <f:option value="NONE" label="--- Select ---"/>
-			        <f:options items="${supplier}"/>			      
+			        <option disabled selected value> -- select an option -- </option>
+			        <f:options items="${supplier}" required="true"/>
 			      </f:select>
+			      <f:errors path="kodeSupplier"/>		
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

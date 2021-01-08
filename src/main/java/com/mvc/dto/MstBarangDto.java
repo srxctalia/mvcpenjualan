@@ -1,6 +1,5 @@
 package com.mvc.dto;
 
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -14,7 +13,6 @@ public class MstBarangDto {
 	@NotEmpty(message="Please fill nama barang")
 	private String namaBarang;
 	
-	@NotNull(message="Please fill jumlah stok barang")
 	private int stokBarang;
 	
 	private String namaSupplier;

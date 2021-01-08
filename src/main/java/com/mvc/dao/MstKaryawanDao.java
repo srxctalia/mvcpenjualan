@@ -22,5 +22,4 @@ public interface MstKaryawanDao extends JpaRepository<MstKaryawan, MstKaryawanPK
 	@Query("select a from MstKaryawan a "
 			+ "where a.username like %:username% ")
 	public MstKaryawan searchByUsername(@Param("username") String username);
-
 }

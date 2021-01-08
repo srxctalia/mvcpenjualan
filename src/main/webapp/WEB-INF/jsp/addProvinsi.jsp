@@ -12,14 +12,14 @@
 	
 	<div>
 		<f:form modelAttribute="dto" action="${pageContext.request.contextPath}/provinsi/save">
-			<label for="kode">Kode : <f:errors path="kodeProvinsi" style="color: Tomato"></f:errors></label><br>
+			<label for="kode">Kode : <f:errors path="kode" style="color: Tomato"></f:errors></label><br>
 			<f:input path="kodeProvinsi" type="text" id="kode" name="kode" placeholder="Input Kode.."/><br> <%-- path ini diambil dr propertinya --%>
 			
-			<label for="nama">Nama : <f:errors path="namaProvinsi" style="color: Tomato"></f:errors></label><br>
+			<label for="nama">Nama : <f:errors path="nama" style="color: Tomato"></f:errors></label><br>
 			<f:input path="namaProvinsi" type="text" id="nama" name="nama" placeholder="Input Nama.."/><br>
 			
 		    <input type="submit" value="Simpan" /> <%-- kl submit gabisa pake onClick harus pake action di form --%>
-		    <input type="button" value="Batal" style="background-color:#ff6347;" onclick="location.href='${pageContext.request.contextPath}/provinsi/pageprovinsi';" /> <%-- balik lagi ke penduduk all kl batal --%>
+		    <input type="button" value="Batal" style="background-color:#ff6347;" onclick="location.href='${pageContext.request.contextPath}/karyawan/pageprovinsi';" /> <%-- balik lagi ke penduduk all kl batal --%>
 	  </f:form>
 	</div>
 </body>

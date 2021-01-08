@@ -101,7 +101,13 @@ public class MstBarangCtl {
 	@RequestMapping("detail/{kodeBarang}")
 	public String detail(Model model, @PathVariable("kodeBarang") String kodeBarang){
 		MstBarangDto dto = svc.findOneBarang(kodeBarang);
+		List<MstSupplierDto> sup = svcSup.findAll();
+		Map<String, String> listSup = new HashMap<>();
+		for (MstSupplierDto b : sup ){
+			listSup.put(b.getKodeSupplier(), b.getNamaSupplier());
+		}
 		model.addAttribute("dto",dto);
+		model.addAttribute("supplier", listSup);
 		kondisi="detail";
 		return "editBarang";
 	}

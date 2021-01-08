@@ -30,7 +30,7 @@
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Provinsi</label>
 			      <f:select path="kodeProvinsi" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <f:option value="NONE" label="--- Select ---"/>
+			        <option disabled selected value> -- select an option -- </option>
 			        <f:options items="${provinsi}"/>			      
 			      </f:select>
 	  		</div>

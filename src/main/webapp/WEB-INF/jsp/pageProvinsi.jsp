@@ -15,7 +15,7 @@
 
 	<h2 style="text-align: center;">Table Data Provinsi</h2>
 	
-	<form action="${pageContext.request.contextPath}/provinsi/pageProvinsi">
+	<form action="${pageContext.request.contextPath}/provinsi/pageprovinsi">
 		<input type="text" name=cari style="width:30%; height: 30px; background-color: #f1f1f1;"/>
 		<input type=submit value="Cari" style="width: 60px; height: 37px; background-color: lightgrey;" >
 	</form><br><br>
@@ -30,11 +30,11 @@
 	<tr>
 	<c:forEach var="listProvinsi" items="${provinsi}">
 		<tr>
-			<td>${listProvinsi.kode}</td>
-			<td>${listProvinsi.nama}</td>
+			<td>${listProvinsi.kodeProvinsi}</td>
+			<td>${listProvinsi.namaProvinsi}</td>
 			<td style="width:18%">
-				<input type="button" value="Edit Data" style="background-color:MediumSeaGreen;" onclick="location.href='${pageContext.request.contextPath}/karyawan/detail/${listProvinsi.kode}';" />
-				<input type="button" value="Delete Data" style="background-color:Tomato;" onclick="location.href='${pageContext.request.contextPath}/karyawan/delete/${listProvinsi.kode}';" />
+				<input type="button" value="Edit Data" style="background-color:MediumSeaGreen;" onclick="location.href='${pageContext.request.contextPath}/provinsi/findone/${listProvinsi.kodeProvinsi}';" />
+				<input type="button" value="Delete Data" style="background-color:Tomato;" onclick="location.href='${pageContext.request.contextPath}/provinsi/delete/${listProvinsi.kodeProvinsi}';" />
 			</td>
 		</tr>
 	</c:forEach>	
@@ -42,7 +42,7 @@
 	<input type="button" value="Tambah Data" style="background-color:DodgerBlue; width:100%;" onclick="location.href='${pageContext.request.contextPath}/provinsi/add';" /><br>
 
 	<c:forEach var="i" begin="1" end="${total}">
-		<a href="${pageContext.request.contextPath}/provinsi/pageProvinsi?page=${i}&cari=${param.cari}">${i}</a>&nbsp <%--buat spasi--%>
+		<a href="${pageContext.request.contextPath}/provinsi/pageprovinsi?page=${i}&cari=${param.cari}">${i}</a>&nbsp <%--buat spasi--%>
 	</c:forEach>
 	<input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/user/login';" />
 	

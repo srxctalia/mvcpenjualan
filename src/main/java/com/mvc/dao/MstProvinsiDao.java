@@ -13,7 +13,7 @@ import com.mvc.entity.MstProvinsiPK;
 
 public interface MstProvinsiDao extends JpaRepository<MstProvinsi,MstProvinsiPK>{
 	@Query("select a from MstProvinsi a "
-			+ "where a.kodeProvinsi like %:cari%")
+			+ "where a.namaProvinsi like %:cari%")
 	public List<MstProvinsi> search(@Param("cari") String cari, Pageable pageable);
 	
 	@Query("select count(a.kodeProvinsi) from MstProvinsi a "

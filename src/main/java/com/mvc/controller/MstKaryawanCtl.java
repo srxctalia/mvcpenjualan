@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstKaryawanDto;
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.service.MstKaryawanSvc;
 
 @Controller
@@ -111,7 +112,51 @@ public class MstKaryawanCtl {
 			model.addAttribute("total", totalHalaman);
 			
 			return "pageKaryawan";	
+<<<<<<< Updated upstream
 
+=======
+		}
+	}
+	
+	@RequestMapping("login")
+	public String login(Model model,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		
+		MstKaryawanLoginDto dto = new MstKaryawanLoginDto();
+		
+		model.addAttribute("loginKaryawan", dto);
+		session.removeAttribute("loginUser");
+		return "loginMenu";
+	}
+	
+	@RequestMapping("/id")
+	public String checkLogin(@Valid @ModelAttribute("loginKaryawan")MstKaryawanLoginDto dto,
+			BindingResult result, Model model, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		
+		if (!result.hasErrors()){
+			MstKaryawanLoginDto kar = svc.login(dto.getUsername());
+			if (kar != null){
+				if (!kar.getPassword().equals(dto.getPassword())){
+					model.addAttribute("error", "Password salah");
+					return "loginMenu";
+				}
+				session.setAttribute("loginUser", kar);
+				return "redirect:/transaksi/all";
+			}
+			model.addAttribute("error", "Username salah");
+		}
+		return "loginMenu";
+	}
+	
+	@RequestMapping("findoneLogin/{kode}")
+	public String findoneLogin(Model model, @PathVariable("kode") String kode){
+		MstKaryawanDto dto = svc.findOneKaryawan(kode);
+		model.addAttribute("dto", dto);
+		kondisi = "detail";
+		return "findoneLogin";
+>>>>>>> Stashed changes
 	}
 	
 }

@@ -15,4 +15,5 @@ public interface TransaksiSvc {
 	public void saveHeader(TrHeaderPenjualanDto dto);
 	public void deleteHeaderDetail(String noNota);
 	public TrHeaderPenjualanDto findOneHeaderDetail(String noNota);
+	public TrDetailPenjualanDto findOneDetaiil(String kodeDetail);
 }

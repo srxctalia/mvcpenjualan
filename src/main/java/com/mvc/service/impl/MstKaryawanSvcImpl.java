@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.dao.MstKaryawanDao;
 import com.mvc.dto.MstKaryawanDto;
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.entity.MstKaryawan;
 import com.mvc.entity.MstKaryawanPK;
 import com.mvc.service.MstKaryawanSvc;
@@ -109,4 +110,23 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 		map.put("jumlah", jumlahHalaman);
 		return map;
 	}
+<<<<<<< Updated upstream
+=======
+	
+	public MstKaryawanLoginDto login(String username) {
+		MstKaryawan kar = new MstKaryawan();
+		kar.setUsername(username);
+		MstKaryawan k = daoKar.searchByUsername(username);
+		if(k != null){
+			MstKaryawanLoginDto dto = new MstKaryawanLoginDto();
+			dto.setUsername(k.getUsername());
+			dto.setPassword(k.getPassword());
+			dto.setKodeKaryawan(k.getKodeKaryawan());
+			dto.setNamaKaryawan(k.getNamaKaryawan());
+			dto.setLevel(k.getLevel());
+			return dto;
+		}
+		return null;
+	}
+>>>>>>> Stashed changes
 }

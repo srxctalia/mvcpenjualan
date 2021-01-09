@@ -13,13 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-<<<<<<< Updated upstream
-=======
-import com.mvc.dto.MstBarangDto;
-import com.mvc.dto.MstCustomerDto;
-import com.mvc.dto.MstKaryawanDto;
-import com.mvc.dto.MstKaryawanLoginDto;
->>>>>>> Stashed changes
 import com.mvc.dto.TrDetailPenjualanDto;
 import com.mvc.dto.TrHeaderPenjualanDto;
 import com.mvc.service.MstBarangSvc;
@@ -45,37 +38,20 @@ public class TransaksiCtl {
 			@RequestParam(value="page", defaultValue="1", required=false)int page,
 			HttpServletRequest request){
 		
-		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
-			return "redirect:/karyawan/login";
-		} 
 		
-		MstKaryawanLoginDto usr = (MstKaryawanLoginDto)session.getAttribute("loginUser");
-
+		HttpSession session = request.getSession();
+		
+		String username = (String) session.getAttribute("login");
 		Map<String, Object> map = svcT.listAll(cari, page);
 		List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map.get("list");
-		
-		if (!usr.getLevel().equals("1")){
-			model.addAttribute("cek", String.format("disini harusnya cmn ada penjualannya si %s ", usr.getNamaKaryawan()));
-			for (int i = 0; i < list.size(); i++) {
-				if (!list.get(i).getKodeKaryawan().equals(usr.getKodeKaryawan())){
-					list.remove(i);
-				}
-			}
-		}
-		
 		int totalHalaman = (int) map.get("jumlah");
-		
-		session.removeAttribute("error");
-		session.removeAttribute("dtoH");
 		model.addAttribute("transaksi", list);
 		model.addAttribute("total", totalHalaman);
-		model.addAttribute("usr", usr.getNamaKaryawan());
+		model.addAttribute("username", username);
 		return "transaksi";
 	}
 	
 	@RequestMapping("/add")
-<<<<<<< Updated upstream
 	public String save(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		if (session.getAttribute("login") == null){
@@ -90,76 +66,6 @@ public class TransaksiCtl {
 		return "addTransaksi";
 	}
 	
-=======
-	public String saveHeader(Model model, HttpServletRequest request){
-		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
-			return "redirect:/karyawan/login";
-		} 
-		
-		TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
-		request.setAttribute("dtoH", dtoH);
-		MstKaryawanDto k = (MstKaryawanDto) session.getAttribute("loginUser");
-		
-		List<MstCustomerDto> listCustomer = svcC.findAll();
-		List<TrDetailPenjualanDto> listDetail = dtoH.getDetailTransaksi();
-		
-		MstKaryawanDto karyawan = svcK.findOneKaryawan(k.getKodeKaryawan());
-		
-		dtoH.setKodeKaryawan(karyawan.getKodeKaryawan());
-		dtoH.setNamaKaryawan(karyawan.getNamaKaryawan());
-		
-		session.setAttribute("listDetail", listDetail);
-		model.addAttribute("dtoH", dtoH);
-		model.addAttribute("listDetail", listDetail);
-		model.addAttribute("customer", listCustomer);
-		return "addTransaksi";
-	}
-	
-	@RequestMapping("/addDetail")
-	public String saveDetail(Model model, HttpServletRequest request){
-		TrDetailPenjualanDto dtoDetail = new TrDetailPenjualanDto();
-		
-		List<MstBarangDto> listBarang = svcB.findAllBarang();
-		
-		model.addAttribute("barang", listBarang);
-		model.addAttribute("dtoD", dtoDetail);
-		
-		return "addTransaksiDetail";
-	}
-	
-	@RequestMapping("/saveDetail")
-	public String saveDetail(@Valid @ModelAttribute("dtoD") TrDetailPenjualanDto dtoD, 
-			BindingResult result, Model model, HttpServletRequest request ){
-		HttpSession session = request.getSession();
-		if (!result.hasErrors()){
-			if (svcT.findOneDetaiil(dtoD.getKodeDetail())!= null){
-				session.setAttribute("error", "KodeDetail sudah pernah dibuat");
-				return "addTransaksiDetail";
-			} 
-			List<TrDetailPenjualanDto> listDetail = (List<TrDetailPenjualanDto>)session.getAttribute("listDetail"); 
-			listDetail.add(dtoD);
-			return "redirect:/transaksi/addTransaksi";
-		}
-		return "addTransaksiDetail";
-	}
-	
-	@RequestMapping("/save")
-	public String saveHeader(@Valid @ModelAttribute("dtoH") TrHeaderPenjualanDto dtoH,
-			BindingResult result, Model model, HttpServletRequest request){
-		HttpSession session = request.getSession();
-		if (!result.hasErrors()){
-			if (svcT.findOneHeaderDetail(dtoH.getNoNota())!= null){
-				session.setAttribute("error", "No Nota sudah pernah dibuat");
-				return "addTransaksi";
-			}
-			svcT.saveHeader(dtoH);
-			return "redirect:/transaksi/all";
-		}
-		return "";
-	}
-	
->>>>>>> Stashed changes
 	@RequestMapping("/edit/{noNota}")
 	public String edit(@PathVariable("noNota")String noNota, Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();

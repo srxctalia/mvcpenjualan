@@ -13,13 +13,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mvc.dao.MstKaryawanDao;
 import com.mvc.dao.TrDetailPenjualanDao;
 import com.mvc.dao.TrHeaderPenjualanDao;
 import com.mvc.dto.TrDetailPenjualanDto;
 import com.mvc.dto.TrHeaderPenjualanDto;
 import com.mvc.entity.TrDetailPenjualan;
-import com.mvc.entity.TrDetailPenjualanPK;
 import com.mvc.entity.TrHeaderPenjualan;
 import com.mvc.entity.TrHeaderPenjualanPK;
 import com.mvc.service.TransaksiSvc;
@@ -32,8 +30,6 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	TrDetailPenjualanDao daoD;
 	@Autowired
 	TrHeaderPenjualanDao daoH;
-	@Autowired
-	MstKaryawanDao daoK;
 	
 	@Override
 	public List<TrDetailPenjualanDto> findAllDetail(String noNota) {
@@ -168,26 +164,6 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 		map.put("list", dtos);
 		map.put("jumlah", jumlahHalaman);
 		return map;
-	}
-
-	@Override
-	public TrDetailPenjualanDto findOneDetaiil(String kodeDetail) {
-		// TODO Auto-generated method stub
-		TrDetailPenjualanPK pk = new TrDetailPenjualanPK();
-		pk.setKodeDetail(kodeDetail);
-		TrDetailPenjualan td = daoD.findOne(pk);
-		if (td != null){
-			TrDetailPenjualanDto dto = new TrDetailPenjualanDto();
-			dto.setKodeDetail(td.getKodeDetail());
-			dto.setKodeBarang(td.getKodeBarang());
-			dto.setHargaSatuan(td.getHargaSatuan());
-			dto.setQty(td.getQty());
-			dto.setDiskon(td.getDiskon());
-			dto.setSubtotal(td.getSubtotal());
-			dto.setNoNota(td.getNoNota());
-			return dto;
-		}
-		return null;
 	}
 
 }

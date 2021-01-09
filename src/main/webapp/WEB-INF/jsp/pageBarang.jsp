@@ -72,7 +72,7 @@
     					</tbody>
 					</table>
 					</div>
-					<ul class="pagination">
+					<ul class="pagination justify-content-center">
 					<c:forEach var="i" begin="1" end="${total}" >
 						<li class="page-item">
 						<a href="${pageContext.request.contextPath}

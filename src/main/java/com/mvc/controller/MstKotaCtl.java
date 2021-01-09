@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mvc.dto.MstBarangDto;
+
 import com.mvc.dto.MstKotaDto;
 import com.mvc.dto.MstProvinsiDto;
-import com.mvc.dto.MstSupplierDto;
-import com.mvc.entity.MstProvinsi;
 import com.mvc.service.MstKotaSvc;
 import com.mvc.service.MstProvinsiSvc;
 

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstBarangDto;
-import com.mvc.dto.MstKotaDto;
 import com.mvc.dto.MstSupplierDto;
 import com.mvc.service.MstBarangSvc;
 import com.mvc.service.MstSupplierSvc;

@@ -27,16 +27,23 @@ public class MstProvinsiCtl {
 	private MstProvinsiSvc svc;
 	String kondisi = "";
 	
+//	@RequestMapping("add")
+//	public String add(Model model, HttpServletRequest request){
+//		HttpSession session = request.getSession();
+//		if(session.getAttribute("login") == null){
+//			return "redirect:/karyawan/login";
+//		} else {
+//			MstProvinsiDto dto = new MstProvinsiDto();
+//			model.addAttribute("dto", dto);
+//			return "addProvinsi";
+//		}
+//	}
+	
 	@RequestMapping("add")
-	public String add(Model model, HttpServletRequest request){
-		HttpSession session = request.getSession();
-		if(session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} else {
+	public String add(Model model){
 			MstProvinsiDto dto = new MstProvinsiDto();
 			model.addAttribute("dto", dto);
 			return "addProvinsi";
-		}
 	}
 	
 	@RequestMapping("save")

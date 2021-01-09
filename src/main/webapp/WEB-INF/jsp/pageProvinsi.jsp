@@ -44,7 +44,7 @@
 	<c:forEach var="i" begin="1" end="${total}">
 		<a href="${pageContext.request.contextPath}/provinsi/pageprovinsi?page=${i}&cari=${param.cari}">${i}</a>&nbsp <%--buat spasi--%>
 	</c:forEach>
-	<input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/user/login';" />
+	<input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/karyawan/login';" />
 	
 </body>
 </html>

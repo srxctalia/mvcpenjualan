@@ -109,4 +109,17 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 		map.put("jumlah", jumlahHalaman);
 		return map;
 	}
+	
+	public MstKaryawanDto login(String username) {
+		MstKaryawan kar = new MstKaryawan();
+		kar.setUsername(username);
+		MstKaryawan k = daoKar.searchByUsername(username);
+		if(k != null){
+			MstKaryawanDto dto = new MstKaryawanDto();
+			dto.setUsername(k.getUsername());
+			dto.setPassword(k.getPassword());
+			return dto;
+		}
+		return null;
+	}
 }

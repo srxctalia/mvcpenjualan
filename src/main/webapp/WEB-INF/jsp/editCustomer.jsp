@@ -39,7 +39,8 @@
 	  		<div class="mb-3">
 	  			<label for="exampleInputPassword1" class="form-label">Jenis Kelamin</label>
 	  			<f:select path="jenisKelamin"  class="custom-select mr-sm-2">
-				        <f:options items="${gender}"/>			      
+		  			<f:option value="female" label="Perempuan"/>
+		  			<f:option value="male" label="Laki-laki"/>
 	  			</f:select>
 				<f:errors path="jenisKelamin"/>
 	  		</div>
@@ -51,10 +52,7 @@
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Kota</label>
 			      <f:select path="kodeKota" class="custom-select mr-sm-2">
-			      		<f:option value="none" label="Pilih Kota" disabled="true"></f:option>
-			      	<c:forEach items="${kota}" var="k">
-				        <f:option value="${k.kodeKota}" label="${k.namaKota}"></f:option>			      
-			      	</c:forEach>
+			        <f:options items="${mapKota}"/>			      
 			      </f:select>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">

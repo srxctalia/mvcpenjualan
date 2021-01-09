@@ -60,10 +60,14 @@ private String cekSupplier = "";
 //		} 
 		MstSupplierDto dto = new MstSupplierDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
+		Map<String, String> listkota = new HashMap<>();
+		for (MstKotaDto kota : kotas ){
+			listkota.put(kota.getKodeKota(), kota.getNamaKota());
+		}
 		
 		cekSupplier = "add";
 		model.addAttribute("dto", dto);
-		model.addAttribute("kota", kotas);
+		model.addAttribute("kota", listkota);
 		return "addSupplier";
 		
 	}
@@ -75,11 +79,9 @@ private String cekSupplier = "";
 //			return "redirect:/user/login";
 //		} 
 		MstSupplierDto dto = new MstSupplierDto();
-		List<MstKotaDto> kotas = svcK.findAllKota();
 		
 		cekSupplier = "edit";
 		model.addAttribute("dto", dto);
-		model.addAttribute("kota", kotas);
 		return "editSupplier";
 		
 	}

@@ -3,15 +3,21 @@ package com.mvc.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class TrHeaderPenjualanDto {
+	@NotNull(message = "Silakan isi tanggal lahir")
 	private String noNota;
 	private int globalDiskon;
 	private int hargaTotal;
+	@NotNull(message = "Silakan isi tanggal lahir")
 	private String kodeCustomer;
+	@NotNull(message = "Silakan isi tanggal lahir")
 	private String kodeKaryawan;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Silakan isi tanggal lahir")
 	private Date tanggalTransaksi;
 	private String namaCustomer;
 	private String namaKaryawan;

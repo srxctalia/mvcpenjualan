@@ -18,13 +18,16 @@
 <div class="container">
 	<h2>Add Customer</h2>
 	<div class="alert alert-danger" role="alert">
-  		${validasi}
+  		
 	</div>
 	<f:form action="${pageContext.request.contextPath}/customer/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<label for="exampleInputEmail1" class="form-label">Kode Customer</label>
 				<f:input type="text" path="kodeCustomer" class="form-control"/>
-				<f:errors path="kodeCustomer" />
+				<div class="alert alert-danger" role="alert">
+					<f:errors path="kodeCustomer" />
+					<p>${validasi}</p>
+				</div>
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Nama</label>
@@ -38,7 +41,7 @@
 	  		</div>
 	  		<div class="mb-3">
 	  			<label for="exampleInputPassword1" class="form-label">Jenis Kelamin</label>
-	  			<f:select path="jenisKelamin"  class="custom-select mr-sm-2">
+	  			<f:select path="jenisKelamin"  class="custom-select mr-sm-2" placeholder="pilih jenis kelamin">
 		  			<f:option value="male" label="Laki-laki"/>
 		  			<f:option value="female" label="Perempuan"/>
 	  			</f:select>
@@ -51,9 +54,10 @@
 	  		</div>
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Kota</label>
-			      <f:select path="kodeKota" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <f:option value="NONE" label="--- Select ---"/>
-			        <f:options items="${kota}"/>			      
+			      <f:select path="kodeKota" class="custom-select mr-sm-2" id="inlineFormCustomSelect" placeholder="Pilih Kota">
+			        <c:forEach items="${kota}" var="k">
+				        <f:option value="${k.kodeKota}" label="${k.namaKota}"></f:option>			      
+			      	</c:forEach>			      
 			      </f:select>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">

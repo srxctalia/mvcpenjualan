@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstCustomerDto;
+import com.mvc.dto.MstKaryawanDto;
 import com.mvc.dto.MstKotaDto;
 import com.mvc.service.MstCustomerSvc;
 import com.mvc.service.MstKotaSvc;
@@ -60,14 +61,14 @@ public class MstCustomerCtl {
 		} */
 		MstCustomerDto dto = new MstCustomerDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
-		Map<String, String> listkota = new HashMap<>();
-		for (MstKotaDto kota : kotas ){
-			listkota.put(kota.getKodeKota(), kota.getNamaKota());
-		}
+//		Map<String, String> listkota = new HashMap<>();
+//		for (MstKotaDto kota : kotas ){
+//			listkota.put(kota.getKodeKota(), kota.getNamaKota());
+//		}
 		
 		cekCustomer = "add";
 		model.addAttribute("dto", dto);
-		model.addAttribute("kota", listkota);
+		model.addAttribute("kota", kotas);
 		return "addCustomer";
 		
 	}
@@ -80,14 +81,14 @@ public class MstCustomerCtl {
 //		} 
 		MstCustomerDto dto = svc.findOne(kodeCustomer);
 		List<MstKotaDto> listkota = svcK.findAllKota();
-		Map<String, String> mapkota = new HashMap<>();
-		for (MstKotaDto kota : listkota ){
-			mapkota.put(kota.getKodeKota(), kota.getNamaKota());
-		}
+		Map<String, String> gender = new HashMap<>();
+		gender.put("male", "Laki-laki");
+		gender.put("female", "Perempuan");
 		
 		cekCustomer = "edit";
 		model.addAttribute("dto", dto);
-		model.addAttribute("kota", mapkota);
+		model.addAttribute("kota", listkota);
+		model.addAttribute("gender", gender);
 		return "editCustomer";
 		
 	}

@@ -49,8 +49,10 @@
 	  		<div class="mb-3">
 			      <label class="mr-sm-2" for="inlineFormCustomSelect">Kota</label>
 			      <f:select path="kodeKota" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <f:option value="NONE" label="--- Select ---"/>
-			        <f:options items="${kota}"/>			      
+					<f:option value="none" label="Pilih Kota" disabled="true"></f:option>
+			      	<c:forEach items="${kota}" var="k">
+				        <f:option value="${k.kodeKota}" label="${k.namaKota}"></f:option>
+				    </c:forEach>			      
 			      </f:select>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">

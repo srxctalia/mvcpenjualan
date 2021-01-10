@@ -85,6 +85,7 @@ public class MstBarangCtl {
 		}else{
 			if(kondisi.equalsIgnoreCase("add")){
 				model.addAttribute("valid", "Kode Barang Sudah Ada");
+				model.addAttribute("stat", 1);
 				return "addBarang";
 			}else{
 				if(result.hasErrors()){

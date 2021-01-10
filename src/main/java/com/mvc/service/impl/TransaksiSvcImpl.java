@@ -166,4 +166,33 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 		return map;
 	}
 
+	@Override
+	public TrDetailPenjualanDto findOneDetaiil(String kodeDetail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrHeaderPenjualanDto> findAllHeader() {
+		// TODO Auto-generated method stub
+		List<TrHeaderPenjualanDto> dtos = new ArrayList<>();
+		List<Object[]> list = daoH.findAllHeader();
+		for (Object[] o : list){
+			TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
+			TrHeaderPenjualan thp = (TrHeaderPenjualan)o[0];
+			
+			dto.setNoNota(thp.getNoNota());
+			dto.setTanggalTransaksi(thp.getTanggalTransaksi());
+			dto.setKodeCustomer(thp.getKodeCustomer());
+			dto.setNamaCustomer((String)o[1]);
+			dto.setHargaTotal(thp.getHargaTotal());
+			dto.setGlobalDiskon(thp.getGlobalDiskon());
+			dto.setKodeKaryawan(thp.getKodeKaryawan());
+			dto.setNamaKaryawan((String) o[2]);
+			
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
 }

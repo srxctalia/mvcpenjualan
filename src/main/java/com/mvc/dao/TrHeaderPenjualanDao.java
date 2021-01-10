@@ -26,4 +26,9 @@ public interface TrHeaderPenjualanDao extends JpaRepository<TrHeaderPenjualan, T
 	@Query("select count(a.noNota) from TrHeaderPenjualan a "
 			+ "where a.noNota like %:cari%")
 	public int countData(@Param("cari") String cari);
+	
+	@Query("select a,b.namaKaryawan,c.namaCustomer "
+			+ "from TrHeaderPenjualan as a,MstKaryawan as b,MstCustomer as c "
+			+ "where a.kodeCustomer = c.kodeCustomer AND a.kodeKaryawan = b.kodeKaryawan ")
+	public List<Object[]> findAllHeader();
 }

@@ -14,6 +14,7 @@ public interface TransaksiSvc {
 	public void saveDetail(TrDetailPenjualanDto dto); //hanya disediakan, tidak dipakai.
 	public void saveHeader(TrHeaderPenjualanDto dto);
 	public void deleteHeaderDetail(String noNota);
+	public void deleteDetail(String kodeDetail);
 	public TrHeaderPenjualanDto findOneHeaderDetail(String noNota);
 	public TrDetailPenjualanDto findOneDetaiil(String kodeDetail);
 	public List<TrHeaderPenjualanDto> findAllHeader();

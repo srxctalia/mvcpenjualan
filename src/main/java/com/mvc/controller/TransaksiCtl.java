@@ -63,20 +63,6 @@ public class TransaksiCtl {
 	}
 	
 	@RequestMapping("/add")
-	public String save(Model model, HttpServletRequest request){
-		HttpSession session = request.getSession();
-		if (session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} 
-		
-		TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
-		TrDetailPenjualanDto dtoD = new TrDetailPenjualanDto();
-		
-		model.addAttribute("dtoH", dtoH);
-		model.addAttribute("dtoD", dtoD);
-		return "addTransaksi";
-	}
-	
 	public String saveHeader(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginUser") == null){
@@ -166,7 +152,14 @@ public class TransaksiCtl {
 		return "redirect:/transaksi/all";
 	}
 	
+	@RequestMapping("deleteDetail/{kodeDetail}")
 	public String deleteDetail(@PathVariable("kodeDetail")String kodeDetail){
+		// Jika kondisi ketika add maka yg dihapus adalah detail yang berada di list
+		
+		// Jika kondisi adalah delete dari edit Header maka detail yang dihapus adalah detail yang berada di db
+		
+		svcT.deleteDetail(kodeDetail);
+		
 		return "redirect:/";
 	}
 }

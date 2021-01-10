@@ -9,23 +9,26 @@
 </head>
 <body>
 
-	<h2>Login Form</h2>
-	
-	<f:form modelAttribute="loginKaryawan" action="${pageContext.request.contextPath}/karyawan/id">
-		  <div class="container">
-		    <h5 id="salah" style="color: Tomato">${error}</h5>
-		    <label for="uname"><b>Username : </b></label>
-		    <f:input path="username" type="text" id="uname" name="uname" required="true" placeholder="Enter Username"/>
-			<f:errors path="username"/>
-		    <label for="psw"><b>Password : </b></label>
-		    <f:input path="password" type="text" id="psw" name="psw" required="true" placeholder="Enter Password"/>
-		    <f:errors path="password"/>    
-		    <button type="submit">Login</button>
-		  </div>
-		
-		  <div class="container" style="background-color:#f1f1f1">
-	    <button type="button" class="cancelbtn">Cancel</button>
-	  </div>
+	<h2>Login Menu</h2>
+	<f:form action="${pageContext.request.contextPath}/user/check"
+	modelAttribute="dto">
+		<table>
+			<tr>
+				<td>User ID</td>
+				<td>:</td>
+				<td><f:input path="username" /></td>
+				<td><f:errors path="username" /></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td>:</td>
+				<td><input type="password" name="password" value=""/></td>
+				<td><f:errors path="password" /></td>
+			</tr>
+			<tr>
+			<td><input type="submit" value="Masuk"></td>
+			</tr>
+		</table>
 	</f:form>
 	${validasi}
 

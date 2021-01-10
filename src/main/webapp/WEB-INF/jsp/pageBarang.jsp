@@ -18,7 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Page Barang</title>
+<title>Data Barang</title>
 </head>
 <body id="page-top">
 
@@ -195,9 +195,9 @@
 						<td>${b.namaBarang}</td>
 						<td>${b.stokBarang}</td>
 						<td>${b.namaSupplier}</td>
-						<td> <input type="button" value="Edit" class="btn btn-secondary"
+						<td> <input type="button" value="Edit" class="btn btn-warning btn-sm"
 						onclick="location.href='${pageContext.request.contextPath}/barang/detail/${b.kodeBarang}';">
-						<input type="button" value="Delete" class="btn btn-secondary"
+						<input type="button" value="Delete" class="btn btn-danger btn-sm"
 						onclick="location.href='${pageContext.request.contextPath}/barang/delete/${b.kodeBarang}';">
 						</td> 
 						</tr>

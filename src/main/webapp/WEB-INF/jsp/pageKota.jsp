@@ -18,7 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Page Kota</title>
+<title>Data Kota</title>
 </head>
 <body id="page-top">
 
@@ -193,9 +193,9 @@
 						<td>${k.kodeKota}</td>
 						<td>${k.namaKota}</td>
 						<td>${k.namaProvinsi}</td>
-						<td> <input type="button" value="Edit" class="btn btn-secondary"
+						<td> <input type="button" value="Edit" class="btn btn-warning btn-sm"
 						onclick="location.href='${pageContext.request.contextPath}/kota/detail/${k.kodeKota}';">
-						<input type="button" value="Delete" class="btn btn-secondary"
+						<input type="button" value="Delete" class="btn btn-danger btn-sm"
 						onclick="location.href='${pageContext.request.contextPath}/kota/delete/${k.kodeKota}';">
 						</td> 
 						</tr>

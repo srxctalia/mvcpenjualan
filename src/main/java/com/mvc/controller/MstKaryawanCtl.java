@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mvc.dto.MstBarangDto;
 import com.mvc.dto.MstKaryawanDto;
 import com.mvc.dto.MstKaryawanLoginDto;
+import com.mvc.dto.TrHeaderPenjualanDto;
 import com.mvc.service.MstKaryawanSvc;
 
 @Controller
@@ -98,26 +99,38 @@ public class MstKaryawanCtl {
 	}
 	
 	@RequestMapping("pagekaryawan")
-	public String listPendudukWithPaging(Model model, 
+	public String listPendudukWithPaging(Model model, HttpServletRequest request,
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page){
 
-			Map<String, Object> map = svc.listAllPageKaryawan(cari, page);
-			List<MstKaryawanDto> list = (List<MstKaryawanDto>) map.get("list");
-			int totalHalaman = (int) map.get("jumlah");
-			model.addAttribute("karyawan", list);
-			model.addAttribute("total", totalHalaman);
-			
-			if(cari.length() > 0){
-				String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
-				model.addAttribute("keterangan",out);
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+			if (kar.getLevel().equals("1")){
+				Map<String, Object> map = svc.listAllPageKaryawan(cari, page);
+				List<MstKaryawanDto> list = (List<MstKaryawanDto>) map.get("list");
+				int totalHalaman = (int) map.get("jumlah");
+				model.addAttribute("karyawan", list);
+				model.addAttribute("total", totalHalaman);
+				
+				if(cari.length() > 0){
+					String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
+					model.addAttribute("keterangan",out);
+				}
+				if(list.isEmpty()){
+					String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
+					model.addAttribute("penjelasan",out);
+				}
+				return "pageKaryawan";	
+			} else {			
+				MstKaryawanDto seorang = svc.findOneKaryawan(kar.getKodeKaryawan());
+				model.addAttribute("staff", seorang);
+				model.addAttribute("usr", kar.getNamaKaryawan());
+				return "pageKaryawan";			
 			}
-			if(list.isEmpty()){
-				String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
-				model.addAttribute("penjelasan",out);
-			}
-			return "pageKaryawan";	
-		
+		}
 	}
 	
 	@RequestMapping("login")
@@ -141,13 +154,15 @@ public class MstKaryawanCtl {
 			MstKaryawanLoginDto kar = svc.login(dto.getUsername());
 			if (kar != null){
 				if (!kar.getPassword().equals(dto.getPassword())){
-					model.addAttribute("error", "Password salah");
+					model.addAttribute("error", "Username dan Password salah.");
+					model.addAttribute("stat", 1);
 					return "loginMenu";
 				}
 				session.setAttribute("loginUser", kar);
 				return "redirect:/dashboard/main";
 			}
-			model.addAttribute("error", "Username salah");
+			model.addAttribute("error", "Username dan Password salah");
+			model.addAttribute("stat", 1);
 		}
 		return "loginMenu";
 	}

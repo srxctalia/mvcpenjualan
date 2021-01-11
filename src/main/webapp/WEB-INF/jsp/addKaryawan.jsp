@@ -21,7 +21,6 @@
 <title>Tambah Data Karyawan</title>
 </head>
 <body id="page-top">
-
  <!-- Page Wrapper -->
     <div id="wrapper">
 

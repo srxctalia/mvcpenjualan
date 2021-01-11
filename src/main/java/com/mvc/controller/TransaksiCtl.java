@@ -62,7 +62,7 @@ public class TransaksiCtl {
 		}
 		
 		session.removeAttribute("dtoH");
-
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		if (kar.getLevel().equals("1")) {
 			Map<String, Object> map = svcT.listAll(cari, page);
 			List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map
@@ -71,7 +71,6 @@ public class TransaksiCtl {
 
 			model.addAttribute("transaksi", list);
 			model.addAttribute("total", totalHalaman);
-			model.addAttribute("usr", kar.getNamaKaryawan());
 			return "transaksi";
 		} else {
 			Map<String, Object> map = svcT.listAll(kar.getKodeKaryawan(), page);
@@ -81,7 +80,6 @@ public class TransaksiCtl {
 
 			model.addAttribute("transaksi", list);
 			model.addAttribute("total", totalHalaman);
-			model.addAttribute("usr", kar.getNamaKaryawan());
 			return "transaksi";
 		}
 	}
@@ -95,6 +93,7 @@ public class TransaksiCtl {
 			return "redirect:/karyawan/login";
 		}
 //		try {
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
 			
 			List<MstCustomerDto> listCustomer = svcC.findAll();
@@ -172,7 +171,7 @@ public class TransaksiCtl {
 			return "redirect:/karyawan/login";
 		}
 		List<MstBarangDto> listBarang = svcB.findAllBarang();
-
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		model.addAttribute("barang", listBarang);
 		model.addAttribute("dtoD", dtoDetail);
 		session.setAttribute("dtoH", dtoH);
@@ -224,6 +223,7 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		TrHeaderPenjualanDto dto = svcT.findOneHeaderDetail(noNota);
 		dto.setDetailTransaksi((List<TrDetailPenjualanDto>) session.getAttribute("listDetail"));
 		List<MstCustomerDto> listCustomer = svcC.findAll();

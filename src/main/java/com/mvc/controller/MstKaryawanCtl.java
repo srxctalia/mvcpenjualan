@@ -145,7 +145,7 @@ public class MstKaryawanCtl {
 					return "loginMenu";
 				}
 				session.setAttribute("loginUser", kar);
-				return "redirect:/transaksi/all";
+				return "redirect:/dashboard/main";
 			}
 			model.addAttribute("error", "Username salah");
 		}

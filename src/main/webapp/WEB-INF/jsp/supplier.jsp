@@ -200,8 +200,8 @@
 								<td>${s.namaKota} </td>
 								<td>${s.emailSupplier} </td>
 								<td>
-									<input type="button" class="btn btn-warning btn-sm" value="Edit" onclick="location.href='${pageContext.request.contextPath}/supplier/edit/${c.kodeSupplier}';">
-									<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/supplier/delete/${c.kodeSupplier}';">
+									<input type="button" class="btn btn-warning btn-sm" value="Edit" onclick="location.href='${pageContext.request.contextPath}/supplier/edit/${s.kodeSupplier}';">
+									<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/supplier/delete/${s.kodeSupplier}';">
 								</td>
 							  </tr>
 						</c:forEach>

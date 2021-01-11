@@ -200,6 +200,7 @@
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Kota</h1>
 			      <f:select path="kodeKota" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+			      <option disabled selected value> -- select an option -- </option>
 			        <c:forEach items="${kota}" var="k">
 				        <f:option value="${k.kodeKota}" label="${k.namaKota }"/>
 			      	</c:forEach>

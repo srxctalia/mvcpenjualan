@@ -46,13 +46,13 @@
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Diskon</label>
-				<f:input class="form-control" path="diskon" placeholder="Masukan diskon"/>
+				<f:input class="form-control" path="diskon" placeholder="Masukan diskon" />
 				<f:errors path="diskon"/>
 	  		</div>
 	  		<div class="mb-3">
-	    		<label for="exampleInputPassword1" class="form-label">Sub Total</label>
+	    	<!-- 	<label for="exampleInputPassword1" class="form-label">Sub Total</label>
 				<f:input class="form-control" path="subtotal" placeholder="Masukan sub total"/>
-				<f:errors path="subtotal"/>
+				<f:errors path="subtotal"/> -->
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

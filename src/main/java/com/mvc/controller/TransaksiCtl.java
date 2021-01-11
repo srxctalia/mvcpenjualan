@@ -94,32 +94,72 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
+//		try {
+			TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
+			
+			List<MstCustomerDto> listCustomer = svcC.findAll();
+			if (session.getAttribute("dtoH") != null) {
+				dtoH = (TrHeaderPenjualanDto) session.getAttribute("dtoH");
+			}
+			if (session.getAttribute("listDetail") != null) {
+				dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>) session.getAttribute("listDetail"));
+			}
+			
+			model.addAttribute("dtoH", dtoH);
+			model.addAttribute("customer", listCustomer);
+			
+			dtoH.setTanggalTransaksi(Date.valueOf(LocalDate.now()));
+			dtoH.setKodeKaryawan(kar.getKodeKaryawan());
+			dtoH.setNamaKaryawan(kar.getNamaKaryawan());
+			
+			session.setAttribute("kondisi", "add");
+			
+			return "addTransaksi";
+			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			return "addTransaksi";
+//		}
 
-		TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
-
-		List<MstCustomerDto> listCustomer = svcC.findAll();
-		if (session.getAttribute("dtoH") != null) {
-			dtoH = (TrHeaderPenjualanDto) session.getAttribute("dtoH");
-		}
-		if (session.getAttribute("listDetail") != null) {
-			dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>) session
-					.getAttribute("listDetail"));
-		}
+	}
 	
-		model.addAttribute("dtoH", dtoH);
-		model.addAttribute("customer", listCustomer);
-		int grandTotal=0;
-		for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
-			grandTotal+=detail.getSubtotal();			
+	@RequestMapping("/save")
+	public String saveHeader(
+			@Valid @ModelAttribute("dtoH") TrHeaderPenjualanDto dtoH,
+			BindingResult result, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null) {
+			return "redirect:/karyawan/login";
 		}
-		dtoH.setHargaTotal(grandTotal);
-		dtoH.setTanggalTransaksi(Date.valueOf(LocalDate.now()));
-		dtoH.setKodeKaryawan(kar.getKodeKaryawan());
-		dtoH.setNamaKaryawan(kar.getNamaKaryawan());
-		
-		session.setAttribute("kondisi", "add");
-
-		return "addTransaksi";
+//			try {
+				if (!result.hasErrors()) {
+					if (session.getAttribute("kondisi") == "add"){
+						if (svcT.findOneHeaderDetail(dtoH.getNoNota()) != null) {
+							session.setAttribute("error", "No Nota sudah pernah dibuat");
+							return "addTransaksi";
+						}	
+						int grandTotal=0;
+						for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
+							grandTotal+=detail.getSubtotal();			
+						}
+						dtoH.setHargaTotal(grandTotal - (grandTotal*dtoH.getGlobalDiskon()/100));
+						
+						svcT.saveHeader(dtoH);
+						return "redirect:/transaksi/all";				
+					} else {
+						
+					}
+				}
+				return "redirect:/transaksi/add";				
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				List<MstCustomerDto> listCustomer = svcC.findAll();
+//
+//				model.addAttribute("customer", listCustomer);
+//				model.addAttribute("dtoH", dtoH);
+//				return "addTransaksi";
+//			}
 	}
 
 	@RequestMapping("/addDetail")
@@ -154,11 +194,11 @@ public class TransaksiCtl {
 					return "addTransaksiDetail";
 				}
 				if (session.getAttribute("listDetail") != null) {
-					listDetail = (List<TrDetailPenjualanDto>) session
-							.getAttribute("listDetail");
+					listDetail = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
 				}
 				MstBarangDto br = svcB.findOneBarang(dtoD.getKodeBarang());
 				dtoD.setNamaBarang(br.getNamaBarang());
+				dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
 				listDetail.add(dtoD);
 				session.setAttribute("listDetail", listDetail);
 				return "redirect:/transaksi/add";
@@ -176,22 +216,6 @@ public class TransaksiCtl {
 		}
 	}
 
-	@RequestMapping("/save")
-	public String saveHeader(
-			@Valid @ModelAttribute("dtoH") TrHeaderPenjualanDto dtoH,
-			BindingResult result, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		if (!result.hasErrors()) {
-			if (svcT.findOneHeaderDetail(dtoH.getNoNota()) != null) {
-				session.setAttribute("error", "No Nota sudah pernah dibuat");
-				return "addTransaksi";
-			}
-			svcT.saveHeader(dtoH);
-			return "redirect:/transaksi/all";
-		}
-		return "";
-	}
-
 	@RequestMapping("/edit/{noNota}")
 	public String edit(@PathVariable("noNota") String noNota, Model model,
 			HttpServletRequest request) {
@@ -201,10 +225,7 @@ public class TransaksiCtl {
 			return "redirect:/karyawan/login";
 		}
 		TrHeaderPenjualanDto dto = svcT.findOneHeaderDetail(noNota);
-//		if (session.getAttribute("listDetail") != null) {
-//			dto.setDetailTransaksi((List<TrDetailPenjualanDto>) session
-//					.getAttribute("listDetail"));
-//		}
+		dto.setDetailTransaksi((List<TrDetailPenjualanDto>) session.getAttribute("listDetail"));
 		List<MstCustomerDto> listCustomer = svcC.findAll();
 		
 		session.setAttribute("listDetail", dto.getDetailTransaksi());
@@ -229,7 +250,6 @@ public class TransaksiCtl {
 		// detail yang berada di list
 		HttpSession session = request.getSession();
 		List<TrDetailPenjualanDto> list = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
-		
 		if (session.getAttribute("kondisi") == "add"){
 			for (TrDetailPenjualanDto detail : list){
 				if (detail.getKodeDetail().equals(kodeDetail)){

@@ -83,8 +83,6 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 		th.setKodeKaryawan(dto.getKodeKaryawan());
 		th.setNoNota(dto.getNoNota());
 		th.setTanggalTransaksi(dto.getTanggalTransaksi());
-		
-		daoH.save(th);
 		for(TrDetailPenjualanDto tdp : dto.getDetailTransaksi()){
 			TrDetailPenjualan td = new TrDetailPenjualan();
 			td.setDiskon(tdp.getDiskon());
@@ -96,6 +94,7 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 			td.setSubtotal(tdp.getSubtotal());
 			daoD.save(td);
 		}
+		daoH.save(th);
 	}
 
 	@Override

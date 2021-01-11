@@ -3,11 +3,17 @@ package com.mvc.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class TrHeaderPenjualanDto {
+	@NotEmpty(message="please fill no nota")
 	private String noNota;
-	private int globalDiskon;
+	@NotEmpty(message="please fill global diskon?")
+	@Min(0)
+	private Integer globalDiskon;
 	private int hargaTotal;
 	private String kodeCustomer;
 	private String kodeKaryawan;
@@ -29,10 +35,10 @@ public class TrHeaderPenjualanDto {
 	public void setNoNota(String noNota) {
 		this.noNota = noNota;
 	}
-	public int getGlobalDiskon() {
+	public Integer getGlobalDiskon() {
 		return globalDiskon;
 	}
-	public void setGlobalDiskon(int globalDiskon) {
+	public void setGlobalDiskon(Integer globalDiskon) {
 		this.globalDiskon = globalDiskon;
 	}
 	public int getHargaTotal() {

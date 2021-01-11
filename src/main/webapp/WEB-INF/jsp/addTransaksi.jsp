@@ -21,10 +21,12 @@
 		<div class="mb-3">
     		<label for="exampleInputEmail1" class="form-label">No Nota</label>
 			<f:input type="text" path="noNota" class="form-control"/>
-			<div class="alert alert-danger" role="alert">
-				<f:errors path="noNota" />
-				<p>${validasi}</p>
-			</div>
+				<c:if test="${validasi == ''}">
+					<div class="alert alert-danger error-box" role="alert">
+					<f:errors path="noNota" />
+					<p>${validasi}</p>
+					</div>
+				</c:if>
   		</div>
   		<div class="mb-3">
     		<label for="exampleInputPassword1" class="form-label">Tanggal Transaksi</label>
@@ -44,6 +46,11 @@
   			<label for="exampleInputPassword1" class="form-label">Karyawan</label>
   			<f:input type="text" class="form-control" path="kodeKaryawan" readonly="true"/>
 			<f:errors path="kodeKaryawan"/>
+  		</div>
+  		<div class="mb-3">
+  			<label for="exampleInputPassword1" class="form-label">Global Diskon%</label>
+  			<f:input type="text" class="form-control" path="globalDiskon"/>
+			<f:errors path="globalDiskon"/>
   		</div>
   		<div class="mb-3">
   			<h4>Detail</h4>

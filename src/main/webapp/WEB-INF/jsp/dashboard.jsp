@@ -220,7 +220,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                 Jumlah Data Transaksi </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">(belum)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${banyaktransaksi}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-truck fa-2x text-gray-300"></i>

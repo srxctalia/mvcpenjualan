@@ -303,7 +303,7 @@
     </div>
 
     <!-- Page level plugins -->
-    <script src="${pageContext.request.contextPath}/static/css/Chart.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/css/chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/static/css/chart-area-demo.js"></script>

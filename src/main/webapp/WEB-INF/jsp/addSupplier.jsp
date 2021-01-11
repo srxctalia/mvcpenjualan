@@ -171,7 +171,7 @@
 	<f:form action="${pageContext.request.contextPath}/supplier/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Supplier</h1>
-				<f:input type="text" path="kodeSupplier" class="form-control" placeholder="Masukan kode supplier${kodeTerakhir}"/>
+				<f:input type="text" path="kodeSupplier" class="form-control" placeholder="Masukan kode supplier${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
 				<f:errors path="kodeSupplier" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 	  		<div class="mb-3">

@@ -2,6 +2,9 @@ package com.mvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mvc.dto.MstBarangDto;
 import com.mvc.dto.MstCustomerDto;
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstSupplierDto;
 import com.mvc.dto.TrHeaderPenjualanDto;
 import com.mvc.service.MstBarangSvc;
@@ -29,12 +33,19 @@ public class DashboardCtl {
 	private TransaksiSvc svct;
 	
 	@RequestMapping("main")
-	public String main(Model model){
+	public String main(Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		model.addAttribute("banyakbarang", banyakBarang());
 		model.addAttribute("banyakcustomer", banyakCustomer());
 		model.addAttribute("banyaksupplier", banyakSupplier());
 		model.addAttribute("banyaktransaksi", banyakTransaksi());
-		return "dashboard"; 
+		return "dashboard";
+		}
 	}
 	
 	public String banyakBarang(){

@@ -86,8 +86,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="utilities-color.html">List Transaksi</a>
-                        <a class="collapse-item" href="utilities-border.html">(belum dinamain)</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/transaksi/all">List Transaksi</a>
                     </div>
                 </div>
             </li>
@@ -242,7 +241,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/karyawan/login">Logout</a>
                 </div>
             </div>
         </div>

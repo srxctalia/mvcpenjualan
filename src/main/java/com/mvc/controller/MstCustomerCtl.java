@@ -41,7 +41,9 @@ public class MstCustomerCtl {
 			HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
-		
+		if (session.getAttribute("loginUser") == null){
+			return "redirect:/karyawan/login";
+		} 
 		String username = (String) session.getAttribute("login");
 		Map<String, Object> map = svc.listAll(cari, page);
 		List<MstCustomerDto> list = (List<MstCustomerDto>) map.get("list");
@@ -55,9 +57,9 @@ public class MstCustomerCtl {
 	@RequestMapping("/add")
 	public String save(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-/*		if (session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} */
+		if (session.getAttribute("loginUser") == null){
+			return "redirect:/karyawan/login";
+		} 
 		MstCustomerDto dto = new MstCustomerDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		Map<String, String> listkota = new HashMap<>();
@@ -75,9 +77,9 @@ public class MstCustomerCtl {
 	@RequestMapping("/edit/{kodeCustomer}")
 	public String edit(Model model, @PathVariable("kodeCustomer")String kodeCustomer, HttpServletRequest request){
 		HttpSession session = request.getSession();
-//		if (session.getAttribute("login") == null){
-//			return "redirect:/user/login";
-//		} 
+		if (session.getAttribute("loginUser") == null){
+			return "redirect:/karyawan/login";
+		} 
 		MstCustomerDto dto = svc.findOne(kodeCustomer);
 		List<MstKotaDto> listkota = svcK.findAllKota();
 		Map<String, String> mapkota = new HashMap<>();
@@ -93,8 +95,11 @@ public class MstCustomerCtl {
 	}
 	
 	@RequestMapping("/save")
-	public String save(@Valid @ModelAttribute("dto") MstCustomerDto dto, BindingResult result, Model model){
-		
+	public String save(@Valid @ModelAttribute("dto") MstCustomerDto dto, BindingResult result, Model model, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		if (session.getAttribute("loginUser") == null){
+			return "redirect:/karyawan/login";
+		} 
 		if (svc.findOne(dto.getKodeCustomer()) == null){
 			if (result.hasErrors()){
 				return "addCustomer";
@@ -115,7 +120,11 @@ public class MstCustomerCtl {
 	}
 	
 	@RequestMapping("/delete/{kodeCustomer}")
-	public String delete(@PathVariable("kodeCustomer")String kodeCustomer){
+	public String delete(@PathVariable("kodeCustomer")String kodeCustomer, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		if (session.getAttribute("loginUser") == null){
+			return "redirect:/karyawan/login";
+		} 
 		svc.delete(kodeCustomer);
 		
 		return "redirect:/customer/all";

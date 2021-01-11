@@ -10,8 +10,8 @@
 <body>
 
 	<h2>Login Menu</h2>
-	<f:form action="${pageContext.request.contextPath}/user/check"
-	modelAttribute="dto">
+	<f:form action="${pageContext.request.contextPath}/karyawan/id"
+	modelAttribute="loginKaryawan">
 		<table>
 			<tr>
 				<td>User ID</td>

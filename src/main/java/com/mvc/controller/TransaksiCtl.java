@@ -51,36 +51,47 @@ public class TransaksiCtl {
 		
 		
 		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		}
 		
-		String username = (String) session.getAttribute("login");
-		Map<String, Object> map = svcT.listAll(cari, page);
-		List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map.get("list");
-		int totalHalaman = (int) map.get("jumlah");
-		model.addAttribute("transaksi", list);
-		model.addAttribute("total", totalHalaman);
-		model.addAttribute("username", username);
-		return "transaksi";
+		if (kar.getLevel().equals("1")){
+			Map<String, Object> map = svcT.listAll(cari, page);
+			List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map.get("list");
+			int totalHalaman = (int) map.get("jumlah");
+			model.addAttribute("transaksi", list);
+			model.addAttribute("total", totalHalaman);
+			model.addAttribute("usr", kar.getNamaKaryawan());
+			return "transaksi";
+		} else {			
+			Map<String, Object> map = svcT.listAll(kar.getKodeKaryawan(), page);
+			List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map.get("list");
+			int totalHalaman = (int) map.get("jumlah");
+			model.addAttribute("transaksi", list);
+			model.addAttribute("total", totalHalaman);
+			model.addAttribute("usr", kar.getNamaKaryawan());
+			return "transaksi";			
+		}
 	}
 	
 	@RequestMapping("/add")
 	public String saveHeader(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
 			return "redirect:/karyawan/login";
-		} 
+		}
 		
 		TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
-		request.setAttribute("dtoH", dtoH);
-		MstKaryawanDto k = (MstKaryawanDto) session.getAttribute("loginUser");
-		
+
 		List<MstCustomerDto> listCustomer = svcC.findAll();
 		List<TrDetailPenjualanDto> listDetail = dtoH.getDetailTransaksi();
 		
-		MstKaryawanDto karyawan = svcK.findOneKaryawan(k.getKodeKaryawan());
+		dtoH.setKodeKaryawan(kar.getKodeKaryawan());
+		dtoH.setNamaKaryawan(kar.getNamaKaryawan());
 		
-		dtoH.setKodeKaryawan(karyawan.getKodeKaryawan());
-		dtoH.setNamaKaryawan(karyawan.getNamaKaryawan());
-		
+		session.setAttribute("dtoH", dtoH);
 		session.setAttribute("listDetail", listDetail);
 		model.addAttribute("dtoH", dtoH);
 		model.addAttribute("listDetail", listDetail);
@@ -90,8 +101,12 @@ public class TransaksiCtl {
 	
 	@RequestMapping("/addDetail")
 	public String saveDetail(Model model, HttpServletRequest request){
+		HttpSession session = request.getSession();
 		TrDetailPenjualanDto dtoDetail = new TrDetailPenjualanDto();
-		
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		}
 		List<MstBarangDto> listBarang = svcB.findAllBarang();
 		
 		model.addAttribute("barang", listBarang);
@@ -134,13 +149,16 @@ public class TransaksiCtl {
 	@RequestMapping("/edit/{noNota}")
 	public String edit(@PathVariable("noNota")String noNota, Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} 
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		}
 		
 		TrHeaderPenjualanDto dto = svcT.findOneHeaderDetail(noNota);
+		List<TrDetailPenjualanDto> listDetail = dto.getDetailTransaksi();
 		
 		model.addAttribute("dto", dto);
+		model.addAttribute("listDetail", listDetail);
 		return "editTransaksi";
 	}
 	
@@ -154,7 +172,7 @@ public class TransaksiCtl {
 	
 	@RequestMapping("deleteDetail/{kodeDetail}")
 	public String deleteDetail(@PathVariable("kodeDetail")String kodeDetail){
-		// Jika kondisi ketika add maka yg dihapus adalah detail yang berada di list
+		// Jika kondisi ketika delete dari add Header maka yg dihapus adalah detail yang berada di list
 		
 		// Jika kondisi adalah delete dari edit Header maka detail yang dihapus adalah detail yang berada di db
 		

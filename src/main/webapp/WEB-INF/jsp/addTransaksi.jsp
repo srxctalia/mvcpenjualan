@@ -42,7 +42,7 @@
   		</div>
   		<div class="mb-3">
   			<label for="exampleInputPassword1" class="form-label">Karyawan</label>
-  			<f:input type="text" class="form-control" path="kodeKaryawan" />
+  			<f:input type="text" class="form-control" path="kodeKaryawan" readonly="true"/>
 			<f:errors path="kodeKaryawan"/>
   		</div>
   		<div class="mb-3">

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.dto.MstCustomerDto;
 import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstKotaDto;
 import com.mvc.dto.MstSupplierDto;
@@ -69,6 +70,7 @@ private String cekSupplier = "";
 		cekSupplier = "add";
 		model.addAttribute("dto", dto);
 		model.addAttribute("kota", kotas);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		model.addAttribute("username", kar.getNamaKaryawan());
 		return "addSupplier";
 		
@@ -132,5 +134,16 @@ private String cekSupplier = "";
 		
 		return "redirect:/supplier/all";
 	}
-
+	
+	public String kodeTerakhir(){
+		String out = ""; 
+		List<MstSupplierDto> kodeTerakhir = svc.findAll();
+		if(kodeTerakhir.size() < 10){
+			out = String.format(", Kode supplier yang terdaftar terakhir S00%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
+			out = String.format(", Kode supplier yang terdaftar terakhir S0%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 100){
+			out = String.format(", Kode supplier yang terdaftar terakhir S%d", kodeTerakhir.size());
+		}return out;
+	}
 }

@@ -164,17 +164,17 @@
 	<f:form action="${pageContext.request.contextPath}/customer/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Customer</h1>
-				<f:input type="text" path="kodeCustomer" class="form-control" placeholder="Masukan kode customer${kodeTerakhir}"/>
+				<f:input type="text" path="kodeCustomer" class="form-control" readonly="true"/>
 				<f:errors path="kodeCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Customer</h1>
-				<f:input type="text" class="form-control" path="namaCustomer" placeholder="Masukan nama kota"/>
+				<f:input type="text" class="form-control" path="namaCustomer"/>
 				<f:errors path="namaCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 			<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Email</h1>
-				<f:input type="email" class="form-control" path="emailCustomer" placeholder="Masukan email"/>
+				<f:input type="email" class="form-control" path="emailCustomer"/>
 				<f:errors path="emailCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 	  		<div class="mb-3">
@@ -187,7 +187,7 @@
 	  		</div>			
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Alamat</h1>
-				<f:textarea class="form-control" path="alamatCustomer" placeholder="Masukan Alamat" rows="3"/>
+				<f:textarea class="form-control" path="alamatCustomer"  rows="3"/>
 				<f:errors path="alamatCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>			
 	  		<div class="mb-3">

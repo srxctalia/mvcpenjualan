@@ -40,6 +40,7 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 			dto.setNamaKaryawan(kar.getNamaKaryawan());
 			dto.setPassword(kar.getPassword());
 			dto.setUsername(kar.getUsername());
+			dto.setLevel(kar.getLevel());
 			
 			dtos.add(dto);
 		}
@@ -59,6 +60,7 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 			dto.setNamaKaryawan(kar.getNamaKaryawan());
 			dto.setPassword(kar.getPassword());
 			dto.setUsername(kar.getUsername());
+			dto.setLevel(kar.getLevel());
 			
 			return dto;
 		}
@@ -72,6 +74,7 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 		kar.setNamaKaryawan(dto.getNamaKaryawan());
 		kar.setUsername(dto.getUsername());
 		kar.setPassword(dto.getPassword());
+		kar.setLevel(dto.getLevel());
 		daoKar.save(kar);
 	}
 	
@@ -98,6 +101,7 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 			dto.setNamaKaryawan(kar.getNamaKaryawan());
 			dto.setPassword(kar.getPassword());
 			dto.setUsername(kar.getUsername());
+			dto.setLevel(kar.getFormattedLevel());
 			dtos.add(dto);
 		}
 		int jumlahData = daoKar.countData(cari);

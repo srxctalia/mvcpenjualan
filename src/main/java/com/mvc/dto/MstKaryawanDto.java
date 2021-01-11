@@ -1,11 +1,18 @@
 package com.mvc.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class MstKaryawanDto {
+	@NotEmpty(message="Please fill kode karyawan")
 	private String kodeKaryawan;
+	@NotEmpty(message="Please fill nama karyawan")
 	private String namaKaryawan;
+	@NotEmpty(message="Please fill password")
 	private String password;
+	@NotEmpty(message="Please fill username")
 	private String username;
-	private int level;
+	@NotEmpty(message="Please fill level karyawan")
+	private String level;
 	
 	public String getKodeKaryawan() {
 		return kodeKaryawan;
@@ -31,12 +38,11 @@ public class MstKaryawanDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public int getLevel() {
+	public String getLevel() { 
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
-	
-	
+
 }

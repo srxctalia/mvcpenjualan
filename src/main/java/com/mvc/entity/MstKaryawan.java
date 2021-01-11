@@ -75,5 +75,14 @@ public class MstKaryawan implements Serializable {
 		this.level = level;
 	}
 
+	public String getFormattedLevel(){
+		String lvl = "";
+		if(this.level.equals("1")){
+			lvl = "Admin";
+		} else {
+			lvl = "Staff";
+		}
+		return lvl;
+	}
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.dto.MstKaryawanDto;
 import com.mvc.dto.MstProvinsiDto;
 import com.mvc.service.MstProvinsiSvc;
 
@@ -27,21 +28,31 @@ public class MstProvinsiCtl {
 	private MstProvinsiSvc svc;
 	String kondisi = "";
 	
+//	@RequestMapping("add")
+//	public String add(Model model, HttpServletRequest request){
+//		HttpSession session = request.getSession();
+//		if(session.getAttribute("login") == null){
+//			return "redirect:/user/login";
+//		} else {
+//			MstProvinsiDto dto = new MstProvinsiDto();
+//			model.addAttribute("dto", dto);
+//			return "addProvinsi";
+//		}
+//	}
+	
 	@RequestMapping("add")
-	public String add(Model model, HttpServletRequest request){
-		HttpSession session = request.getSession();
-		if(session.getAttribute("login") == null){
-			return "redirect:/user/login";
-		} else {
+	public String add(Model model){
 			MstProvinsiDto dto = new MstProvinsiDto();
 			model.addAttribute("dto", dto);
+			model.addAttribute("kodeTerakhir", kodeTerakhir());
+			kondisi = "add";
 			return "addProvinsi";
-		}
 	}
 	
 	@RequestMapping("save")
-	public String save(@Valid @ModelAttribute("dto") MstProvinsiDto dto, BindingResult result){
-		MstProvinsiDto findOne = svc.findOneProvinsi(dto.getKodeProvinsi());
+	public String save(@Valid @ModelAttribute("dto") MstProvinsiDto dto, BindingResult result,
+			Model model){
+		MstProvinsiDto findOne = svc.findOneProvinsi(dto.getKodeProvinsi().toUpperCase());
 		if (findOne == null){
 			if(result.hasErrors()){
 				return "addProvinsi";
@@ -51,7 +62,8 @@ public class MstProvinsiCtl {
 			}
 		} else {
 			if(kondisi.equalsIgnoreCase("add")){
-				dto.setKodeProvinsi("Kode Karyawan sudah ada! masukkan input lain.");
+				model.addAttribute("valid", "Kode Provinsi Sudah Ada");
+				model.addAttribute("stat", 1);
 				return "addProvinsi";
 			} else {
 				if(result.hasErrors()){
@@ -64,17 +76,17 @@ public class MstProvinsiCtl {
 		}
 	}
 	
-	@RequestMapping("findone/{kode}")
-	public String detail(Model model, @PathVariable("kode") String kode){
-		MstProvinsiDto dto = svc.findOneProvinsi(kode);
+	@RequestMapping("findone/{kodeProvinsi}")
+	public String detail(Model model, @PathVariable("kodeProvinsi") String kodeProvinsi){
+		MstProvinsiDto dto = svc.findOneProvinsi(kodeProvinsi);
 		model.addAttribute("dto", dto);
 		kondisi = "detail";
 		return "editProvinsi";
 	}
 	
-	@RequestMapping("delete/{kode}")
-	public String delete(@PathVariable("kode") String kode){
-		svc.deleteProvinsi(kode);
+	@RequestMapping("delete/{kodeProvinsi}")
+	public String delete(@PathVariable("kodeProvinsi") String kodeProvinsi){
+		svc.deleteProvinsi(kodeProvinsi);
 		return "redirect:/provinsi/pageprovinsi";
 	}
 	
@@ -109,8 +121,27 @@ public class MstProvinsiCtl {
 			model.addAttribute("provinsi", list);
 			model.addAttribute("total", totalHalaman);
 			
+			if(cari.length() > 0){
+				String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
+				model.addAttribute("keterangan",out);
+			}
+			if(list.isEmpty()){
+				String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
+				model.addAttribute("penjelasan",out);
+			}
+			
 			return "pageProvinsi";	
 	}
 	
-	
+	public String kodeTerakhir(){
+		String out = ""; 
+		List<MstProvinsiDto> kodeTerakhir = svc.findAllProvinsi();
+		if(kodeTerakhir.size() < 10){
+			out = String.format(", Kode Karyawan yang terdaftar terakhir P00%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
+			out = String.format(", Kode Karyawan yang terdaftar terakhir P0%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 100){
+			out = String.format(", Kode Karyawan yang terdaftar terakhir P%d", kodeTerakhir.size());
+		}return out;
+	}
 }

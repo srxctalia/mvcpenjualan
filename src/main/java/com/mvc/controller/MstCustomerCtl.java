@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstCustomerDto;
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstKotaDto;
 import com.mvc.service.MstCustomerSvc;
 import com.mvc.service.MstKotaSvc;
@@ -41,35 +42,35 @@ public class MstCustomerCtl {
 			HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
 			return "redirect:/karyawan/login";
-		} 
+		}
 		String username = (String) session.getAttribute("login");
 		Map<String, Object> map = svc.listAll(cari, page);
 		List<MstCustomerDto> list = (List<MstCustomerDto>) map.get("list");
 		int totalHalaman = (int) map.get("jumlah");
+		
 		model.addAttribute("customer", list);
 		model.addAttribute("total", totalHalaman);
-		model.addAttribute("username", username);
+		model.addAttribute("username", kar.getNamaKaryawan());
 		return "customer";
 	}
 	
 	@RequestMapping("/add")
 	public String save(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
 			return "redirect:/karyawan/login";
-		} 
+		}
 		MstCustomerDto dto = new MstCustomerDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
-		Map<String, String> listkota = new HashMap<>();
-		for (MstKotaDto kota : kotas ){
-			listkota.put(kota.getKodeKota(), kota.getNamaKota());
-		}
 		
 		cekCustomer = "add";
 		model.addAttribute("dto", dto);
-		model.addAttribute("kota", listkota);
+		model.addAttribute("kota", kotas);
+		model.addAttribute("username", kar.getNamaKaryawan());
 		return "addCustomer";
 		
 	}
@@ -77,19 +78,17 @@ public class MstCustomerCtl {
 	@RequestMapping("/edit/{kodeCustomer}")
 	public String edit(Model model, @PathVariable("kodeCustomer")String kodeCustomer, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
 			return "redirect:/karyawan/login";
-		} 
-		MstCustomerDto dto = svc.findOne(kodeCustomer);
-		List<MstKotaDto> listkota = svcK.findAllKota();
-		Map<String, String> mapkota = new HashMap<>();
-		for (MstKotaDto kota : listkota ){
-			mapkota.put(kota.getKodeKota(), kota.getNamaKota());
 		}
+		MstCustomerDto dto = svc.findOne(kodeCustomer);
+		List<MstKotaDto> kotas = svcK.findAllKota();
 		
 		cekCustomer = "edit";
 		model.addAttribute("dto", dto);
-		model.addAttribute("kota", mapkota);
+		model.addAttribute("kota", kotas);
+		model.addAttribute("username", kar.getNamaKaryawan());
 		return "editCustomer";
 		
 	}

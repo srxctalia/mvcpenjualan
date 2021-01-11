@@ -81,6 +81,7 @@ public class MstKotaCtl {
 		}else{
 			if(kondisi.equalsIgnoreCase("add")){
 				model.addAttribute("valid", "Kode Kota Sudah Ada");
+				model.addAttribute("stat", 1);
 				return "addKota";
 			}else{
 				if(result.hasErrors()){

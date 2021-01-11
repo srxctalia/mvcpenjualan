@@ -113,6 +113,7 @@ private String cekSupplier = "";
 				}
 				return "addSupplier";
 			}
+			model.addAttribute("stat", 1);
 			model.addAttribute("validasi", "kode supplier sudah ada");
 			return "addSupplier";
 		}

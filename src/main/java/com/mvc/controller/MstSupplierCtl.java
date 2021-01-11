@@ -111,7 +111,10 @@ private String cekSupplier = "";
 					svc.save(dto);
 					return "redirect:/supplier/all";				
 				}
-				return "addSupplier";
+				List<MstKotaDto> kotas = svcK.findAllKota();
+				model.addAttribute("dto", dto);
+				model.addAttribute("kota", kotas);
+				return "editSupplier";
 			}
 			model.addAttribute("stat", 1);
 			model.addAttribute("validasi", "kode supplier sudah ada");

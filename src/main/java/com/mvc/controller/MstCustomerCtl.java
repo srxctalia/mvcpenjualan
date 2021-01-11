@@ -111,7 +111,10 @@ public class MstCustomerCtl {
 					svc.save(dto);
 					return "redirect:/customer/all";				
 				}
-				return "addCustomer";
+				List<MstKotaDto> kotas = svcK.findAllKota();
+				model.addAttribute("dto", dto);
+				model.addAttribute("kota", kotas);
+				return "editCustomer";
 			}
 			model.addAttribute("stat", 1);
 			model.addAttribute("validasi", "kode customer sudah ada");

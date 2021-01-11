@@ -35,14 +35,24 @@
 			      </f:select>
 	  		</div>
 	  		<div class="mb-3">
+	    		<label for="exampleInputPassword1" class="form-label">Harga Satuan</label>
+				<f:input type="text" class="form-control" path="hargaSatuan" placeholder="Masukan qty"/>
+				<f:errors path="hargaSatuan"/>
+	  		</div>
+	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Qty</label>
-				<f:input type="text" class="form-control" path="qty" placeholder="Masukan qty"/>
+				<f:input type="number" class="form-control" path="qty" placeholder="Masukan qty"/>
 				<f:errors path="qty"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<label for="exampleInputPassword1" class="form-label">Diskon</label>
-				<f:textarea class="form-control" path="diskon" placeholder="Masukan diskon" rows="3"/>
+				<f:input class="form-control" path="diskon" placeholder="Masukan diskon"/>
 				<f:errors path="diskon"/>
+	  		</div>
+	  		<div class="mb-3">
+	    		<label for="exampleInputPassword1" class="form-label">Sub Total</label>
+				<f:input class="form-control" path="subtotal" placeholder="Masukan sub total"/>
+				<f:errors path="subtotal"/>
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

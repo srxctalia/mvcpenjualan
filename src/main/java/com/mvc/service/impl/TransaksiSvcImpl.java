@@ -112,19 +112,18 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	@Override
 	public TrHeaderPenjualanDto findOneHeaderDetail(String noNota) {
 		// TODO Auto-generated method stub
-		Object[] o = daoH.findOnePenjualan(noNota);
+		TrHeaderPenjualanPK pk = new TrHeaderPenjualanPK();
+		pk.setNoNota(noNota);
+		TrHeaderPenjualan th = daoH.findOne(pk);
 		
-		TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
-		TrHeaderPenjualan th = (TrHeaderPenjualan) o[0];
 		if(th != null){
+			TrHeaderPenjualanDto dto = new TrHeaderPenjualanDto();
 			dto.setGlobalDiskon(th.getGlobalDiskon());
 			dto.setHargaTotal(th.getHargaTotal());
 			dto.setKodeCustomer(th.getKodeCustomer());
 			dto.setKodeKaryawan(th.getKodeKaryawan());
 			dto.setNoNota(th.getNoNota());
 			dto.setTanggalTransaksi(th.getTanggalTransaksi());
-			dto.setNamaCustomer((String) o[2]);
-			dto.setNamaKaryawan((String) o[1]);
 
 			dto.setDetailTransaksi(findAllDetail(noNota));
 			return dto;

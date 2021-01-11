@@ -7,6 +7,10 @@ import java.util.Map;
 
 
 
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 /*import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;*/
 import javax.validation.Valid;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstBarangDto;
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstSupplierDto;
 import com.mvc.service.MstBarangSvc;
 import com.mvc.service.MstSupplierSvc;
@@ -37,12 +42,20 @@ public class MstBarangCtl {
 	@RequestMapping("page-barang")
 	public String listBarangWithPaging(Model model,
 			@RequestParam(value = "cari",defaultValue = "", required = false) String cari,
-			@RequestParam(value = "page",defaultValue = "1", required = false) int page) {
+			@RequestParam(value = "page",defaultValue = "1", required = false) int page,
+			HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+			if (kar == null){
+				return "redirect:/karyawan/login";
+			} else {
+				
 			Map<String,Object> map = svc.listAllPageBarang(cari, page);
 			List<MstBarangDto> list = (List<MstBarangDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
 			model.addAttribute("barang", list);
 			model.addAttribute("total",totalHalaman);
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			if(cari.length() > 0){
 				String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
 				model.addAttribute("keterangan",out);
@@ -52,11 +65,17 @@ public class MstBarangCtl {
 				model.addAttribute("penjelasan",out);
 			}
 			return "pageBarang";
-		
+			}
 	}
 	
 	@RequestMapping("add")
-	public String add(Model model){
+	public String add(Model model,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
 		MstBarangDto dto = new MstBarangDto();
 		List<MstSupplierDto> sup = svcSup.findAll();
 		Map<String, String> listSup = new HashMap<>();
@@ -66,9 +85,10 @@ public class MstBarangCtl {
 		model.addAttribute("dto",dto);
 		model.addAttribute("supplier", listSup);
 		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		kondisi = "add";
 		return "addBarang";
-		
+		}
 	}
 	
 	@RequestMapping("save")
@@ -100,7 +120,13 @@ public class MstBarangCtl {
 	}
 	
 	@RequestMapping("detail/{kodeBarang}")
-	public String detail(Model model, @PathVariable("kodeBarang") String kodeBarang){
+	public String detail(Model model, @PathVariable("kodeBarang") String kodeBarang,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
 		MstBarangDto dto = svc.findOneBarang(kodeBarang);
 		List<MstSupplierDto> sup = svcSup.findAll();
 		Map<String, String> listSup = new HashMap<>();
@@ -109,8 +135,10 @@ public class MstBarangCtl {
 		}
 		model.addAttribute("dto",dto);
 		model.addAttribute("supplier", listSup);
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		kondisi="detail";
 		return "editBarang";
+		}
 	}
 	
 	@RequestMapping("delete/{kodeBarang}")

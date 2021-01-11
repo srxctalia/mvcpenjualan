@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
+
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstKotaDto;
 import com.mvc.dto.MstProvinsiDto;
 import com.mvc.service.MstKotaSvc;
@@ -33,7 +38,14 @@ public class MstKotaCtl {
 	@RequestMapping("page-kota")
 	public String listBarangWithPaging(Model model,
 			@RequestParam(value = "cari",defaultValue = "", required = false) String cari,
-			@RequestParam(value = "page",defaultValue = "1", required = false) int page) {
+			@RequestParam(value = "page",defaultValue = "1", required = false) int page
+			,HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+			if (kar == null){
+				return "redirect:/karyawan/login";
+			} else {
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			Map<String,Object> map = svc.listAllPageKota(cari, page);
 			List<MstKotaDto> list = (List<MstKotaDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
@@ -48,11 +60,18 @@ public class MstKotaCtl {
 				model.addAttribute("penjelasan",out);
 			}
 			return "pageKota";
+			}
 		
 	}
 	
 	@RequestMapping("add")
-	public String add(Model model){
+	public String add(Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
 		Map<String, String> listProv = new HashMap<>();
 		for (MstProvinsiDto p : prov ){
@@ -64,6 +83,7 @@ public class MstKotaCtl {
 		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		kondisi = "add";
 		return "addKota";
+		}
 		
 	}
 	
@@ -96,7 +116,14 @@ public class MstKotaCtl {
 	}
 	
 	@RequestMapping("detail/{kodeKota}")
-	public String detail(Model model, @PathVariable("kodeKota") String kodeKota){
+	public String detail(Model model, @PathVariable("kodeKota") String kodeKota
+			,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstKotaDto dto = svc.findOneKota(kodeKota);
 		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
 		Map<String, String> listProv = new HashMap<>();
@@ -107,6 +134,7 @@ public class MstKotaCtl {
 		model.addAttribute("provinsi", listProv);
 		kondisi ="detail";
 		return "editKota";
+		}
 	}
 	
 	@RequestMapping("delete/{kodeKota}")

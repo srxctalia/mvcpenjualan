@@ -31,12 +31,19 @@ public class MstKaryawanCtl {
 	String kondisi = "";
 	
 	@RequestMapping("add")
-	public String add(Model model){
+	public String add(Model model,HttpServletRequest request){
+			HttpSession session = request.getSession();
+			MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+			if (kar == null){
+				return "redirect:/karyawan/login";
+			} else {
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			MstKaryawanDto dto = new MstKaryawanDto();
 			model.addAttribute("dto", dto);
 			model.addAttribute("kodeTerakhir", kodeTerakhir());
 			kondisi = "add";
 			return "addKaryawan";
+			}
 	}
 	
 	@RequestMapping("save")
@@ -85,11 +92,19 @@ public class MstKaryawanCtl {
 	}
 	
 	@RequestMapping("findone/{kodeKaryawan}")
-	public String detail(Model model, @PathVariable("kodeKaryawan") String kodeKaryawan){
+	public String detail(Model model, @PathVariable("kodeKaryawan") String kodeKaryawan
+			,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstKaryawanDto dto = svc.findOneKaryawan(kodeKaryawan);
 		model.addAttribute("dto", dto);
 		kondisi = "detail";
 		return "editKaryawan";
+		}
 	}
 	
 	@RequestMapping("delete/{kodeKaryawan}")
@@ -108,6 +123,7 @@ public class MstKaryawanCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			if (kar.getLevel().equals("1")){
 				Map<String, Object> map = svc.listAllPageKaryawan(cari, page);
 				List<MstKaryawanDto> list = (List<MstKaryawanDto>) map.get("list");
@@ -127,7 +143,6 @@ public class MstKaryawanCtl {
 			} else {			
 				MstKaryawanDto seorang = svc.findOneKaryawan(kar.getKodeKaryawan());
 				model.addAttribute("staff", seorang);
-				model.addAttribute("usr", kar.getNamaKaryawan());
 				return "pageKaryawan";			
 			}
 		}

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.dto.MstKaryawanDto;
+import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstProvinsiDto;
 import com.mvc.service.MstProvinsiSvc;
 
@@ -41,12 +42,19 @@ public class MstProvinsiCtl {
 //	}
 	
 	@RequestMapping("add")
-	public String add(Model model){
+	public String add(Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+		model.addAttribute("usr", kar.getNamaKaryawan());
 			MstProvinsiDto dto = new MstProvinsiDto();
 			model.addAttribute("dto", dto);
 			model.addAttribute("kodeTerakhir", kodeTerakhir());
 			kondisi = "add";
 			return "addProvinsi";
+		}
 	}
 	
 	@RequestMapping("save")
@@ -77,11 +85,18 @@ public class MstProvinsiCtl {
 	}
 	
 	@RequestMapping("findone/{kodeProvinsi}")
-	public String detail(Model model, @PathVariable("kodeProvinsi") String kodeProvinsi){
+	public String detail(Model model, @PathVariable("kodeProvinsi") String kodeProvinsi,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
+			return "redirect:/karyawan/login";
+		} else {
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstProvinsiDto dto = svc.findOneProvinsi(kodeProvinsi);
 		model.addAttribute("dto", dto);
 		kondisi = "detail";
 		return "editProvinsi";
+		}
 	}
 	
 	@RequestMapping("delete/{kodeProvinsi}")
@@ -114,7 +129,14 @@ public class MstProvinsiCtl {
 	@RequestMapping("pageprovinsi")
 	public String listPendudukWithPaging(Model model, 
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
-			@RequestParam(value = "page", defaultValue = "1", required = false) int page){
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page
+			,HttpServletRequest request){
+			HttpSession session = request.getSession();
+			MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+			if (kar == null){
+				return "redirect:/karyawan/login";
+			} else {
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			Map<String, Object> map = svc.listAllPageProvinsi(cari, page);
 			List<MstProvinsiDto> list = (List<MstProvinsiDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
@@ -130,7 +152,8 @@ public class MstProvinsiCtl {
 				model.addAttribute("penjelasan",out);
 			}
 			
-			return "pageProvinsi";	
+			return "pageProvinsi";
+		}
 	}
 	
 	public String kodeTerakhir(){

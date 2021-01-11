@@ -163,7 +163,7 @@
                         <div class="card-body">
                             <div class="float-sm-right mb-3">
                             <input type="button" value="Tambah Barang" class="btn btn-primary mr-2"
-							onclick="location.href='${pageContext.request.contextPath}/barang/add';">
+							onclick="location.href='${pageContext.request.contextPath}/transaksi/add';">
 							</div>
 							<div class="d-sm-flex align-items-center justify-content-between mb-1r">
 	                        <h1 class="h6 mb-0 text-gray-600">${keterangan}</h1>

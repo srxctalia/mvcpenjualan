@@ -65,10 +65,6 @@ private String cekSupplier = "";
 		}
 		MstSupplierDto dto = new MstSupplierDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
-//		Map<String, String> listkota = new HashMap<>();
-//		for (MstKotaDto kota : kotas ){
-//			listkota.put(kota.getKodeKota(), kota.getNamaKota());
-//		}
 		
 		cekSupplier = "add";
 		model.addAttribute("dto", dto);
@@ -78,14 +74,14 @@ private String cekSupplier = "";
 		
 	}
 	
-	@RequestMapping("/edit")
-	public String edit(Model model, HttpServletRequest request){
+	@RequestMapping("/edit/{kodeSupplier}")
+	public String edit(@PathVariable("kodeSupplier")String kodeSupplier, Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
-		MstSupplierDto dto = new MstSupplierDto();
+		MstSupplierDto dto = svc.findOne(kodeSupplier);
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		
 		cekSupplier = "edit";

@@ -114,6 +114,7 @@ public class MstCustomerCtl {
 				}
 				return "addCustomer";
 			}
+			model.addAttribute("stat", 1);
 			model.addAttribute("validasi", "kode customer sudah ada");
 			return "addCustomer";
 		}

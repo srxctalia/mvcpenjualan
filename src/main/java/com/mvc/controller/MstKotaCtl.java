@@ -119,11 +119,11 @@ public class MstKotaCtl {
 		String out = ""; 
 		List<MstKotaDto> kodeTerakhir = svc.findAllKota();
 		if(kodeTerakhir.size() < 10){
-			out = String.format(", Kode kota yang terdaftar terakhir B00%d", kodeTerakhir.size());
+			out = String.format(", Kode kota yang terdaftar terakhir K00%d", kodeTerakhir.size());
 		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
-			out = String.format(", Kode kota yang terdaftar terakhir B0%d", kodeTerakhir.size());
+			out = String.format(", Kode kota yang terdaftar terakhir K0%d", kodeTerakhir.size());
 		}else if(kodeTerakhir.size() > 100){
-			out = String.format(", Kode kota yang terdaftar terakhir B%d", kodeTerakhir.size());
+			out = String.format(", Kode kota yang terdaftar terakhir K%d", kodeTerakhir.size());
 		}return out;
 	}
 }

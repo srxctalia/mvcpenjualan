@@ -64,7 +64,7 @@ public class MstKotaSvcImpl implements MstKotaSvc{
 	@Override
 	public void saveKota(MstKotaDto dto) {
 		MstKota kot = new MstKota();
-		kot.setKodeKota(dto.getKodeKota().toUpperCase());
+		kot.setKodeKota(dto.getKodeKota());
 		kot.setKodeProvinsi(dto.getKodeProvinsi());
 		kot.setNamaKota(dto.getNamaKota());
 		dao.save(kot);

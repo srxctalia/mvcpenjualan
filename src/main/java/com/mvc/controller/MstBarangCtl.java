@@ -74,7 +74,7 @@ public class MstBarangCtl {
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstBarangDto dto, 
 			BindingResult result, Model model){ 
-		MstBarangDto findOne = svc.findOneBarang(dto.getKodeBarang().toUpperCase());
+		MstBarangDto findOne = svc.findOneBarang(dto.getKodeBarang());
 		if(findOne == null){
 			if(result.hasErrors()){
 				return "addBarang";

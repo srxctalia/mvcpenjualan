@@ -70,7 +70,7 @@ public class MstKotaCtl {
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstKotaDto dto, 
 			BindingResult result, Model model){ 
-		MstKotaDto findOne = svc.findOneKota(dto.getKodeKota().toUpperCase());
+		MstKotaDto findOne = svc.findOneKota(dto.getKodeKota());
 		if(findOne == null){
 			if(result.hasErrors()){
 				return "addKota";

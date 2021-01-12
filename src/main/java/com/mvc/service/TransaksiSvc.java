@@ -19,4 +19,5 @@ public interface TransaksiSvc {
 	public TrDetailPenjualanDto findOneDetaiil(String kodeDetail);
 	public List<TrHeaderPenjualanDto> findAllHeader();
 	public void deleteAllDetailByNoNota(String noNota);
+	public List<TrDetailPenjualanDto> findAllDetail();
 }

@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mvc.dao.MstCustomerDao;
+
 import com.mvc.dao.TrDetailPenjualanDao;
 import com.mvc.dao.TrHeaderPenjualanDao;
 import com.mvc.dto.TrDetailPenjualanDto;
@@ -56,6 +56,26 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 			dto.setQty(td.getQty());
 			dto.setSubtotal(td.getSubtotal());
 			dto.setNamaBarang((String) o[1]);
+			
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+	@Override
+	public List<TrDetailPenjualanDto> findAllDetail() {
+		// TODO Auto-generated method stub
+		List<TrDetailPenjualanDto> dtos = new ArrayList<>();
+		List<TrDetailPenjualan> list = daoD.findAll();
+		for(TrDetailPenjualan td : list){
+			TrDetailPenjualanDto dto = new TrDetailPenjualanDto();
+			
+			dto.setDiskon(td.getDiskon());
+			dto.setHargaSatuan(td.getHargaSatuan());
+			dto.setKodeBarang(td.getKodeBarang());
+			dto.setKodeDetail(td.getKodeDetail());
+			dto.setNoNota(td.getNoNota());
+			dto.setQty(td.getQty());
+			dto.setSubtotal(td.getSubtotal());
 			
 			dtos.add(dto);
 		}

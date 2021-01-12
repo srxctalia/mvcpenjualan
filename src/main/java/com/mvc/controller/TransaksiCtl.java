@@ -200,6 +200,7 @@ public class TransaksiCtl {
 			return "redirect:/karyawan/login";
 		}
 		List<MstBarangDto> listBarang = svcB.findAllBarang();
+		model.addAttribute("kodeTerakhir", kodeTerakhirDetail());
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		model.addAttribute("barang", listBarang);
 		model.addAttribute("dtoD", dtoDetail);
@@ -423,6 +424,18 @@ public class TransaksiCtl {
 			out = String.format(", No Nota yang terdaftar terakhir TR0%d", kodeTerakhir.size());
 		}else if(kodeTerakhir.size() > 100){
 			out = String.format(", No Nota yang terdaftar terakhir TR%d", kodeTerakhir.size());
+		}return out;
+	}
+	
+	public String kodeTerakhirDetail(){
+		String out = ""; 
+		List<TrDetailPenjualanDto> kodeTerakhir = svcT.findAllDetail();
+		if(kodeTerakhir.size() < 10){
+			out = String.format(", Kode Detail yang terdaftar terakhir D00%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
+			out = String.format(", Kode Detail yang terdaftar terakhir D0%d", kodeTerakhir.size());
+		}else if(kodeTerakhir.size() > 100){
+			out = String.format(", Kode Detail yang terdaftar terakhir D%d", kodeTerakhir.size());
 		}return out;
 	}
 	

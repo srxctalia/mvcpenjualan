@@ -160,12 +160,12 @@
 	<f:form action="${pageContext.request.contextPath}/customer/save" modelAttribute="dto">
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Customer</h1>
-				<f:input type="text" path="kodeCustomer" class="form-control" placeholder="Masukan kode barang${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
+				<f:input type="text" path="kodeCustomer" class="form-control" placeholder="Masukan kode customer${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
 				<f:errors path="kodeCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Customer</h1>
-				<f:input type="text" class="form-control" path="namaCustomer" placeholder="Masukan nama kota"/>
+				<f:input type="text" class="form-control" path="namaCustomer" placeholder="Masukan nama customer"/>
 				<f:errors path="namaCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 			<div class="mb-3">

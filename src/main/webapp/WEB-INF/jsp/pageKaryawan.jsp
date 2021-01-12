@@ -161,13 +161,10 @@
 					</div>
 					
 					<div class="card-body">
-                            <c:set var="cek"  value="${stat}"/>  <!-- CHEK SINI AMA CTL ADD NYA -->
-							<c:if test="${cek == 3}">	 
-								<div class="float-sm-right mb-3">
-		                            <input type="button" value="Tambah Karyawan" class="btn btn-primary mr-2"
-									onclick="location.href='${pageContext.request.contextPath}/karyawan/add';">
-								</div>
-  							</c:if>							
+							<div class="float-sm-right mb-3">
+	                            <input type="button" value="Tambah Karyawan" class="btn btn-primary mr-2"
+								onclick="location.href='${pageContext.request.contextPath}/karyawan/add';">
+							</div>				
 							<div class="d-sm-flex align-items-center justify-content-between mb-1r">
 	                        <h1 class="h6 mb-0 text-gray-600">${keterangan}</h1>
 	                   	</div>
@@ -199,6 +196,7 @@
 								</td> 
 							</tr>
 						</c:forEach>
+						<c:set var="cek"  value="${stat}"/>  <!-- CHEK SINI AMA CTL ADD NYA -->
 						<c:if test="${cek == 2}">	 
 						<div class="card-body">
                             <tr>

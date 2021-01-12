@@ -40,7 +40,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/dashboard/main">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -55,19 +55,19 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-sitemap fa-cog"></i>
                     <span>Masters</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">List Master:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/customer/all">Customer</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/supplier/all">Supplier</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/barang/page-barang">Barang</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/provinsi/pageprovinsi">Provinsi</a>
+                        <a class="collapse-item active" href="${pageContext.request.contextPath}/provinsi/pageprovinsi">Provinsi</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/kota/page-kota">Kota</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/karyawan/pagekaryawan">Karyawan</a>
                     </div>

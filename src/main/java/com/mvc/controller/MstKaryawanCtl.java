@@ -130,6 +130,7 @@ public class MstKaryawanCtl {
 				int totalHalaman = (int) map.get("jumlah");
 				model.addAttribute("karyawan", list);
 				model.addAttribute("total", totalHalaman);
+				model.addAttribute("stat", 3);
 				
 				if(cari.length() > 0){
 					String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
@@ -143,6 +144,7 @@ public class MstKaryawanCtl {
 			} else {			
 				MstKaryawanDto seorang = svc.findOneKaryawan(kar.getKodeKaryawan());
 				model.addAttribute("staff", seorang);
+				model.addAttribute("stat", 2);
 				return "pageKaryawan";			
 			}
 		}

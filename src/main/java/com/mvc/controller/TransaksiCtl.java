@@ -71,6 +71,14 @@ public class TransaksiCtl {
 
 			model.addAttribute("transaksi", list);
 			model.addAttribute("total", totalHalaman);
+			if(cari.length() > 0){
+				String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
+				model.addAttribute("keterangan",out);
+			}
+			if(list.isEmpty()){
+				String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
+				model.addAttribute("penjelasan",out);
+			}
 			return "transaksi";
 		} else {
 			Map<String, Object> map = svcT.listAll(kar.getKodeKaryawan(), page);
@@ -80,6 +88,7 @@ public class TransaksiCtl {
 
 			model.addAttribute("transaksi", list);
 			model.addAttribute("total", totalHalaman);
+			
 			return "transaksi";
 		}
 	}

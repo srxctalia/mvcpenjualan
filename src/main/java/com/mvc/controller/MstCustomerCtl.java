@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
 import com.mvc.dto.MstCustomerDto;
 import com.mvc.dto.MstKaryawanLoginDto;
 import com.mvc.dto.MstKotaDto;
@@ -55,6 +56,14 @@ public class MstCustomerCtl {
 		model.addAttribute("customer", list);
 		model.addAttribute("total", totalHalaman);
 		model.addAttribute("username", kar.getNamaKaryawan());
+		if(cari.length() > 0){
+			String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
+			model.addAttribute("keterangan",out);
+		}
+		if(list.isEmpty()){
+			String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
+			model.addAttribute("penjelasan",out);
+		}
 		return "customer";
 	}
 	

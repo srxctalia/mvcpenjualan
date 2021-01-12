@@ -54,6 +54,14 @@ private String cekSupplier = "";
 		model.addAttribute("supplier", list);
 		model.addAttribute("total", totalHalaman);
 		model.addAttribute("username", kar.getNamaKaryawan());
+		if(cari.length() > 0){
+			String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
+			model.addAttribute("keterangan",out);
+		}
+		if(list.isEmpty()){
+			String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
+			model.addAttribute("penjelasan",out);
+		}
 		return "supplier";
 	}
 	

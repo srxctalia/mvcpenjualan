@@ -241,7 +241,7 @@ public class TransaksiCtl {
 								}
 							}
 						}
-						MstBarangDto findOneBr = svcB.findOneBarang(dtoD.getKodeBarang();
+						MstBarangDto findOneBr = svcB.findOneBarang(dtoD.getKodeBarang());
 						if (findOneBr.getStokBarang() < dtoD.getQty()){
 							model.addAttribute("stok", "Stok barang tidak tercukupi");
 						}

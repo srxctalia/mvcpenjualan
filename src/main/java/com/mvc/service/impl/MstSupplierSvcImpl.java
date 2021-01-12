@@ -60,7 +60,7 @@ public class MstSupplierSvcImpl implements MstSupplierSvc {
 		MstSupplierPK pk = new MstSupplierPK();
 		pk.setKodeSupplier(kodeSupplier);
 		MstSupplier cs = dao.findOne(pk);
-		if (pk != null){
+		if (cs != null){
 			MstSupplierDto dto = new MstSupplierDto();
 			dto.setKodeSupplier(cs.getKodeSupplier());
 			dto.setNamaSupplier(cs.getNamaSupplier());

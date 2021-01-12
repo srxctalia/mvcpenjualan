@@ -14,7 +14,7 @@ public interface TrHeaderPenjualanDao extends JpaRepository<TrHeaderPenjualan, T
 	@Query("select a,b.namaKaryawan,c.namaCustomer "
 			+ "from TrHeaderPenjualan as a,MstKaryawan as b,MstCustomer as c "
 			+ "where a.kodeCustomer = c.kodeCustomer AND a.kodeKaryawan = b.kodeKaryawan "
-			+ "AND (a.noNota like %:search% or c.namaCustomer like %:search% or b.namaKaryawan like %:search%) or a.kodeKaryawan like %:search%")
+			+ "AND (a.noNota like %:search% or c.namaCustomer like %:search% or b.namaKaryawan like %:search% or a.kodeKaryawan like %:search%)")
 	public List<Object[]> search(@Param("search") String cari, Pageable pageable);
 	
 	@Query("select a,b.namaKaryawan,c.namaCustomer "

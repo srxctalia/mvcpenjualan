@@ -55,22 +55,15 @@ public class TransaksiCtl {
 			HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session
-				.getAttribute("loginUser");
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
-		
-		session.removeAttribute("dtoH");
-		model.addAttribute("usr", kar.getNamaKaryawan());
 		if (kar.getLevel().equals("1")) {
 			Map<String, Object> map = svcT.listAll(cari, page);
-			List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map
-					.get("list");
+			List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
 
-			model.addAttribute("transaksi", list);
-			model.addAttribute("total", totalHalaman);
 			if(cari.length() > 0){
 				String out = String.format("Berikut Adalah Hasil Pencarian : %s", cari);
 				model.addAttribute("keterangan",out);
@@ -79,6 +72,11 @@ public class TransaksiCtl {
 				String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
 				model.addAttribute("penjelasan",out);
 			}
+			
+			session.removeAttribute("dtoH");
+			model.addAttribute("transaksi", list);
+			model.addAttribute("total", totalHalaman);
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			return "transaksi";
 		} else {
 			Map<String, Object> map = svcT.listAll(kar.getKodeKaryawan(), page);
@@ -88,6 +86,7 @@ public class TransaksiCtl {
 
 			model.addAttribute("transaksi", list);
 			model.addAttribute("total", totalHalaman);
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			
 			return "transaksi";
 		}

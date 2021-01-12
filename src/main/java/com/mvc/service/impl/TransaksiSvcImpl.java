@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mvc.dao.MstCustomerDao;
 import com.mvc.dao.TrDetailPenjualanDao;
 import com.mvc.dao.TrHeaderPenjualanDao;
 import com.mvc.dto.TrDetailPenjualanDto;
@@ -21,6 +22,8 @@ import com.mvc.entity.TrDetailPenjualan;
 import com.mvc.entity.TrDetailPenjualanPK;
 import com.mvc.entity.TrHeaderPenjualan;
 import com.mvc.entity.TrHeaderPenjualanPK;
+import com.mvc.service.MstCustomerSvc;
+import com.mvc.service.MstKaryawanSvc;
 import com.mvc.service.TransaksiSvc;
 
 @Service
@@ -31,6 +34,10 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	TrDetailPenjualanDao daoD;
 	@Autowired
 	TrHeaderPenjualanDao daoH;
+	@Autowired
+	MstCustomerSvc svcC;
+	@Autowired
+	MstKaryawanSvc svcK;
 	
 	@Override
 	public List<TrDetailPenjualanDto> findAllDetail(String noNota) {
@@ -124,6 +131,8 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 			dto.setKodeKaryawan(th.getKodeKaryawan());
 			dto.setNoNota(th.getNoNota());
 			dto.setTanggalTransaksi(th.getTanggalTransaksi());
+			dto.setNamaCustomer(svcC.findOne(th.getKodeCustomer()).getNamaCustomer());
+			dto.setNamaKaryawan(svcK.findOneKaryawan(th.getKodeKaryawan()).getNamaKaryawan());
 
 			dto.setDetailTransaksi(findAllDetail(noNota));
 			return dto;

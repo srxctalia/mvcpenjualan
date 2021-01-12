@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-       <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-       <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,8 +17,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Data Supplier</title>
+<title>View</title>
 </head>
 <body id="page-top">
 
@@ -40,7 +41,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="${pageContext.request.contextPath}/dashboard/main">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -55,17 +56,17 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-sitemap fa-cog"></i>
                     <span>Masters</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">List Master:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/customer/all">Customer</a>
-                        <a class="collapse-item active" href="${pageContext.request.contextPath}/supplier/all">Supplier</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/supplier/all">Supplier</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/barang/page-barang">Barang</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/provinsi/pageprovinsi">Provinsi</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/kota/page-kota">Kota</a>
@@ -109,7 +110,7 @@
                     
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-1r">
-                        <h1 class="h3 mb-0 text-gray-800">Data Supplier</h1>
+                        <h1 class="h3 mb-0 text-gray-800">View : ${dtoH.noNota}</h1>
                     </div>
                     
                     <!-- Topbar Navbar -->
@@ -118,7 +119,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${usr}</span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/static/css/undraw_profile.svg">
                             </a>
@@ -138,78 +139,79 @@
                 <!-- End of Topbar -->
 <div class="container-fluid">
 <!-- Page Heading -->
-<p class="mb-4">Data Supplier yang terdaftar tersedia seperti pada table dibawah.</p>
+<p class="mb-4">Data Transaksi tersedia seperti pada table dibawah.</p>
 
 						<!-- DataTales Example -->
 						<div class="card shadow mb-4">
 						<div class="card-header py-3">
 						<h6 class="m-0 font-weight-bold text-primary">	
-									   
-						<form action="${pageContext.request.contextPath}/supplier/all"
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" name="cari" class="form-control bg-white border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" value="cari" onclick="location.href='${pageContext.request.contextPath}/supplier/all';">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
+						<h1 class="h5 mb-0 text-gray-800">Header Transaksi</h1></h6>
                         </div>
-						</form></h6>
-						
-                        </div>
+                        
                         <div class="card-body">
-                            <div class="float-sm-right mb-3">
-                            <input type="button" value="Tambah Supplier" class="btn btn-primary mr-2"
-							onclick="location.href='${pageContext.request.contextPath}/supplier/add';">
-							</div>
-							<div class="d-sm-flex align-items-center justify-content-between mb-1r">
-	                        <h1 class="h6 mb-0 text-gray-600">${keterangan}</h1>
-	                   		</div>
+                            <div class="mb-3">
                         <div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					    <thead>
 					        <tr>
-							<th>Kode</th>
-							<th>Nama</th>
-							<th>No Telp</th>
-							<th>Alamat</th>
-							<th>Kota</th>
-							<th>Email</th>
-							<th>Action</th>
+							<th>No Nota</th>
+							<th>Tanggal Transaksi</th>
+							<th>Harga Total</th>
+							<th>Customer</th>
+							<th>Karyawan</th>
 					        </tr>
 					    </thead>
     					<tbody>
-						<c:forEach items="${supplier}" var="s">
 							  <tr>
-								<td>${s.kodeSupplier}</td>
-								<td>${s.namaSupplier}</td>
-								<td>${s.telpSupplier} </td>
-								<td>${s.alamatSupplier}</td>
-								<td>${s.namaKota} </td>
-								<td>${s.emailSupplier} </td>
-								<td>
-									<input type="button" class="btn btn-warning btn-sm" value="Edit" onclick="location.href='${pageContext.request.contextPath}/supplier/edit/${s.kodeSupplier}';">
-									<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/supplier/delete/${s.kodeSupplier}';">
-								</td>
+								<td>${dtoH.noNota}</td>
+								<td><fmt:formatDate pattern="dd MMMM yyyy" value="${dtoH.tanggalTransaksi}"/></td>
+								<td>${dtoH.hargaTotal}</td>
+								<td>${dtoH.namaCustomer}</td>
+								<td>${dtoH.namaKaryawan} </td>
 							  </tr>
-						</c:forEach>
     					</tbody>
 					</table>
 					</div>
-					<ul class="pagination justify-content-center">
-					<c:forEach var="i" begin="1" end="${total}" >
-						<li class="page-item">
-						<a href="${pageContext.request.contextPath}
-						/supplier/all?page=${i}&cari=${param.cari}" class="page-link" href="#" >${i}
-						</a></li>
-					</c:forEach>
-					</ul>
-					    ${penjelasan}
+					</div>
+                </div> 
+        	</div>
+        	
+        				<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">	
+						<h1 class="h5 mb-0 text-gray-800">Detail Transaksi</h1></h6>			   
+                        </div>
+        	                <div class="card-body">
+                            <div class="mb-3">
+                        <div class="table-responsive">
+						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					    <thead>
+					        <tr>
+							<th>Kode Detail</th>
+							<th>Quantity</th>
+							<th>SubTotal</th>
+							<th>Diskon</th>
+							<th>Harga Satuan</th>
+							<th>Barang</th>
+					        </tr>
+					    </thead>
+    					<tbody>
+							<c:forEach items="${det}" var="d">
+							  <tr>
+								<td>${d.kodeDetail}</td>
+								<td>${d.qty}</td>
+								<td>${d.subtotal}</td>
+								<td>${d.diskon}</td>
+								<td>${d.hargaSatuan}</td>
+								<td>${d.namaBarang}</td>
+							  </tr>
+							  </c:forEach>
+    					</tbody>
+					</table>
+					</div>
 					</div>
                 </div>
-        	</div>
+                </div>
         	
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -230,10 +232,11 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/karyawan/login">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>

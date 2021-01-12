@@ -120,7 +120,6 @@ public class TransaksiCtl {
 			dtoH.setNamaKaryawan(kar.getNamaKaryawan());
 			
 			session.setAttribute("kondisi", "add");
-			model.addAttribute("kodeTerakhir", kodeTerakhir());
 			
 			return "addTransaksi";
 			
@@ -148,13 +147,11 @@ public class TransaksiCtl {
 						if (svcT.findOneHeaderDetail(dtoH.getNoNota()) != null) {
 							model.addAttribute("error", "No Nota sudah pernah dibuat");
 							model.addAttribute("customer", listCustomer);
-							model.addAttribute("stat", 1);
 							return "redirect:/transaksi/add";
 						}
 						if (session.getAttribute("listDetail") == null){
 							model.addAttribute("error", "Belum terdapat detail transaksi");
 							model.addAttribute("customer", listCustomer);
-							model.addAttribute("stat", 1);
 							return "redirect:/transaksi/add";
 						}
 						dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>)session.getAttribute("listDetail"));
@@ -335,15 +332,20 @@ public class TransaksiCtl {
 		return "redirect:/transaksi/edit/"+session.getAttribute("noNota");
 	}
 	
-	public String kodeTerakhir(){
-		String out = ""; 
-		List<TrHeaderPenjualanDto> kodeTerakhir = svcT.findAllHeader();
-		if(kodeTerakhir.size() < 10){
-			out = String.format(", No Nota yang terdaftar terakhir TR00%d", kodeTerakhir.size());
-		}else if(kodeTerakhir.size() > 10 && kodeTerakhir.size() < 100){
-			out = String.format(", No Nota yang terdaftar terakhir TR0%d", kodeTerakhir.size());
-		}else if(kodeTerakhir.size() > 100){
-			out = String.format(", No Nota yang terdaftar terakhir TR%d", kodeTerakhir.size());
-		}return out;
+	@RequestMapping("/view/{noNota}")
+	public String viewTransaksi(@PathVariable("noNota") String noNota, Model model,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null) {
+			return "redirect:/karyawan/login";
+		}else{
+			TrHeaderPenjualanDto dtoH = svcT.findOneHeaderDetail(noNota);
+			List<TrDetailPenjualanDto> detList = dtoH.getDetailTransaksi();
+			model.addAttribute("dtoH", dtoH);
+			model.addAttribute("det", detList);
+			return "viewNota";
+			
+		}
 	}
 }

@@ -183,7 +183,7 @@
     					<tbody>
 						<c:forEach items="${transaksi}" var="t">
 							  <tr>
-								<td>${t.noNota}</td>
+								<td>${t.noNota}</td> 
 								<td><fmt:formatDate pattern="dd MMMM yyyy" value="${t.tanggalTransaksi}"/></td>
 								<td>${t.hargaTotal}</td>
 								<td>${t.namaCustomer}</td>
@@ -191,6 +191,7 @@
 								<td>
 									<input type="button" class="btn btn-warning btn-sm" value="Edit" onclick="location.href='${pageContext.request.contextPath}/transaksi/edit/${t.noNota}';">
 									<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/transaksi/delete/${t.noNota}';">
+									<input type="button" class="btn btn-primary btn-sm" value="View" onclick="location.href='${pageContext.request.contextPath}/transaksi/view/${t.noNota}';">
 								</td>
 							  </tr>
 						</c:forEach>

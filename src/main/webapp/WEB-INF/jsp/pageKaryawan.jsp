@@ -196,6 +196,7 @@
 								</td> 
 							</tr>
 						</c:forEach>
+						<c:set var="cek"  value="${stat}"/>  <!-- CHEK SINI AMA CTL ADD NYA -->
 						<c:if test="${cek == 2}">	 
 						<div class="card-body">
                             <tr>

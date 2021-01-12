@@ -425,4 +425,20 @@ public class TransaksiCtl {
 			out = String.format(", No Nota yang terdaftar terakhir TR%d", kodeTerakhir.size());
 		}return out;
 	}
+	
+	@RequestMapping("/view/{noNota}")
+	public String viewTransaksi(@PathVariable("noNota") String noNota, Model model,
+			HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null) {
+			return "redirect:/karyawan/login";
+		}else{
+			TrHeaderPenjualanDto dtoH = svcT.findOneHeaderDetail(noNota);
+			List<TrDetailPenjualanDto> detList = dtoH.getDetailTransaksi();
+			model.addAttribute("dtoH", dtoH);
+			model.addAttribute("det", detList);
+			return "viewNota";
+			
+		}
 }

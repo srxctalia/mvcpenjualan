@@ -244,15 +244,19 @@ public class TransaksiCtl {
 								}
 							}
 						}
-						MstBarangDto findOneBr = svcB.findOneBarang(dtoD.getKodeBarang());
-						if (findOneBr.getStokBarang() < dtoD.getQty()){
+						if (br.getStokBarang() < dtoD.getQty()){
 							model.addAttribute("stok", "Stok barang tidak tercukupi");
+						} else {
+							dtoD.setNamaBarang(br.getNamaBarang());
+							dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+							listDetail.add(dtoD);
+							session.setAttribute("listDetail", listDetail);
+							return "redirect:/transaksi/add";							
 						}
-						dtoD.setNamaBarang(br.getNamaBarang());
-						dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
-						listDetail.add(dtoD);
-						session.setAttribute("listDetail", listDetail);
-						return "redirect:/transaksi/add";
+						model.addAttribute("usr", kar.getNamaKaryawan());
+						model.addAttribute("dtoD", dtoD);
+						model.addAttribute("barang", listbarang);
+						return "redirect:/transaksi/addDetail";
 						
 					}
 					if (svcT.findOneDetaiil(dtoD.getKodeDetail()) != null) {
@@ -262,11 +266,19 @@ public class TransaksiCtl {
 						model.addAttribute("barang", listbarang);
 						return "redirect:/transaksi/addDetail";
 					}
-					dtoD.setNamaBarang(br.getNamaBarang());
-					dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
-					listDetail.add(dtoD);
-					session.setAttribute("listDetail", listDetail);
-					return "redirect:/transaksi/add";
+					if (br.getStokBarang() < dtoD.getQty()){
+						model.addAttribute("stok", "Stok barang tidak tercukupi");
+					} else {
+						dtoD.setNamaBarang(br.getNamaBarang());
+						dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+						listDetail.add(dtoD);
+						session.setAttribute("listDetail", listDetail);
+						return "redirect:/transaksi/add";							
+					}
+					model.addAttribute("usr", kar.getNamaKaryawan());
+					model.addAttribute("dtoD", dtoD);
+					model.addAttribute("barang", listbarang);
+					return "redirect:/transaksi/addDetail";
 				}
 			}
 			// Kondisi save detail pada Edit header
@@ -290,11 +302,19 @@ public class TransaksiCtl {
 							}
 						}
 					}
-					dtoD.setNamaBarang(br.getNamaBarang());
-					dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
-					listDetail.add(dtoD);
-					session.setAttribute("listDetail", listDetail);
-					return "redirect:/transaksi/edit/"+session.getAttribute("noNota");
+					if (br.getStokBarang() < dtoD.getQty()){
+						model.addAttribute("stok", "Stok barang tidak tercukupi");
+					} else {
+						dtoD.setNamaBarang(br.getNamaBarang());
+						dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+						listDetail.add(dtoD);
+						session.setAttribute("listDetail", listDetail);
+						return "redirect:/transaksi/edit/"+session.getAttribute("noNota");						
+					}
+					model.addAttribute("usr", kar.getNamaKaryawan());
+					model.addAttribute("dtoD", dtoD);
+					model.addAttribute("barang", listbarang);
+					return "redirect:/transaksi/addDetail";
 				}
 				if (svcT.findOneDetaiil(dtoD.getKodeDetail()) != null) {
 					model.addAttribute("error", "KodeDetail sudah pernah dibuat");
@@ -303,23 +323,31 @@ public class TransaksiCtl {
 					model.addAttribute("barang", listbarang);
 					return "redirect:/transaksi/addDetail";
 				}
-				TrHeaderPenjualanDto dto =  (TrHeaderPenjualanDto) session.getAttribute("dtoH");
-				listDetail = dto.getDetailTransaksi();
-				dtoD.setNamaBarang(br.getNamaBarang());
+
+				if (br.getStokBarang() < dtoD.getQty()){
+					model.addAttribute("stok", "Stok barang tidak tercukupi");
+				} else {
+					TrHeaderPenjualanDto dto =  (TrHeaderPenjualanDto) session.getAttribute("dtoH");
+					listDetail = dto.getDetailTransaksi();
+					dtoD.setNamaBarang(br.getNamaBarang());
 //				dtoD.setNoNota(dto.getNoNota());
-				dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
-				System.err.printf("detail:\n"+
-						"kode detail: %s, kode barang: %s, nama barang: %s, qty: %s, subtotal: %s, harga satuan: %s, diskon: %s",
-						dtoD.getKodeDetail(), dtoD.getKodeBarang(), dtoD.getNamaBarang(), dtoD.getQty(), dtoD.getSubtotal(), dtoD.getHargaSatuan(), dtoD.getDiskon(), dtoD.getNoNota());
-				listDetail.add(dtoD);
-				session.setAttribute("listDetail", listDetail);
-				return "redirect:/transaksi/edit/"+session.getAttribute("noNota");	
+					dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+					System.err.printf("detail:\n"+
+							"kode detail: %s, kode barang: %s, nama barang: %s, qty: %s, subtotal: %s, harga satuan: %s, diskon: %s",
+							dtoD.getKodeDetail(), dtoD.getKodeBarang(), dtoD.getNamaBarang(), dtoD.getQty(), dtoD.getSubtotal(), dtoD.getHargaSatuan(), dtoD.getDiskon(), dtoD.getNoNota());
+					listDetail.add(dtoD);
+					session.setAttribute("listDetail", listDetail);
+					return "redirect:/transaksi/edit/"+session.getAttribute("noNota");						
+				}
+				model.addAttribute("usr", kar.getNamaKaryawan());
+				model.addAttribute("dtoD", dtoD);
+				model.addAttribute("barang", listbarang);
+				return "redirect:/transaksi/addDetail";
 			}
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			model.addAttribute("dtoD", dtoD);
 			model.addAttribute("barang", listbarang);
-			return "redirect:transaksi/addDetail";
-//			return "redirect:/transaksi/all";			
+			return "redirect:transaksi/addDetail";			
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //			e.printStackTrace();

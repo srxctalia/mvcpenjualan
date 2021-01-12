@@ -195,9 +195,9 @@
 						  			<f:errors path="globalDiskon" class="h7 mb-0 text-gray-600"/>
 						  		</div>
 						  		
-								<input type="submit" value="Save" class="btn btn-primary">
-								<input type="button" class="btn btn-secondary" value="Cancel" 
-								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';"><br><br>
+<!-- 								<input type="submit" value="Save" class="btn btn-primary"> -->
+<!-- 								<input type="button" class="btn btn-secondary" value="Cancel"  -->
+<%-- 								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';"><br><br> --%>
 								
 								
 						  		<div class="card-body">
@@ -222,8 +222,9 @@
 								    <th>Action</th>
 								  </tr>
 								</thead>
+								<tbody>
 								<c:forEach items="${dtoH.detailTransaksi}" var="d">
-									  <tr>
+									  <tr style="font-weight:normal">
 									    <td>${d.kodeDetail}</td>
 									    <td>${d.namaBarang}</td>
 									    <td>${d.hargaSatuan}</td>
@@ -235,6 +236,7 @@
 									    </td>
 									  </tr>
 								</c:forEach>
+								</tbody>
 								</table>
 						  		</div>
 								<input type="submit" value="Save" class="btn btn-primary">

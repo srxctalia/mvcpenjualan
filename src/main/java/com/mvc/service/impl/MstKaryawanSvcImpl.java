@@ -60,7 +60,7 @@ public class MstKaryawanSvcImpl implements MstKaryawanSvc{
 			dto.setNamaKaryawan(kar.getNamaKaryawan());
 			dto.setPassword(kar.getPassword());
 			dto.setUsername(kar.getUsername());
-			dto.setLevel(kar.getLevel());
+			dto.setLevel(kar.getFormattedLevel());
 			
 			return dto;
 		}

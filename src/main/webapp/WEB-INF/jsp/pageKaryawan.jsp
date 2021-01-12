@@ -40,7 +40,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/dashboard/main">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -55,13 +55,13 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-sitemap fa-cog"></i>
                     <span>Masters</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">List Master:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/customer/all">Customer</a>
@@ -69,7 +69,7 @@
                         <a class="collapse-item" href="${pageContext.request.contextPath}/barang/page-barang">Barang</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/provinsi/pageprovinsi">Provinsi</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/kota/page-kota">Kota</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/karyawan/pagekaryawan">Karyawan</a>
+                        <a class="collapse-item active" href="${pageContext.request.contextPath}/karyawan/pagekaryawan">Karyawan</a>
                     </div>
                 </div>
             </li>
@@ -160,14 +160,18 @@
 						</form></h6>	
 					</div>
 					
-                        <div class="card-body">
-                            <div class="float-sm-right mb-3">
-                            <input type="button" value="Tambah Karyawan" class="btn btn-primary mr-2"
-							onclick="location.href='${pageContext.request.contextPath}/karyawan/add';">
-							</div>
+					<div class="card-body">
+                            <c:set var="cek"  value="${stat}"/>  <!-- CHEK SINI AMA CTL ADD NYA -->
+							<c:if test="${cek == 3}">	 
+								<div class="float-sm-right mb-3">
+		                            <input type="button" value="Tambah Karyawan" class="btn btn-primary mr-2"
+									onclick="location.href='${pageContext.request.contextPath}/karyawan/add';">
+								</div>
+  							</c:if>							
 							<div class="d-sm-flex align-items-center justify-content-between mb-1r">
 	                        <h1 class="h6 mb-0 text-gray-600">${keterangan}</h1>
-	                   		</div>
+	                   	</div>
+  					
                         <div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					    <thead>
@@ -195,6 +199,22 @@
 								</td> 
 							</tr>
 						</c:forEach>
+						<c:if test="${cek == 2}">	 
+						<div class="card-body">
+                            <tr>
+								<td>${staff.kodeKaryawan}</td>
+								<td>${staff.namaKaryawan}</td>
+								<td>${staff.username}</td>
+								<td>${staff.password}</td>
+								<td>${staff.level}</td>
+								<td> <input type="button" value="Edit" class="btn btn-warning btn-sm"
+								onclick="location.href='${pageContext.request.contextPath}/karyawan/findone/${staff.kodeKaryawan}';">
+								<input type="button" value="Delete" class="btn btn-danger btn-sm"
+								onclick="location.href='${pageContext.request.contextPath}/karyawan/delete/${staff.kodeKaryawan}';">
+								</td> 
+							</tr>
+	                   	</div>
+  						</c:if>
     					</tbody>
 					</table>
 					</div>

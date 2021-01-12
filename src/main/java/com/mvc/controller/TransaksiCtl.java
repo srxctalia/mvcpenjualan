@@ -441,4 +441,5 @@ public class TransaksiCtl {
 			return "viewNota";
 			
 		}
+	}
 }

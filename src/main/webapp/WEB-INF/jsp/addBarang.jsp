@@ -172,7 +172,9 @@
 			      <h1 class="h6 mb-2 text-gray-900">Supplier</h1>
 			      <f:select path="kodeSupplier" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 			        <option disabled selected value> -- select an option -- </option>
-			        <f:options items="${supplier}" required="true"/>
+			        <c:forEach items="${supplier}" var="s">
+				    <f:option value="${s.kodeSupplier}" label="${s.namaSupplier}"/>
+			      	</c:forEach>
 			      </f:select>
 			      <f:errors path="kodeSupplier" class="h7 mb-0 text-gray-600"/>		
 	  		</div>

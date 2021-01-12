@@ -73,13 +73,10 @@ public class MstKotaCtl {
 		} else {
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
-		Map<String, String> listProv = new HashMap<>();
-		for (MstProvinsiDto p : prov ){
-			listProv.put(p.getKodeProvinsi(), p.getNamaProvinsi());
-		}
+
 		MstKotaDto dto = new MstKotaDto();
 		model.addAttribute("dto",dto);
-		model.addAttribute("provinsi", listProv);
+		model.addAttribute("provinsi", prov);
 		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		kondisi = "add";
 		return "addKota";
@@ -126,12 +123,9 @@ public class MstKotaCtl {
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstKotaDto dto = svc.findOneKota(kodeKota);
 		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
-		Map<String, String> listProv = new HashMap<>();
-		for (MstProvinsiDto p : prov ){
-			listProv.put(p.getKodeProvinsi(), p.getNamaProvinsi());
-		}
+
 		model.addAttribute("dto",dto);
-		model.addAttribute("provinsi", listProv);
+		model.addAttribute("provinsi", prov);
 		kondisi ="detail";
 		return "editKota";
 		}

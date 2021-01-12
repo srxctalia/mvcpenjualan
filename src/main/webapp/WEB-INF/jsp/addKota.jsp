@@ -169,7 +169,9 @@
 			      <h1 class="h6 mb-2 text-gray-900">Provinsi</h1>
 			      <f:select path="kodeProvinsi" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 			        <option disabled selected value> -- select an option -- </option>
-			        <f:options items="${provinsi}" required="true"/>
+			        <c:forEach items="${provinsi}" var="p">
+				    <f:option value="${p.kodeProvinsi}" label="${p.namaProvinsi}"/>
+			      	</c:forEach>
 			      </f:select>
 			      <f:errors path="kodeProvinsi" class="h7 mb-0 text-gray-600"/>		
 	  		</div>

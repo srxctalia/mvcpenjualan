@@ -135,7 +135,7 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 	public Map<String, Object> listAll(String cari, int page) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<>();
-		int perPage = 1;
+		int perPage = 3;
 		Pageable paging = new PageRequest(page-1, perPage, new Sort(new Sort.Order(Direction.fromString("asc"), "noNota")));
 		List<Object[]> list = daoH.search(cari, paging);
 		List<TrHeaderPenjualanDto> dtos = new ArrayList<>();

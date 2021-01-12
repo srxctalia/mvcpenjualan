@@ -78,12 +78,9 @@ public class MstBarangCtl {
 		} else {
 		MstBarangDto dto = new MstBarangDto();
 		List<MstSupplierDto> sup = svcSup.findAll();
-		Map<String, String> listSup = new HashMap<>();
-		for (MstSupplierDto b : sup ){
-			listSup.put(b.getKodeSupplier(), b.getNamaSupplier());
-		}
+
 		model.addAttribute("dto",dto);
-		model.addAttribute("supplier", listSup);
+		model.addAttribute("supplier", sup);
 		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		kondisi = "add";
@@ -129,12 +126,9 @@ public class MstBarangCtl {
 		} else {
 		MstBarangDto dto = svc.findOneBarang(kodeBarang);
 		List<MstSupplierDto> sup = svcSup.findAll();
-		Map<String, String> listSup = new HashMap<>();
-		for (MstSupplierDto b : sup ){
-			listSup.put(b.getKodeSupplier(), b.getNamaSupplier());
-		}
+
 		model.addAttribute("dto",dto);
-		model.addAttribute("supplier", listSup);
+		model.addAttribute("supplier", sup);
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		kondisi="detail";
 		return "editBarang";

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -160,7 +161,9 @@
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Provinsi</h1>
 			      <f:select path="kodeProvinsi" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <f:options items="${provinsi}"/>			      
+			        <c:forEach items="${provinsi}" var="p">
+				    <f:option value="${p.kodeProvinsi}" label="${p.namaProvinsi}"/>
+			      	</c:forEach>			      
 			      </f:select>	
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">

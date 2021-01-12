@@ -166,7 +166,12 @@
 							</div>
 							<div class="d-sm-flex align-items-center justify-content-between mb-1r">
 	                        <h1 class="h6 mb-0 text-gray-600">${keterangan}</h1>
+<<<<<<< HEAD
 	                   		</div>
+=======
+	                   	</div>
+	                   	
+>>>>>>> 3babd9707daef98aba1152bf3b9bb91dbda035e7
                         <div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					    <thead>

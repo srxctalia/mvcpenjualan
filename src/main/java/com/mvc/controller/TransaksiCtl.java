@@ -74,6 +74,8 @@ public class TransaksiCtl {
 			}
 			
 			session.removeAttribute("dtoH");
+			session.removeAttribute("listDetail");
+			session.removeAttribute("kondisi");
 			model.addAttribute("transaksi", list);
 			model.addAttribute("total", totalHalaman);
 			model.addAttribute("usr", kar.getNamaKaryawan());
@@ -167,8 +169,9 @@ public class TransaksiCtl {
 					if (result.hasErrors()){
 						return "redirect:/transaksi/edit/"+dtoH.getNoNota();
 					}
-					svcT.deleteAllDetailByNoNota(dtoH.getNoNota());
-					dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>)session.getAttribute("listDetail"));
+					if (session.getAttribute("listDetail") != null){
+						dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>)session.getAttribute("listDetail"));						
+					}
 					int grandTotal=0;
 					for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
 						grandTotal+=detail.getSubtotal();			
@@ -208,7 +211,7 @@ public class TransaksiCtl {
 		HttpSession session = request.getSession();
 		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session
 				.getAttribute("loginUser");
-		try {
+//		try {
 			if (kar == null) {
 				return "redirect:/karyawan/login";
 			}
@@ -216,24 +219,45 @@ public class TransaksiCtl {
 			List<TrDetailPenjualanDto> listDetail = new ArrayList<TrDetailPenjualanDto>();
 			MstBarangDto br = svcB.findOneBarang(dtoD.getKodeBarang());
 			List<MstBarangDto> listbarang = svcB.findAllBarang();
+			// Kondisi save detail pada add header
 			if (kondisi.equalsIgnoreCase("add")){
 				if (!result.hasErrors()){
 					if (session.getAttribute("listDetail")!=null){
+						listDetail = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
 						if (svcT.findOneDetaiil(dtoD.getKodeDetail()) != null) {
 							model.addAttribute("error", "KodeDetail sudah pernah dibuat");
+							model.addAttribute("usr", kar.getNamaKaryawan());
+							model.addAttribute("dtoD", dtoD);
+							model.addAttribute("barang", listbarang);
+							return "redirect:/transaksi/addDetail";
 						} else {
-							listDetail = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
 							for (TrDetailPenjualanDto detail : listDetail){
 								if (detail.getKodeDetail().equals(dtoD.getKodeDetail())){
 									model.addAttribute("error", "kodeDetail sudah dibuat");
+									model.addAttribute("usr", kar.getNamaKaryawan());
+									model.addAttribute("dtoD", dtoD);
+									model.addAttribute("barang", listbarang);
+									return "redirect:/transaksi/addDetail";
 								}
 							}
 						}
+						MstBarangDto findOneBr = svcB.findOneBarang(dtoD.getKodeBarang();
+						if (findOneBr.getStokBarang() < dtoD.getQty()){
+							model.addAttribute("stok", "Stok barang tidak tercukupi");
+						}
+						dtoD.setNamaBarang(br.getNamaBarang());
+						dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+						listDetail.add(dtoD);
+						session.setAttribute("listDetail", listDetail);
+						return "redirect:/transaksi/add";
+						
+					}
+					if (svcT.findOneDetaiil(dtoD.getKodeDetail()) != null) {
+						model.addAttribute("error", "KodeDetail sudah pernah dibuat");
 						model.addAttribute("usr", kar.getNamaKaryawan());
 						model.addAttribute("dtoD", dtoD);
 						model.addAttribute("barang", listbarang);
 						return "redirect:/transaksi/addDetail";
-						
 					}
 					dtoD.setNamaBarang(br.getNamaBarang());
 					dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
@@ -241,36 +265,63 @@ public class TransaksiCtl {
 					session.setAttribute("listDetail", listDetail);
 					return "redirect:/transaksi/add";
 				}
-			} 
+			}
+			// Kondisi save detail pada Edit header
 			if (!result.hasErrors()){
 				if (session.getAttribute("listDetail")!=null){
+					listDetail = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
 					if (svcT.findOneDetaiil(dtoD.getKodeDetail()) != null) {
 						model.addAttribute("error", "KodeDetail sudah pernah dibuat");
+						model.addAttribute("usr", kar.getNamaKaryawan());
+						model.addAttribute("dtoD", dtoD);
+						model.addAttribute("barang", listbarang);
+						return "redirect:/transaksi/addDetail";
 					} else {
-						listDetail = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
 						for (TrDetailPenjualanDto detail : listDetail){
 							if (detail.getKodeDetail().equals(dtoD.getKodeDetail())){
 								model.addAttribute("error", "kodeDetail sudah dibuat");
+								model.addAttribute("usr", kar.getNamaKaryawan());
+								model.addAttribute("dtoD", dtoD);
+								model.addAttribute("barang", listbarang);
+								return "redirect:/transaksi/addDetail";
 							}
 						}
 					}
+					dtoD.setNamaBarang(br.getNamaBarang());
+					dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+					listDetail.add(dtoD);
+					session.setAttribute("listDetail", listDetail);
+					return "redirect:/transaksi/edit/"+session.getAttribute("noNota");
+				}
+				if (svcT.findOneDetaiil(dtoD.getKodeDetail()) != null) {
+					model.addAttribute("error", "KodeDetail sudah pernah dibuat");
 					model.addAttribute("usr", kar.getNamaKaryawan());
 					model.addAttribute("dtoD", dtoD);
 					model.addAttribute("barang", listbarang);
 					return "redirect:/transaksi/addDetail";
-					
 				}
-				listDetail = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
+				TrHeaderPenjualanDto dto =  (TrHeaderPenjualanDto) session.getAttribute("dtoH");
+				listDetail = dto.getDetailTransaksi();
 				dtoD.setNamaBarang(br.getNamaBarang());
+//				dtoD.setNoNota(dto.getNoNota());
+				dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+				System.err.printf("detail:\n"+
+						"kode detail: %s, kode barang: %s, nama barang: %s, qty: %s, subtotal: %s, harga satuan: %s, diskon: %s",
+						dtoD.getKodeDetail(), dtoD.getKodeBarang(), dtoD.getNamaBarang(), dtoD.getQty(), dtoD.getSubtotal(), dtoD.getHargaSatuan(), dtoD.getDiskon(), dtoD.getNoNota());
 				listDetail.add(dtoD);
 				session.setAttribute("listDetail", listDetail);
 				return "redirect:/transaksi/edit/"+session.getAttribute("noNota");	
 			}
-			return "redirect:/transaksi/all";			
-		} catch (Exception e) {
-			// TODO: handle exception
-			return "redirect:/transaksi/all";
-		}
+			model.addAttribute("usr", kar.getNamaKaryawan());
+			model.addAttribute("dtoD", dtoD);
+			model.addAttribute("barang", listbarang);
+			return "redirect:transaksi/addDetail";
+//			return "redirect:/transaksi/all";			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			return "redirect:/transaksi/all";
+//		}
 		
 		 
 	}

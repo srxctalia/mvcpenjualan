@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%response.sendRedirect("/karyawan/login"); %>
+<%response.sendRedirect("/dashboar/main"); %>
 </body>
 </html>

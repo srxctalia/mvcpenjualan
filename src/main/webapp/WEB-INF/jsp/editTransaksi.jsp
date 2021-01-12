@@ -17,7 +17,7 @@
 <body>
 <div class="container">
 	<h2>Edit Transaksi</h2>
-	<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dto">
+	<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dtoH">
 		<div class="mb-3">
     		<label for="exampleInputEmail1" class="form-label">No Nota</label>
 			<f:input type="text" path="noNota" class="form-control" readonly="true"/>
@@ -28,7 +28,7 @@
   		</div>
   		<div class="mb-3">
     		<label for="exampleInputPassword1" class="form-label">Tanggal Transaksi</label>
-			<f:input type="date" class="form-control" path="tanggalTransaksi"/>
+			<f:input type="date" class="form-control" path="tanggalTransaksi" readonly="true"/>
 			<f:errors path="tanggalTransaksi"/>
   		</div>
   		<div class="mb-3">
@@ -67,7 +67,7 @@
 		    <th>Action</th>
 		  </tr>
 		</thead>
-	<c:forEach items="${dto.detailTransaksi}" var="d">
+	<c:forEach items="${dtoH.detailTransaksi}" var="d">
 		  <tr>
 		    <td>${d.kodeDetail}</td>
 		    <td>${d.namaBarang}</td>

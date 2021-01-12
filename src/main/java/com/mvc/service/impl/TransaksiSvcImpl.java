@@ -91,7 +91,7 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 			td.setHargaSatuan(tdp.getHargaSatuan());
 			td.setKodeBarang(tdp.getKodeBarang());
 			td.setKodeDetail(tdp.getKodeDetail());
-			td.setNoNota(tdp.getNoNota());
+			td.setNoNota(dto.getNoNota());
 			td.setQty(tdp.getQty());
 			td.setSubtotal(tdp.getSubtotal());
 			daoD.save(td);
@@ -215,6 +215,16 @@ public class TransaksiSvcImpl implements TransaksiSvc {
 		TrDetailPenjualanPK pk = new TrDetailPenjualanPK();
 		pk.setKodeDetail(kodeDetail);
 		daoD.delete(pk);
+	}
+
+	@Override
+	public void deleteAllDetailByNoNota(String noNota) {
+		// TODO Auto-generated method stub
+		List<TrDetailPenjualanDto> listDetail = findAllDetail(noNota);
+		for (TrDetailPenjualanDto detail : listDetail){
+			daoD.deleteDetail(detail.getNoNota());
+		}
+		
 	}
 
 }

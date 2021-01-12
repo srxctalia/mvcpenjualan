@@ -9,11 +9,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class TrHeaderPenjualanDto {
-	@NotEmpty(message="please fill no nota")
+//	@NotEmpty(message="please fill no nota")
 	private String noNota;
-	@NotEmpty(message="please fill global diskon?")
-	@Min(0)
-	private Integer globalDiskon;
+//	@NotEmpty(message="please fill global diskon?")
+//	@Min(value=0, message="minimal ada 0")
+	private int globalDiskon;
 	private int hargaTotal;
 	private String kodeCustomer;
 	private String kodeKaryawan;
@@ -35,10 +35,10 @@ public class TrHeaderPenjualanDto {
 	public void setNoNota(String noNota) {
 		this.noNota = noNota;
 	}
-	public Integer getGlobalDiskon() {
+	public int getGlobalDiskon() {
 		return globalDiskon;
 	}
-	public void setGlobalDiskon(Integer globalDiskon) {
+	public void setGlobalDiskon(int globalDiskon) {
 		this.globalDiskon = globalDiskon;
 	}
 	public int getHargaTotal() {

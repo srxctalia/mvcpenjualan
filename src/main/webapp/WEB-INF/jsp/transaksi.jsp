@@ -86,7 +86,7 @@
                         </div>
                         <div class="card-body">
                             <div class="float-sm-right mb-3">
-                            <input type="button" value="Tambah Barang" class="btn btn-primary mr-2"
+                            <input type="button" value="Tambah Transaksi" class="btn btn-primary mr-2"
 							onclick="location.href='${pageContext.request.contextPath}/transaksi/add';">
 							</div>
 							<div class="d-sm-flex align-items-center justify-content-between mb-1r">
@@ -115,7 +115,8 @@
 								<td>
 									<input type="button" class="btn btn-warning btn-sm" value="Edit" onclick="location.href='${pageContext.request.contextPath}/transaksi/edit/${t.noNota}';">
 									<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/transaksi/delete/${t.noNota}';">
-									<input type="button" class="btn btn-info btn-sm" value="View" onclick="location.href='${pageContext.request.contextPath}/transaksi/view/${t.noNota}';">
+									<input type="button" class="btn btn-primary btn-sm" value="View" onclick="location.href='${pageContext.request.contextPath}/transaksi/view/${t.noNota}';">
+
 								</td>
 							  </tr>
 						</c:forEach>

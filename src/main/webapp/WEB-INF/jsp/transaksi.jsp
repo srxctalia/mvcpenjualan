@@ -116,7 +116,6 @@
 									<input type="button" class="btn btn-warning btn-sm" value="Edit" onclick="location.href='${pageContext.request.contextPath}/transaksi/edit/${t.noNota}';">
 									<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/transaksi/delete/${t.noNota}';">
 									<input type="button" class="btn btn-primary btn-sm" value="View" onclick="location.href='${pageContext.request.contextPath}/transaksi/view/${t.noNota}';">
-
 								</td>
 							  </tr>
 						</c:forEach>

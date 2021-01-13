@@ -205,8 +205,7 @@ public class TransaksiCtl {
 		model.addAttribute("barang", listBarang);
 		model.addAttribute("dtoD", dtoDetail);
 		session.setAttribute("dtoH", dtoH);
-		return "addTransaksiDetail";			
-		
+		return "addTransaksiDetail";
 	}
 
 	@RequestMapping("/saveDetail")
@@ -219,6 +218,11 @@ public class TransaksiCtl {
 //		try {
 			if (kar == null) {
 				return "redirect:/karyawan/login";
+			}
+			if(dtoD.getKodeDetail().isEmpty()){
+				model.addAttribute("stat", 1);
+				model.addAttribute("validasi", "Harap Isi Semua Data, Jika tidak ada diskon cukup beri 0");
+				return "redirect:/transaksi/addDetail";
 			}
 			String kondisi = (String)session.getAttribute("kondisi");
 			List<TrDetailPenjualanDto> listDetail = new ArrayList<TrDetailPenjualanDto>();

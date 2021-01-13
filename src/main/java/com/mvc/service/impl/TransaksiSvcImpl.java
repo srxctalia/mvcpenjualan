@@ -14,14 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
-
-
-import com.mvc.dao.MstCustomerDao;
 import com.mvc.dao.TrDetailPenjualanDao;
 import com.mvc.dao.TrHeaderPenjualanDao;
-import com.mvc.dto.MstCustomerDto;
-import com.mvc.dto.MstKaryawanDto;
 import com.mvc.dto.TrDetailPenjualanDto;
 import com.mvc.dto.TrHeaderPenjualanDto;
 import com.mvc.entity.TrDetailPenjualan;

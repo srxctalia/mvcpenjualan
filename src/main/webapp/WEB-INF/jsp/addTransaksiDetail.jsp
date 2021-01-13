@@ -157,6 +157,7 @@
   					</c:if>
 	<f:form action="${pageContext.request.contextPath}/transaksi/saveDetail" modelAttribute="dtoD">
 		<div class="mb-3">
+				<h1 class="h6 mb-0 text-gray-600">${validasi}</h1>
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Detail</h1>
 				<f:input type="text" path="kodeDetail" class="form-control" placeholder="Masukan kode detail${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
 				<f:errors path="kodeDetail" class="h7 mb-0 text-gray-600"/>
@@ -189,13 +190,6 @@
 		onclick="location.href='${pageContext.request.contextPath}/transaksi/add';"><br><br>
 	</f:form>
 </div>
-
-	<script language="javascript">
-		function addDetail(){
-			document.forms[0].action = '${pageContext.request.contextPath}/transaksi/addDetail';
-			document.forms[0].submit();
-		}
-	</script>
 
   <!-- Optional JavaScript; choose one of the two! -->
 

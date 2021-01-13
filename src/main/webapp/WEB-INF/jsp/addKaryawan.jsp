@@ -101,9 +101,30 @@
 						  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Password</h1>
-									<f:input type="text" class="form-control" path="password" placeholder="Masukan password"/>
+									<f:input type="password" class="form-control" path="password" placeholder="Masukan password" id="password" required="true"/>
 						  			<f:errors path="password" class="h7 mb-0 text-gray-600"/>
 						  		</div>
+						  		
+						  		<div class="mb-3">
+						    		<h1 class="h6 mb-2 text-gray-900">Confirm Password</h1>
+									<input type="password" class="form-control" placeholder="Konfirmasi password" id="confirm_password" required="true"/>
+						  		</div>
+						  		
+						  		<script type="text/javascript">
+							  		var password = document.getElementById("password")
+								  	  , confirm_password = document.getElementById("confirm_password");
+		
+								  	function validatePassword(){
+								  	  if(password.value != confirm_password.value) {
+								  	    confirm_password.setCustomValidity("Passwords Don't Match");
+								  	  } else {
+								  	    confirm_password.setCustomValidity('');
+								  	  }
+								  	}
+		
+								  	password.onchange = validatePassword;
+								  	confirm_password.onkeyup = validatePassword;
+						  		</script>
 						  		
 						  		<div class="mb-3">
 								      <h1 class="h6 mb-2 text-gray-900">Level</h1>

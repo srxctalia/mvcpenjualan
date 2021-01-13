@@ -170,13 +170,12 @@
 								<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">No Nota</h1>
 									<f:input type="text" path="noNota" class="form-control" placeholder="Masukan No Nota${kodeTerakhir}" readonly="true" />
-									<f:errors path="noNota" class="h7 mb-0 text-gray-600"/>
 						  		</div>
 					  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Tanggal Transaksi</h1>
 									<f:input type="date" class="form-control" path="tanggalTransaksi" placeholder="Masukan tanggal transaksi" readonly="true" />
-									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-danger"/>
 						  		</div>
 							  		
 							  	<div class="mb-3">
@@ -187,13 +186,13 @@
 									        <f:option value="${c.kodeCustomer}" label="${c.namaCustomer}"></f:option>			      
 								      	</c:forEach>
 								      </f:select>
-								      <f:errors path="kodeCustomer" class="h7 mb-0 text-gray-600"/>		
+								      <f:errors path="kodeCustomer" class="h7 mb-0 text-danger"/>		
 						  		</div>
 							  	
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Karyawan</h1>
 									<f:input type="text" class="form-control" path="kodeKaryawan" placeholder="Masukan karyawan" readonly="true" />
-									<f:errors path="kodeKaryawan" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="kodeKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 								
 						  		<div class="card-body">

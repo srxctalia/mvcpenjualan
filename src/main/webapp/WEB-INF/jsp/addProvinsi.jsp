@@ -89,13 +89,13 @@
 								<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Kode Provinsi</h1>
 									<f:input type="text" path="kodeProvinsi" class="form-control" placeholder="Masukan kode Provinsi${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-									<f:errors path="kodeProvinsi" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="kodeProvinsi" class="h7 mb-0 text-danger"/>
 						  		</div>
 					  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Nama Provinsi</h1>
 									<f:input type="text" class="form-control" path="namaProvinsi" placeholder="Masukan nama Provinsi" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-									<f:errors path="namaProvinsi" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="namaProvinsi" class="h7 mb-0 text-danger"/>
 						  		</div>
 								<input type="submit" value="Save" class="btn btn-primary">
 								<input type="button" class="btn btn-secondary" value="Cancel" 

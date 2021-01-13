@@ -135,7 +135,7 @@
 						</a></li>
 					</c:forEach>
 					</ul>
-					    ${penjelasan}
+					    <p class="text-danger">${penjelasan}</p>
 					</div>
                 </div>
         	</div>

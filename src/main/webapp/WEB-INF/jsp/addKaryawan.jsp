@@ -89,25 +89,25 @@
 								<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Kode Karyawan</h1>
 									<f:input type="text" path="kodeKaryawan" class="form-control" placeholder="Masukan kode Karyawan${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-									<f:errors path="kodeKaryawan" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="kodeKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 					  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Nama Karyawan</h1>
 									<f:input type="text" class="form-control" path="namaKaryawan" placeholder="Masukan nama Karyawan"/>
-									<f:errors path="namaKaryawan" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 							  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Username</h1>
 									<f:input type="text" class="form-control" path="username" placeholder="Masukan username"/>
-									<f:errors path="username" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="username" class="h7 mb-0 text-danger"/>
 						  		</div>
 						  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Password</h1>
 									<f:input type="password" class="form-control" path="password" placeholder="Masukan password" id="password" required="true"/>
-						  			<f:errors path="password" class="h7 mb-0 text-gray-600"/>
+						  			<f:errors path="password" class="h7 mb-0 text-danger"/>
 						  		</div>
 						  		
 						  		<div class="mb-3">
@@ -138,7 +138,7 @@
 								        <option value="1">Admin</option>
     									<option value="2">Staff</option>
 								      </f:select>
-								      <f:errors path="level" class="h7 mb-0 text-gray-600"/>		
+								      <f:errors path="level" class="h7 mb-0 text-danger"/>		
 						  		</div>
 						  		
 								<input type="submit" value="Save" class="btn btn-primary">

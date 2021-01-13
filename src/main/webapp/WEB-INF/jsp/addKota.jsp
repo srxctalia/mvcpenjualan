@@ -88,12 +88,12 @@
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Kota</h1>
 				<f:input type="text" path="kodeKota" class="form-control" placeholder="Masukan kode kota${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeKota" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="kodeKota" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Kota</h1>
 				<f:input type="text" class="form-control" path="namaKota" placeholder="Masukan nama kota"/>
-				<f:errors path="namaKota" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="namaKota" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Provinsi</h1>
@@ -103,7 +103,7 @@
 				    <f:option value="${p.kodeProvinsi}" label="${p.namaProvinsi}"/>
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeProvinsi" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeProvinsi" class="h7 mb-0 text-danger"/>		
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

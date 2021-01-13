@@ -90,27 +90,27 @@
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Supplier</h1>
 				<f:input type="text" path="kodeSupplier" class="form-control" placeholder="Masukan kode supplier${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeSupplier" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="kodeSupplier" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Supplier</h1>
 				<f:input type="text" class="form-control" path="namaSupplier" placeholder="Masukan nama supplier"/>
-				<f:errors path="namaSupplier" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="namaSupplier" class="h7 mb-0 text-danger"/>
 	  		</div>
 			<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Email</h1>
 				<f:input type="email" class="form-control" path="emailSupplier" placeholder="Masukan email"/>
-				<f:errors path="emailSupplier" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="emailSupplier" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">No Telepon</h1>
 				<f:input type="text" class="form-control" path="telpSupplier" placeholder="Masukan nomor telepon"/>
-				<f:errors path="telpSupplier" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="telpSupplier" class="h7 mb-0 text-danger"/>
 	  		</div>	
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Alamat</h1>
 				<f:textarea class="form-control" path="alamatSupplier" placeholder="Masukan Alamat" rows="3"/>
-				<f:errors path="alamatSupplier" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="alamatSupplier" class="h7 mb-0 text-danger"/>
 	  		</div>			
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Kota</h1>
@@ -120,7 +120,7 @@
 				    <f:option value="${k.kodeKota}" label="${k.namaKota }"/>
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeKota" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeKota" class="h7 mb-0 text-danger"/>		
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

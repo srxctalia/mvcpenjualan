@@ -81,12 +81,11 @@
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Barang</h1>
 				<f:input type="text" path="kodeBarang" class="form-control" readonly="true"/>
-				<f:errors path="kodeBarang" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Barang</h1>
 				<f:input type="text" class="form-control" path="namaBarang"/>
-				<f:errors path="namaBarang" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="namaBarang" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Stok Barang</h1>

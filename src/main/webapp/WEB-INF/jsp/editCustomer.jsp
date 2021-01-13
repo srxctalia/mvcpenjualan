@@ -83,17 +83,16 @@
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Customer</h1>
 				<f:input type="text" path="kodeCustomer" class="form-control" readonly="true"/>
-				<f:errors path="kodeCustomer" class="h7 mb-0 text-gray-600"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Customer</h1>
 				<f:input type="text" class="form-control" path="namaCustomer"/>
-				<f:errors path="namaCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="namaCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>
 			<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Email</h1>
 				<f:input type="email" class="form-control" path="emailCustomer"/>
-				<f:errors path="emailCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="emailCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	  			<h1 class="h6 mb-2 text-gray-900">Jenis Kelamin</h1>
@@ -106,12 +105,12 @@
 				<h1 class="h6 text-gray-800"><input type="radio" name="jenisKelamin" id="jenisKelamin" value="Laki-laki" class="mr-2" >Laki-laki</h1>
  				<h1 class="h6 text-gray-800"><input type="radio" name="jenisKelamin" id="jenisKelamin" value="Perempuan" class="mr-2" checked>Perempuan</h1>
  				</c:if>
-				<f:errors path="jenisKelamin" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="jenisKelamin" class="h7 mb-0 text-danger"/>
 	  		</div>			
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Alamat</h1>
 				<f:textarea class="form-control" path="alamatCustomer"  rows="3"/>
-				<f:errors path="alamatCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="alamatCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>			
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Kota</h1>
@@ -120,7 +119,7 @@
 				        <f:option value="${k.kodeKota}" label="${k.namaKota }"/>
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeKota" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeKota" class="h7 mb-0 text-danger"/>		
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

@@ -132,6 +132,7 @@ public class MstCustomerCtl {
 		}if(kar.getLevel().equals("2")){
 			model.addAttribute("level", "Staff");
 		}
+		model.addAttribute("gender", dto.getJenisKelamin());
 		model.addAttribute("username", kar.getNamaKaryawan());
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		model.addAttribute("kota", kotas);

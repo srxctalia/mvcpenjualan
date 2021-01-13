@@ -165,7 +165,7 @@
 				<h1 class="h6 mb-0 text-gray-600">${validasi}</h1>
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Detail</h1>
 				<f:input type="text" path="kodeDetail" class="form-control" placeholder="Masukan kode detail${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeDetail" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="kodeDetail" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Barang</h1>
@@ -175,12 +175,12 @@
 				    <f:option value="${b.kodeBarang}" label="${b.namaBarang}"></f:option>			      
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeBarang" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeBarang" class="h7 mb-0 text-danger"/>		
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Harga Satuan</h1>
 				<f:input type="number" class="form-control" path="hargaSatuan" placeholder="Masukan harga satuan"/>
-				<f:errors path="hargaSatuan" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="hargaSatuan" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Jumlah Barang</h1>

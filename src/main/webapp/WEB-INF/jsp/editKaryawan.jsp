@@ -89,22 +89,22 @@
 								<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Kode Karyawan</h1>
 										<f:input type="text" path="kodeKaryawan" class="form-control" readonly="true" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-										<f:errors path="kodeKaryawan" class="h7 mb-0 text-gray-600"/>
+										<f:errors path="kodeKaryawan" class="h7 mb-0 text-danger"/>
 							  		</div>
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Nama Karyawan</h1>
 										<f:input type="text" class="form-control" path="namaKaryawan"/>
-										<f:errors path="namaKaryawan" class="h7 mb-0 text-gray-600"/>
+										<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 							  		</div>
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Username</h1>
 										<f:input type="text" class="form-control" path="username"/>
-										<f:errors path="username" class="h7 mb-0 text-gray-600"/>
+										<f:errors path="username" class="h7 mb-0 text-danger"/>
 							  		</div>
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Password</h1>
 										<f:input type="password" class="form-control" path="password"/>
-										<f:errors path="password" class="h7 mb-0 text-gray-600"/>
+										<f:errors path="password" class="h7 mb-0 text-danger"/>
 							  		</div>
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Confirm Password</h1>

@@ -7,6 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="library.jsp" />
+<!-- Style for show password -->
+<style type="text/css">
+.field-icon {
+  float: right;
+  margin-right: 20px;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
 <title>Tambah Data Karyawan</title>
 </head>
 <body id="page-top">
@@ -45,10 +55,15 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${usr}</span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/static/css/undraw_profile.svg">
+                                    <i class="fas fas fa-stream fa-sm fa-fw ml-2 text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                               <a class="dropdown-item" href="#">
+                                	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    ${level}
+                                </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -84,30 +99,32 @@
 								<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Kode Karyawan</h1>
 									<f:input type="text" path="kodeKaryawan" class="form-control" placeholder="Masukan kode Karyawan${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-									<f:errors path="kodeKaryawan" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="kodeKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 					  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Nama Karyawan</h1>
 									<f:input type="text" class="form-control" path="namaKaryawan" placeholder="Masukan nama Karyawan"/>
-									<f:errors path="namaKaryawan" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 							  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Username</h1>
 									<f:input type="text" class="form-control" path="username" placeholder="Masukan username"/>
-									<f:errors path="username" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="username" class="h7 mb-0 text-danger"/>
 						  		</div>
 						  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Password</h1>
 									<f:input type="password" class="form-control" path="password" placeholder="Masukan password" id="password" required="true"/>
-						  			<f:errors path="password" class="h7 mb-0 text-gray-600"/>
+						  			<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						  			<f:errors path="password" class="h7 mb-0 text-danger"/>
 						  		</div>
 						  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Confirm Password</h1>
 									<input type="password" class="form-control" placeholder="Konfirmasi password" id="confirm_password" required="true"/>
+						  			<span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						  		</div>
 						  		
 						  		<script type="text/javascript">
@@ -133,7 +150,7 @@
 								        <option value="1">Admin</option>
     									<option value="2">Staff</option>
 								      </f:select>
-								      <f:errors path="level" class="h7 mb-0 text-gray-600"/>		
+								      <f:errors path="level" class="h7 mb-0 text-danger"/>		
 						  		</div>
 						  		
 								<input type="submit" value="Save" class="btn btn-primary">
@@ -142,5 +159,18 @@
 							</f:form>
 						</div>
 					<jsp:include page="footer.jsp" />
+												<!-- JS for Show Password -->
+		<script type="text/javascript">
+			$(".toggle-password").click(function() {
+
+			  $(this).toggleClass("fa-eye fa-eye-slash");
+			  var input = $($(this).attr("toggle"));
+			  if (input.attr("type") == "password") {
+			    input.attr("type", "text");
+			  } else {
+			    input.attr("type", "password");
+			  }
+			});
+		</script>
 </body>
 </html>

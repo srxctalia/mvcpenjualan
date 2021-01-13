@@ -48,6 +48,11 @@ public class MstCustomerCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		String username = (String) session.getAttribute("login");
 		Map<String, Object> map = svc.listAll(cari, page);
 		List<MstCustomerDto> list = (List<MstCustomerDto>) map.get("list");
@@ -74,6 +79,11 @@ public class MstCustomerCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		MstCustomerDto dto = new MstCustomerDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		
@@ -93,10 +103,16 @@ public class MstCustomerCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		MstCustomerDto dto = svc.findOne(kodeCustomer);
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		
 		cekCustomer = "edit";
+		model.addAttribute("gender", dto.getJenisKelamin());
 		model.addAttribute("dto", dto);
 		model.addAttribute("kota", kotas);
 		model.addAttribute("username", kar.getNamaKaryawan());
@@ -107,9 +123,20 @@ public class MstCustomerCtl {
 	@RequestMapping("/save")
 	public String save(@Valid @ModelAttribute("dto") MstCustomerDto dto, BindingResult result, Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		if (kar == null){
 			return "redirect:/karyawan/login";
 		} 
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}
+		model.addAttribute("gender", dto.getJenisKelamin());
+		model.addAttribute("username", kar.getNamaKaryawan());
+		List<MstKotaDto> kotas = svcK.findAllKota();
+		model.addAttribute("kota", kotas);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		if (svc.findOne(dto.getKodeCustomer()) == null){
 			if (result.hasErrors()){
 				return "addCustomer";
@@ -122,9 +149,7 @@ public class MstCustomerCtl {
 					svc.save(dto);
 					return "redirect:/customer/all";				
 				}
-				List<MstKotaDto> kotas = svcK.findAllKota();
 				model.addAttribute("dto", dto);
-				model.addAttribute("kota", kotas);
 				return "editCustomer";
 			}
 			model.addAttribute("stat", 1);

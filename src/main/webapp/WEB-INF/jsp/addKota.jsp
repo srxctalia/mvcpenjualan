@@ -47,10 +47,15 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${usr}</span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/static/css/undraw_profile.svg">
+                                    <i class="fas fas fa-stream fa-sm fa-fw ml-2 text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                               <a class="dropdown-item" href="#">
+                                	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    ${level}
+                                </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -83,12 +88,12 @@
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Kota</h1>
 				<f:input type="text" path="kodeKota" class="form-control" placeholder="Masukan kode kota${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeKota" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="kodeKota" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Kota</h1>
 				<f:input type="text" class="form-control" path="namaKota" placeholder="Masukan nama kota"/>
-				<f:errors path="namaKota" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="namaKota" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Provinsi</h1>
@@ -98,7 +103,7 @@
 				    <f:option value="${p.kodeProvinsi}" label="${p.namaProvinsi}"/>
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeProvinsi" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeProvinsi" class="h7 mb-0 text-danger"/>		
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

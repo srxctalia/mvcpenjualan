@@ -48,10 +48,15 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/static/css/undraw_profile.svg">
+                                    <i class="fas fas fa-stream fa-sm fa-fw ml-2 text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                               <a class="dropdown-item" href="#">
+                                	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    ${level}
+                                </a>                                
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -84,31 +89,28 @@
 		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Customer</h1>
 				<f:input type="text" path="kodeCustomer" class="form-control" placeholder="Masukan kode customer${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="kodeCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Nama Customer</h1>
 				<f:input type="text" class="form-control" path="namaCustomer" placeholder="Masukan nama customer"/>
-				<f:errors path="namaCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="namaCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>
 			<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Email</h1>
 				<f:input type="email" class="form-control" path="emailCustomer" placeholder="Masukan email"/>
-				<f:errors path="emailCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="emailCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	  			<h1 class="h6 mb-2 text-gray-900">Jenis Kelamin</h1>
-	  			<f:select path="jenisKelamin"  class="custom-select mr-sm-2">
-	  				<option disabled selected value> -- select an option -- </option>
-		  			<f:option value="male" label="Laki-laki"/>
-		  			<f:option value="female" label="Perempuan"/>
-	  			</f:select>
-				<f:errors path="jenisKelamin" class="h7 mb-0 text-gray-600"/>
+				<h1 class="h6 text-gray-800"><input type="radio" name="jenisKelamin" value="Laki-laki" class="mr-2">Laki-laki</h1>
+				<h1 class="h6 text-gray-800"><input type="radio" name="jenisKelamin" value="Perempuan" class="mr-2">Perempuan</h1>
+				<f:errors path="jenisKelamin" class="h7 mb-0 text-danger"/>
 	  		</div>			
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Alamat</h1>
 				<f:textarea class="form-control" path="alamatCustomer" placeholder="Masukan Alamat" rows="3"/>
-				<f:errors path="alamatCustomer" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="alamatCustomer" class="h7 mb-0 text-danger"/>
 	  		</div>			
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Kota</h1>
@@ -118,7 +120,7 @@
 				        <f:option value="${k.kodeKota}" label="${k.namaKota }"/>
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeKota" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeKota" class="h7 mb-0 text-danger"/>		
 	  		</div>
 		<input type="submit" value="Save" class="btn btn-primary">
 		<input type="button" class="btn btn-secondary" value="Cancel" 

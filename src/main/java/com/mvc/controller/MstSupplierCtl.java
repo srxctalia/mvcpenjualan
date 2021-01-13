@@ -47,6 +47,11 @@ private String cekSupplier = "";
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		String username = (String) session.getAttribute("login");
 		Map<String, Object> map = svc.listAll(cari, page);
 		List<MstSupplierDto> list = (List<MstSupplierDto>) map.get("list");
@@ -72,6 +77,11 @@ private String cekSupplier = "";
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		MstSupplierDto dto = new MstSupplierDto();
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		
@@ -91,6 +101,11 @@ private String cekSupplier = "";
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		MstSupplierDto dto = svc.findOne(kodeSupplier);
 		List<MstKotaDto> kotas = svcK.findAllKota();
 		
@@ -105,10 +120,19 @@ private String cekSupplier = "";
 	@RequestMapping("/save")
 	public String save(@Valid @ModelAttribute("dto") MstSupplierDto dto, BindingResult result, Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginUser") == null){
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		List<MstKotaDto> kotas = svcK.findAllKota();
+		model.addAttribute("kota", kotas);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		if (kar == null){
 			return "redirect:/karyawan/login";
-		} 
-		
+		}
+		model.addAttribute("username", kar.getNamaKaryawan());
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		if (svc.findOne(dto.getKodeSupplier()) == null){
 			if (result.hasErrors()){
 				return "addSupplier";
@@ -121,9 +145,7 @@ private String cekSupplier = "";
 					svc.save(dto);
 					return "redirect:/supplier/all";				
 				}
-				List<MstKotaDto> kotas = svcK.findAllKota();
 				model.addAttribute("dto", dto);
-				model.addAttribute("kota", kotas);
 				return "editSupplier";
 			}
 			model.addAttribute("stat", 1);

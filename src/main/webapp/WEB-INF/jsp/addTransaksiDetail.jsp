@@ -123,10 +123,15 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${usr}</span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/static/css/undraw_profile.svg">
+                                    <i class="fas fas fa-stream fa-sm fa-fw ml-2 text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                               <a class="dropdown-item" href="#">
+                                	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    ${level}
+                                </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -160,7 +165,7 @@
 				<h1 class="h6 mb-0 text-gray-600">${validasi}</h1>
 	    		<h1 class="h6 mb-2 text-gray-900">Kode Detail</h1>
 				<f:input type="text" path="kodeDetail" class="form-control" placeholder="Masukan kode detail${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeDetail" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="kodeDetail" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 			      <h1 class="h6 mb-2 text-gray-900">Barang</h1>
@@ -170,12 +175,12 @@
 				    <f:option value="${b.kodeBarang}" label="${b.namaBarang}"></f:option>			      
 			      	</c:forEach>
 			      </f:select>
-			      <f:errors path="kodeBarang" class="h7 mb-0 text-gray-600"/>		
+			      <f:errors path="kodeBarang" class="h7 mb-0 text-danger"/>		
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Harga Satuan</h1>
 				<f:input type="number" class="form-control" path="hargaSatuan" placeholder="Masukan harga satuan"/>
-				<f:errors path="hargaSatuan" class="h7 mb-0 text-gray-600"/>
+				<f:errors path="hargaSatuan" class="h7 mb-0 text-danger"/>
 	  		</div>
 	  		<div class="mb-3">
 	    		<h1 class="h6 mb-2 text-gray-900">Jumlah Barang</h1>

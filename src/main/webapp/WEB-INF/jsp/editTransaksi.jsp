@@ -127,10 +127,15 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${usr}</span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/static/css/undraw_profile.svg">
+                                    <i class="fas fas fa-stream fa-sm fa-fw ml-2 text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                               <a class="dropdown-item" href="#">
+                                	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    ${level}
+                                </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -165,13 +170,12 @@
 								<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">No Nota</h1>
 									<f:input type="text" path="noNota" class="form-control" placeholder="Masukan No Nota${kodeTerakhir}" readonly="true" />
-									<f:errors path="noNota" class="h7 mb-0 text-gray-600"/>
 						  		</div>
 					  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Tanggal Transaksi</h1>
 									<f:input type="date" class="form-control" path="tanggalTransaksi" placeholder="Masukan tanggal transaksi" readonly="true" />
-									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-gray-600"/>
+									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-danger"/>
 						  		</div>
 							  		
 							  	<div class="mb-3">
@@ -182,13 +186,13 @@
 									        <f:option value="${c.kodeCustomer}" label="${c.namaCustomer}"></f:option>			      
 								      	</c:forEach>
 								      </f:select>
-								      <f:errors path="kodeCustomer" class="h7 mb-0 text-gray-600"/>		
+								      <f:errors path="kodeCustomer" class="h7 mb-0 text-danger"/>		
 						  		</div>
 							  	
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Karyawan</h1>
-									<f:input type="text" class="form-control" path="kodeKaryawan" placeholder="Masukan karyawan" readonly="true" />
-									<f:errors path="kodeKaryawan" class="h7 mb-0 text-gray-600"/>
+									<f:input type="text" class="form-control" path="namaKaryawan" placeholder="Masukan karyawan" readonly="true" />
+									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 								
 						  		<div class="card-body">

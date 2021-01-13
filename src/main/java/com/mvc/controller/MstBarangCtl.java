@@ -49,7 +49,11 @@ public class MstBarangCtl {
 			if (kar == null){
 				return "redirect:/karyawan/login";
 			} else {
-				
+				if(kar.getLevel().equals("1")){
+					model.addAttribute("level", "Admin");
+				}if(kar.getLevel().equals("2")){
+					model.addAttribute("level", "Staff");
+				}		
 			Map<String,Object> map = svc.listAllPageBarang(cari, page);
 			List<MstBarangDto> list = (List<MstBarangDto>) map.get("list");
 			int totalHalaman = (int) map.get("jumlah");
@@ -76,13 +80,18 @@ public class MstBarangCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}	
 		MstBarangDto dto = new MstBarangDto();
 		List<MstSupplierDto> sup = svcSup.findAll();
 
 		model.addAttribute("dto",dto);
 		model.addAttribute("supplier", sup);
 		model.addAttribute("kodeTerakhir", kodeTerakhir());
-		model.addAttribute("usr", kar.getNamaKaryawan());
+		model.addAttribute("username", kar.getNamaKaryawan());
 		kondisi = "add";
 		return "addBarang";
 		}
@@ -90,8 +99,19 @@ public class MstBarangCtl {
 	
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstBarangDto dto, 
-			BindingResult result, Model model){ 
+			BindingResult result, Model model,HttpServletRequest request){ 
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		List<MstSupplierDto> sup = svcSup.findAll();
 		MstBarangDto findOne = svc.findOneBarang(dto.getKodeBarang());
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		model.addAttribute("supplier", sup);
+		model.addAttribute("username", kar.getNamaKaryawan());
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		if(findOne == null){
 			if(result.hasErrors()){
 				return "addBarang";
@@ -124,12 +144,17 @@ public class MstBarangCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}	
 		MstBarangDto dto = svc.findOneBarang(kodeBarang);
 		List<MstSupplierDto> sup = svcSup.findAll();
 
 		model.addAttribute("dto",dto);
 		model.addAttribute("supplier", sup);
-		model.addAttribute("usr", kar.getNamaKaryawan());
+		model.addAttribute("username", kar.getNamaKaryawan());
 		kondisi="detail";
 		return "editBarang";
 		}

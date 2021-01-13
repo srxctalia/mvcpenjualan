@@ -59,6 +59,11 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		if (kar.getLevel().equals("1")) {
 			Map<String, Object> map = svcT.listAll(cari, page);
 			List<TrHeaderPenjualanDto> list = (List<TrHeaderPenjualanDto>) map.get("list");
@@ -103,6 +108,11 @@ public class TransaksiCtl {
 			return "redirect:/karyawan/login";
 		}
 //		try {
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
 			
@@ -142,6 +152,11 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		try {
 				String kondisi = (String)session.getAttribute("kondisi");
 				List<MstCustomerDto> listCustomer = svcC.findAll();
@@ -218,6 +233,12 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
+		
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}
 		if (!checkHeaderIsEmpty(dtoH)){
 			List<MstBarangDto> listBarang = svcB.findAllBarang();
 			model.addAttribute("kodeTerakhir", kodeTerakhirDetail());
@@ -244,6 +265,16 @@ public class TransaksiCtl {
 //		try {
 			if (kar == null) {
 				return "redirect:/karyawan/login";
+			}
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}	
+			if(dtoD.getKodeDetail().isEmpty()){
+				model.addAttribute("stat", 1);
+				model.addAttribute("validasi", "Harap Isi Semua Data, Jika tidak ada diskon cukup beri 0");
+				return "redirect:/transaksi/addDetail";
 			}
 			String kondisi = (String)session.getAttribute("kondisi");
 			List<TrDetailPenjualanDto> listDetail = new ArrayList<TrDetailPenjualanDto>();
@@ -351,6 +382,11 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}	
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		TrHeaderPenjualanDto dtoH = svcT.findOneHeaderDetail(noNota);
 		List<MstCustomerDto> listCustomer = svcC.findAll();
@@ -432,6 +468,12 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}else{
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}	
+			model.addAttribute("usr", kar.getNamaKaryawan());
 			TrHeaderPenjualanDto dtoH = svcT.findOneHeaderDetail(noNota);
 			List<TrDetailPenjualanDto> detList = dtoH.getDetailTransaksi();
 			model.addAttribute("dtoH", dtoH);

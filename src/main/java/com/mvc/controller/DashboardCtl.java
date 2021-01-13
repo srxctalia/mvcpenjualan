@@ -39,12 +39,17 @@ public class DashboardCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
-		model.addAttribute("usr", kar.getNamaKaryawan());
-		model.addAttribute("banyakbarang", banyakBarang());
-		model.addAttribute("banyakcustomer", banyakCustomer());
-		model.addAttribute("banyaksupplier", banyakSupplier());
-		model.addAttribute("banyaktransaksi", banyakTransaksi());
-		return "dashboard";
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}	
+			model.addAttribute("usr", kar.getNamaKaryawan());
+			model.addAttribute("banyakbarang", banyakBarang());
+			model.addAttribute("banyakcustomer", banyakCustomer());
+			model.addAttribute("banyaksupplier", banyakSupplier());
+			model.addAttribute("banyaktransaksi", banyakTransaksi());
+			return "dashboard";
 		}
 	}
 	

@@ -48,6 +48,11 @@ public class MstProvinsiCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}
 		model.addAttribute("usr", kar.getNamaKaryawan());
 			MstProvinsiDto dto = new MstProvinsiDto();
 			model.addAttribute("dto", dto);
@@ -59,8 +64,17 @@ public class MstProvinsiCtl {
 	
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstProvinsiDto dto, BindingResult result,
-			Model model){
+			Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
 		MstProvinsiDto findOne = svc.findOneProvinsi(dto.getKodeProvinsi().toUpperCase());
+		model.addAttribute("usr", kar.getNamaKaryawan());
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}
 		if (findOne == null){
 			if(result.hasErrors()){
 				return "addProvinsi";
@@ -91,6 +105,11 @@ public class MstProvinsiCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstProvinsiDto dto = svc.findOneProvinsi(kodeProvinsi);
 		model.addAttribute("dto", dto);
@@ -136,6 +155,11 @@ public class MstProvinsiCtl {
 			if (kar == null){
 				return "redirect:/karyawan/login";
 			} else {
+				if(kar.getLevel().equals("1")){
+					model.addAttribute("level", "Admin");
+				}if(kar.getLevel().equals("2")){
+					model.addAttribute("level", "Staff");
+				}
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			Map<String, Object> map = svc.listAllPageProvinsi(cari, page);
 			List<MstProvinsiDto> list = (List<MstProvinsiDto>) map.get("list");

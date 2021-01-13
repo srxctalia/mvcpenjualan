@@ -205,7 +205,8 @@ public class TransaksiCtl {
 		model.addAttribute("barang", listBarang);
 		model.addAttribute("dtoD", dtoDetail);
 		session.setAttribute("dtoH", dtoH);
-		return "addTransaksiDetail";
+		return "addTransaksiDetail";			
+		
 	}
 
 	@RequestMapping("/saveDetail")

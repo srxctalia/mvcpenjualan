@@ -190,6 +190,13 @@
 	</f:form>
 </div>
 
+	<script language="javascript">
+		function addDetail(){
+			document.forms[0].action = '${pageContext.request.contextPath}/transaksi/addDetail';
+			document.forms[0].submit();
+		}
+	</script>
+
   <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -144,9 +144,9 @@ public class TransaksiCtl {
 		}
 		try {
 				String kondisi = (String)session.getAttribute("kondisi");
+				List<MstCustomerDto> listCustomer = svcC.findAll();
 				if (kondisi.equalsIgnoreCase("add")){
 					if (!result.hasErrors()) {
-						List<MstCustomerDto> listCustomer = svcC.findAll();
 						if (svcT.findOneHeaderDetail(dtoH.getNoNota()) != null) {
 							model.addAttribute("error", "No Nota sudah pernah dibuat");
 							model.addAttribute("customer", listCustomer);
@@ -168,22 +168,26 @@ public class TransaksiCtl {
 						svcT.saveHeader(dtoH);
 						return "redirect:/transaksi/all";				
 					}
+					model.addAttribute("customer", listCustomer);
+					model.addAttribute("stat", 1);
+					return "redirect:/transaksi/add";
 				} else {
-					if (result.hasErrors()){
-						return "redirect:/transaksi/edit/"+dtoH.getNoNota();
+					if (!result.hasErrors()){
+						if (session.getAttribute("listDetail") != null){
+							dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>)session.getAttribute("listDetail"));						
+						}
+						int grandTotal=0;
+						for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
+							grandTotal+=detail.getSubtotal();			
+						}
+						dtoH.setHargaTotal(grandTotal - (grandTotal*dtoH.getGlobalDiskon()/100));
+						svcT.saveHeader(dtoH);
+						return "redirect:/transaksi/all";
 					}
-					if (session.getAttribute("listDetail") != null){
-						dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>)session.getAttribute("listDetail"));						
-					}
-					int grandTotal=0;
-					for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
-						grandTotal+=detail.getSubtotal();			
-					}
-					dtoH.setHargaTotal(grandTotal - (grandTotal*dtoH.getGlobalDiskon()/100));
-					svcT.saveHeader(dtoH);
-					return "redirect:/transaksi/all";
+					model.addAttribute("customer", listCustomer);
+					model.addAttribute("stat", 1);
+					return "redirect:/transaksi/edit/"+dtoH.getNoNota();
 				}
-				return "redirect:/transaksi/all";
 			} catch (Exception e) {
 				// TODO: handle exception
 				return "redirect:/transaksi/all";
@@ -281,11 +285,11 @@ public class TransaksiCtl {
 						session.setAttribute("listDetail", listDetail);
 						return "redirect:/transaksi/add";							
 					}
-					model.addAttribute("usr", kar.getNamaKaryawan());
-					model.addAttribute("dtoD", dtoD);
-					model.addAttribute("barang", listbarang);
-					return "redirect:/transaksi/addDetail";
 				}
+				model.addAttribute("usr", kar.getNamaKaryawan());
+				model.addAttribute("dtoD", dtoD);
+				model.addAttribute("barang", listbarang);
+				return "addTransaksiDetail";
 			}
 			// Kondisi save detail pada Edit header
 			if (!result.hasErrors()){

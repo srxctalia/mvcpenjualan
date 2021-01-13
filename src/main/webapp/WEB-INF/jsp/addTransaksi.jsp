@@ -37,7 +37,7 @@
                     
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-1r">
-                        <h1 class="h3 mb-0 text-gray-800">Add Karyawan</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Add Transaksi</h1>
                     </div>
                     
                     <!-- Topbar Navbar -->

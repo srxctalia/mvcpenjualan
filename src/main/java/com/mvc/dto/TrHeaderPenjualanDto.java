@@ -4,17 +4,19 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class TrHeaderPenjualanDto {
-//	@NotEmpty(message="please fill no nota")
+	@NotEmpty(message="please fill no nota")
 	private String noNota;
-//	@NotEmpty(message="please fill global diskon?")
-//	@Min(value=0, message="minimal ada 0")
+	@NotNull(message="please fill global diskon?")
+	@Min(value=0, message="minimal ada 0")
 	private int globalDiskon;
 	private int hargaTotal;
+	@NotEmpty(message="please fill customer")
 	private String kodeCustomer;
 	private String kodeKaryawan;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

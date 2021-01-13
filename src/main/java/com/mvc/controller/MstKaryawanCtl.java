@@ -37,6 +37,11 @@ public class MstKaryawanCtl {
 			if (kar == null){
 				return "redirect:/karyawan/login";
 			} else {
+				if(kar.getLevel().equals("1")){
+					model.addAttribute("level", "Admin");
+				}if(kar.getLevel().equals("2")){
+					model.addAttribute("level", "Staff");
+				}
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			MstKaryawanDto dto = new MstKaryawanDto();
 			model.addAttribute("dto", dto);
@@ -48,12 +53,22 @@ public class MstKaryawanCtl {
 	
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstKaryawanDto dto, BindingResult result,
-			Model model){
+			Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
 		MstKaryawanDto findOne = svc.findOneKaryawan(dto.getKodeKaryawan());
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		model.addAttribute("usr", kar.getNamaKaryawan());
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}
 		if (findOne == null){
 			if(result.hasErrors()){
 				return "addKaryawan";
 			} else {
+				model.addAttribute("usr", kar.getNamaKaryawan());
 				model.addAttribute("validPassword", isValidPassword(dto.getPassword()));
 				if(!isValidPassword(dto.getPassword())){
 			        String valid = "Password harus lebih dari 8 karakter dan kurang dari 20 karakter, "
@@ -99,6 +114,11 @@ public class MstKaryawanCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstKaryawanDto dto = svc.findOneKaryawan(kodeKaryawan);
 		model.addAttribute("dto", dto);
@@ -123,6 +143,11 @@ public class MstKaryawanCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			if (kar.getLevel().equals("1")){
 				Map<String, Object> map = svc.listAllPageKaryawan(cari, page);

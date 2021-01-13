@@ -45,6 +45,11 @@ public class MstKotaCtl {
 			if (kar == null){
 				return "redirect:/karyawan/login";
 			} else {
+				if(kar.getLevel().equals("1")){
+					model.addAttribute("level", "Admin");
+				}if(kar.getLevel().equals("2")){
+					model.addAttribute("level", "Staff");
+				}
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			Map<String,Object> map = svc.listAllPageKota(cari, page);
 			List<MstKotaDto> list = (List<MstKotaDto>) map.get("list");
@@ -71,6 +76,11 @@ public class MstKotaCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
 
@@ -86,8 +96,19 @@ public class MstKotaCtl {
 	
 	@RequestMapping("save")
 	public String save(@Valid @ModelAttribute("dto") MstKotaDto dto, 
-			BindingResult result, Model model){ 
+			BindingResult result, Model model,HttpServletRequest request){ 
+		HttpSession session = request.getSession();
+		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
+		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstKotaDto findOne = svc.findOneKota(dto.getKodeKota());
+		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();
+		model.addAttribute("provinsi", prov);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		if(kar.getLevel().equals("1")){
+			model.addAttribute("level", "Admin");
+		}if(kar.getLevel().equals("2")){
+			model.addAttribute("level", "Staff");
+		}
 		if(findOne == null){
 			if(result.hasErrors()){
 				return "addKota";
@@ -120,6 +141,11 @@ public class MstKotaCtl {
 		if (kar == null){
 			return "redirect:/karyawan/login";
 		} else {
+			if(kar.getLevel().equals("1")){
+				model.addAttribute("level", "Admin");
+			}if(kar.getLevel().equals("2")){
+				model.addAttribute("level", "Staff");
+			}
 		model.addAttribute("usr", kar.getNamaKaryawan());
 		MstKotaDto dto = svc.findOneKota(kodeKota);
 		List<MstProvinsiDto> prov = svcProv.findAllProvinsi();

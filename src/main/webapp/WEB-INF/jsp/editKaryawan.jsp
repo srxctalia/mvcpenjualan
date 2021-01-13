@@ -7,6 +7,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="library.jsp" />
+<!-- Style for show password -->
+<style type="text/css">
+.field-icon {
+  float: right;
+  margin-right: 20px;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+</style>
 <title>Edit Data Karyawan</title>
 </head>
 <body id="page-top">
@@ -104,11 +115,13 @@
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Password</h1>
 										<f:input type="password" class="form-control" path="password"/>
+										<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 										<f:errors path="password" class="h7 mb-0 text-danger"/>
 							  		</div>
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Confirm Password</h1>
 										<input type="password" class="form-control" placeholder="Konfirmasi password" id="confirm_password" required="true"/>
+						  				<span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						  			</div>
 							  		<script type="text/javascript">
 								  		var password = document.getElementById("password")
@@ -151,5 +164,19 @@
         	</div>
         	
 		<jsp:include page="footer.jsp" />
+		
+		<!-- JS for Show Password -->
+		<script type="text/javascript">
+			$(".toggle-password").click(function() {
+
+			  $(this).toggleClass("fa-eye fa-eye-slash");
+			  var input = $($(this).attr("toggle"));
+			  if (input.attr("type") == "password") {
+			    input.attr("type", "text");
+			  } else {
+			    input.attr("type", "password");
+			  }
+			});
+		</script>
 </body>
 </html>

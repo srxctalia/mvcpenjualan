@@ -6,14 +6,17 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class TrDetailPenjualanDto {
-//	@NotEmpty(message="please fill kode detail")
+	@NotEmpty(message="please fill kode detail")
 	private String kodeDetail;
 	private int diskon;
-//	@NotNull(message="please fill harga barang")
+	@NotNull(message="please fill harga barang")
+	@Min(1000)
 	private int hargaSatuan;
-//	@NotEmpty(message="please fill barang")
+	@NotEmpty(message="please fill barang")
 	private String kodeBarang;
 	private String noNota;
+	@NotNull(message="please fill qty")
+	@Min(1)
 	private int qty;
 	private int subtotal;
 	private String namaBarang; //karena di UI diminta nama barang.

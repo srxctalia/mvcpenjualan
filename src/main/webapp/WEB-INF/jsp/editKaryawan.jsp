@@ -98,7 +98,7 @@
 							  		</div>
 							  		<div class="mb-3">
 							    		<h1 class="h6 mb-2 text-gray-900">Password</h1>
-										<f:input type="text" class="form-control" path="password"/>
+										<f:input type="password" class="form-control" path="password"/>
 										<f:errors path="password" class="h7 mb-0 text-gray-600"/>
 							  		</div>
 							  		<div class="mb-3">

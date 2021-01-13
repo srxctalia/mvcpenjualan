@@ -3,8 +3,10 @@ package com.mvc.controller;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,7 +76,7 @@ public class TransaksiCtl {
 				model.addAttribute("keterangan",out);
 			}
 			if(list.isEmpty()){
-				String out = String.format("Hasil pencarian '%s' tidak ditemukan. ", cari);
+				String out = String.format("Hasil pencarian '%s' tidak ditemukan pada tanggal %s ", cari, DateTimeFormatter.ofPattern("dd MMMM yyyy ", new Locale("id", "ID")).format(LocalDate.now()) );
 				model.addAttribute("penjelasan",out);
 			}
 			
@@ -347,10 +349,7 @@ public class TransaksiCtl {
 							model.addAttribute("error", "Stok barang tidak tercukupi");
 						} else {
 							TrHeaderPenjualanDto dtoH =  (TrHeaderPenjualanDto) session.getAttribute("dtoH");
-							listDetail = dtoH.getDetailTransaksi();
-							for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
-								System.err.println("KODE DETAIL: "+detail.getKodeDetail());
-							}
+							listDetail = svcT.findAllDetail(dtoH.getNoNota());
 							dtoD.setNamaBarang(br.getNamaBarang());
 							dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
 							listDetail.add(dtoD);
@@ -388,10 +387,12 @@ public class TransaksiCtl {
 			model.addAttribute("level", "Staff");
 		}	
 		model.addAttribute("usr", kar.getNamaKaryawan());
-		TrHeaderPenjualanDto dtoH = svcT.findOneHeaderDetail(noNota);
+		TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
 		List<MstCustomerDto> listCustomer = svcC.findAll();
 		if (session.getAttribute("dtoH")!= null){
 			dtoH = (TrHeaderPenjualanDto) session.getAttribute("dtoH");
+		} else {
+			dtoH = svcT.findOneHeaderDetail(noNota);
 		}
 		if (session.getAttribute("listDetail")!= null){
 			dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>) session.getAttribute("listDetail"));			
@@ -414,10 +415,11 @@ public class TransaksiCtl {
 	public String deleteDetail(@PathVariable("kodeDetail") String kodeDetail, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		List<TrDetailPenjualanDto> list = (List<TrDetailPenjualanDto>) session.getAttribute("listDetail");
-		if (session.getAttribute("kondisi") == "add"){
-			for (TrDetailPenjualanDto detail : list){
-				if (detail.getKodeDetail().equalsIgnoreCase(kodeDetail)){
-					list.remove(detail);
+		String kondisi = (String)session.getAttribute("kondisi");
+		if (kondisi.equalsIgnoreCase("add")){
+			for (int i=0; i < list.size(); i++){
+				if (list.get(i).getKodeDetail().equalsIgnoreCase(kodeDetail)){
+					list.remove(i);
 				}
 			}
 			session.setAttribute("listDetail", list);

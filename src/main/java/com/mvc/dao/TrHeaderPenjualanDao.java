@@ -21,11 +21,12 @@ public interface TrHeaderPenjualanDao extends JpaRepository<TrHeaderPenjualan, T
 	@Query("select a,b.namaKaryawan,c.namaCustomer "
 			+ "from TrHeaderPenjualan as a,MstKaryawan as b,MstCustomer as c "
 			+ "where a.kodeCustomer = c.kodeCustomer AND a.kodeKaryawan = b.kodeKaryawan "
-			+ "AND (a.noNota like %:noNota%)")
+			+ "AND (a.noNota like %:noNota%) ")
 	public Object[] findOnePenjualan(@Param("noNota") String noNota);
 	
 	@Query("select count(a.noNota) from TrHeaderPenjualan a "
-			+ "where a.noNota like %:cari%")
+			+ "where a.noNota like %:cari% " 
+			+ "AND CONVERT(DATE, a.tanggalTransaksi) = CONVERT(DATE, GETDATE())")
 	public int countData(@Param("cari") String cari);
 	
 	@Query("select a,b.namaKaryawan,c.namaCustomer "

@@ -115,28 +115,32 @@ public class TransaksiCtl {
 		}if(kar.getLevel().equals("2")){
 			model.addAttribute("level", "Staff");
 		}	
-			model.addAttribute("usr", kar.getNamaKaryawan());
-			TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
-			
-			List<MstCustomerDto> listCustomer = svcC.findAll();
-			if (session.getAttribute("dtoH") != null) {
-				dtoH = (TrHeaderPenjualanDto) session.getAttribute("dtoH");
+		model.addAttribute("usr", kar.getNamaKaryawan());
+		TrHeaderPenjualanDto dtoH = new TrHeaderPenjualanDto();
+		int grandTotal = 0;
+		List<MstCustomerDto> listCustomer = svcC.findAll();
+		if (session.getAttribute("dtoH") != null) {
+			dtoH = (TrHeaderPenjualanDto) session.getAttribute("dtoH");
+		}
+		if (session.getAttribute("listDetail") != null) {
+			dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>) session.getAttribute("listDetail"));
+			for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
+				grandTotal = grandTotal + detail.getSubtotal();
 			}
-			if (session.getAttribute("listDetail") != null) {
-				dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>) session.getAttribute("listDetail"));
-			}
-			
-			dtoH.setTanggalTransaksi(Date.valueOf(LocalDate.now()));
-			dtoH.setKodeKaryawan(kar.getKodeKaryawan());
-			dtoH.setNamaKaryawan(kar.getNamaKaryawan());
-			
-			
-			model.addAttribute("dtoH", dtoH);
-			model.addAttribute("customer", listCustomer);
-			model.addAttribute("kodeTerakhir", kodeTerakhir());
-			session.setAttribute("kondisi", "add");
-			
-			return "addTransaksi";
+		}
+		
+		dtoH.setTanggalTransaksi(Date.valueOf(LocalDate.now()));
+		dtoH.setKodeKaryawan(kar.getKodeKaryawan());
+		dtoH.setNamaKaryawan(kar.getNamaKaryawan());
+		dtoH.setHargaTotal(grandTotal);
+		
+		model.addAttribute("total", grandTotal);
+		model.addAttribute("dtoH", dtoH);
+		model.addAttribute("customer", listCustomer);
+		model.addAttribute("kodeTerakhir", kodeTerakhir());
+		session.setAttribute("kondisi", "add");
+		
+		return "addTransaksi";
 			
 //		} catch (Exception e) {
 //			// TODO: handle exception
@@ -159,7 +163,7 @@ public class TransaksiCtl {
 		}if(kar.getLevel().equals("2")){
 			model.addAttribute("level", "Staff");
 		}	
-		try {
+//		try {
 				String kondisi = (String)session.getAttribute("kondisi");
 				List<MstCustomerDto> listCustomer = svcC.findAll();
 				if (kondisi.equalsIgnoreCase("add")){
@@ -177,6 +181,7 @@ public class TransaksiCtl {
 								for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
 									grandTotal+=detail.getSubtotal();			
 								}
+								dtoH.setKodeKaryawan(kar.getKodeKaryawan());
 								dtoH.setHargaTotal(grandTotal - (grandTotal*dtoH.getGlobalDiskon()/100));
 								svcT.deleteAllDetailByNoNota(dtoH.getNoNota());
 								svcT.saveHeader(dtoH);
@@ -200,12 +205,15 @@ public class TransaksiCtl {
 						if (session.getAttribute("listDetail") != null){
 							dtoH.setDetailTransaksi((List<TrDetailPenjualanDto>)session.getAttribute("listDetail"));						
 							svcT.deleteAllDetailByNoNota(dtoH.getNoNota());
+						} else {
+							dtoH.setDetailTransaksi(svcT.findAllDetail(dtoH.getNoNota()));
 						}
 						int grandTotal=0;
 						for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
 							grandTotal+=detail.getSubtotal();			
 						}
 						dtoH.setHargaTotal(grandTotal - (grandTotal*dtoH.getGlobalDiskon()/100));
+						dtoH.setKodeKaryawan(kar.getKodeKaryawan());
 						svcT.saveHeader(dtoH);
 						for (TrDetailPenjualanDto detail : dtoH.getDetailTransaksi()){
 							MstBarangDto br = svcB.findOneBarang(detail.getKodeBarang());
@@ -220,10 +228,10 @@ public class TransaksiCtl {
 					model.addAttribute("stat", 1);
 					return "redirect:/transaksi/edit/"+dtoH.getNoNota();
 				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				return "redirect:/transaksi/all";
-			}
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				return "redirect:/transaksi/all";
+//			}
 	}
 
 	@RequestMapping("/addDetail")
@@ -235,7 +243,6 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
-		
 		if(kar.getLevel().equals("1")){
 			model.addAttribute("level", "Admin");
 		}if(kar.getLevel().equals("2")){

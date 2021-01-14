@@ -114,7 +114,7 @@
 							  <tr>
 								<td>${t.noNota}</td>
 								<td><fmt:formatDate pattern="dd MMMM yyyy" value="${t.tanggalTransaksi}"/></td>
-								<td>${t.hargaTotal}</td>
+								<td><a>Rp. </a><fmt:formatNumber value = "${t.hargaTotal}" groupingUsed="true" /></td>
 								<td>${t.namaCustomer}</td>
 								<td>${t.namaKaryawan} </td>
 								<td>

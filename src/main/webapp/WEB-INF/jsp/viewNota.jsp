@@ -106,7 +106,7 @@
 							  <tr>
 								<td>${dtoH.noNota}</td>
 								<td><fmt:formatDate pattern="dd MMMM yyyy" value="${dtoH.tanggalTransaksi}"/></td>
-								<td>${dtoH.hargaTotal}</td>
+								<td><a>Rp. </a><fmt:formatNumber value="${dtoH.hargaTotal}" groupingUsed="true" /></td>
 								<td>${dtoH.namaCustomer}</td>
 								<td>${dtoH.namaKaryawan} </td>
 							  </tr>
@@ -141,9 +141,9 @@
 							  <tr>
 								<td>${d.kodeDetail}</td>
 								<td>${d.qty}</td>
-								<td>${d.subtotal}</td>
+								<td><a>Rp. </a><fmt:formatNumber value = "${d.subtotal}" groupingUsed="true" /></td>
 								<td>${d.diskon}</td>
-								<td>${d.hargaSatuan}</td>
+								<td><a>Rp. </a><fmt:formatNumber value = "${d.hargaSatuan}" groupingUsed="true" /></td>
 								<td>${d.namaBarang}</td>
 							  </tr>
 							  </c:forEach>

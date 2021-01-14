@@ -157,42 +157,65 @@
 					<c:if test="${cek == 1}">	 
 					<div class="alert alert-danger alert-dismissible fade show">
 				    <button type="button" class="close" data-dismiss="alert">&times;</button>
-				    <h1 class="h6 mb-0 text-gray-600">${validasi}</h1>
+				    <h1 class="h6 mb-0 text-gray-600">${error}</h1>
 				  	</div>
   					</c:if>
 	<f:form action="${pageContext.request.contextPath}/transaksi/saveDetail" modelAttribute="dtoD">
-		<div class="mb-3">
-				<h1 class="h6 mb-0 text-gray-600">${validasi}</h1>
-	    		<h1 class="h6 mb-2 text-gray-900">Kode Detail</h1>
-				<f:input type="text" path="kodeDetail" class="form-control" placeholder="Masukan kode detail${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
-				<f:errors path="kodeDetail" class="h7 mb-0 text-danger"/>
-	  		</div>
-	  		<div class="mb-3">
-			      <h1 class="h6 mb-2 text-gray-900">Barang</h1>
-			      <f:select path="kodeBarang" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-			        <option disabled selected value> -- select an option -- </option>
-			        <c:forEach items="${barang}" var="b">
-				    <f:option value="${b.kodeBarang}" label="${b.namaBarang}"></f:option>			      
-			      	</c:forEach>
-			      </f:select>
-			      <f:errors path="kodeBarang" class="h7 mb-0 text-danger"/>		
-	  		</div>
-	  		<div class="mb-3">
-	    		<h1 class="h6 mb-2 text-gray-900">Harga Satuan</h1>
-				<f:input type="number" class="form-control" path="hargaSatuan" placeholder="Masukan harga satuan"/>
-				<f:errors path="hargaSatuan" class="h7 mb-0 text-danger"/>
-	  		</div>
-	  		<div class="mb-3">
-	    		<h1 class="h6 mb-2 text-gray-900">Jumlah Barang</h1>
-				<f:input type="number" class="form-control" path="qty" value="1" min="1"/>
-	  		</div>
-	  		<div class="mb-3">
-	    		<h1 class="h6 mb-2 text-gray-900">Diskon</h1>
-				<f:input type="number" class="form-control" path="diskon" value="0" min="0"/>
-	  		</div>
-		<input type="submit" value="Save" class="btn btn-primary">
-		<input type="button" class="btn btn-secondary" value="Back" 
-		onclick="location.href='${pageContext.request.contextPath}/transaksi/add';"><br><br>
+		<div class="row mt-4">
+			<div class="col col-md-6 mx-3">
+				<div class="mb-3">
+			    		<h1 class="h6 mb-2 text-gray-900">Kode Detail</h1>
+						<f:input type="text" path="kodeDetail" class="form-control" placeholder="Masukan kode detail${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
+						<f:errors path="kodeDetail" class="h7 mb-0 text-danger"/>
+		  		</div>
+		  		<div class="mb-3">
+				      <h1 class="h6 mb-2 text-gray-900">Barang</h1>
+				      <f:select path="kodeBarang" class="custom-select mr-sm-2" id="barang">
+				        <option disabled selected value> -- select an option -- </option>
+				        <c:forEach items="${barang}" var="b">
+					    <f:option value="${b.kodeBarang}" label="${b.namaBarang}"/>	      
+				      	</c:forEach>
+				      </f:select>
+				      <f:errors path="kodeBarang" class="h7 mb-0 text-danger"/>		
+		  		</div>
+			</div>
+			<div class="col col-md-5 mx-3">
+				<div class="mb-3">
+		    		<h1 class="h6 mb-2 text-gray-900">Sub Total</h1>
+					<f:input type="number" class="form-control" path="subtotal" value="0" min="0" id="subtotal" readonly="true"/>
+		  		</div>
+
+		  	</div>
+		</div>
+		<div class="row">
+			<div class="col col-md-6 mx-3">
+		  		<div class="mb-3">
+		    		<h1 class="h6 mb-2 text-gray-900">Harga Satuan</h1>
+					<f:input type="number" class="form-control" path="hargaSatuan" placeholder="Masukan harga satuan" id="harga" onchange="subtotal.value=harga.value*qty.value-(harga.value*qty.value*diskon.value/100)"/>
+					<f:errors path="hargaSatuan" class="h7 mb-0 text-danger"/>
+		  		</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-md-3 ml-3">
+				<div class="mb-3">
+		    		<h1 class="h6 mb-2 text-gray-900">Jumlah Barang</h1>
+					<f:input type="number" class="form-control" path="qty" value="1" min="1" id="qty" onchange="subtotal.value=harga.value*qty.value-(harga.value*qty.value*diskon.value/100)"/>
+		  		</div>
+
+			</div>
+			<div class="col col-md-3 ">
+				<div class="mb-3">
+		    		<h1 class="h6 mb-2 text-gray-900">Diskon</h1>
+					<f:input type="number" class="form-control" path="diskon" value="0" min="0" id="diskon" onchange="subtotal.value=harga.value*qty.value-(harga.value*qty.value*diskon.value/100)"/>
+		  		</div>
+			</div>
+		</div>
+		<div class="mt-5">
+			<input type="submit" value="Save" class="btn btn-primary">
+			<input type="button" class="btn btn-secondary" value="Back" 
+			onclick="location.href='${pageContext.request.contextPath}/transaksi/add';"><br><br>
+		</div>
 	</f:form>
 </div>
 

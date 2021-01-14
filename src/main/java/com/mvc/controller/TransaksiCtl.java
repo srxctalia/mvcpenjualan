@@ -254,6 +254,7 @@ public class TransaksiCtl {
 		model.addAttribute("error", "header transaksi tidak boleh kosong");
 		model.addAttribute("dtoH", dtoH);
 		model.addAttribute("customer", listcustomer);
+		model.addAttribute("stat", 1);
 		model.addAttribute("kodeTerakhir", kodeTerakhir());
 		return "addTransaksi";
 	}
@@ -273,11 +274,11 @@ public class TransaksiCtl {
 			}if(kar.getLevel().equals("2")){
 				model.addAttribute("level", "Staff");
 			}	
-			if(dtoD.getKodeDetail().isEmpty()){
-				model.addAttribute("stat", 1);
-				model.addAttribute("validasi", "Harap Isi Semua Data, Jika tidak ada diskon cukup beri 0");
-				return "redirect:/transaksi/addDetail";
-			}
+//			if(dtoD.getKodeDetail().isEmpty()){
+//				model.addAttribute("stat", 1);
+//				model.addAttribute("validasi", "Harap Isi Semua Data, Jika tidak ada diskon cukup beri 0");
+//				return "redirect:/transaksi/addDetail";
+//			}
 			String kondisi = (String)session.getAttribute("kondisi");
 			List<TrDetailPenjualanDto> listDetail = new ArrayList<TrDetailPenjualanDto>();
 			MstBarangDto br = svcB.findOneBarang(dtoD.getKodeBarang());
@@ -294,7 +295,7 @@ public class TransaksiCtl {
 								model.addAttribute("error", "Stok barang tidak tercukupi");
 							} else {
 								dtoD.setNamaBarang(br.getNamaBarang());
-								dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+//								dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
 								listDetail.add(dtoD);
 								session.setAttribute("listDetail", listDetail);
 								return "redirect:/transaksi/add";							
@@ -308,7 +309,7 @@ public class TransaksiCtl {
 								model.addAttribute("error", "Stok barang tidak tercukupi");
 							} else {
 								dtoD.setNamaBarang(br.getNamaBarang());
-								dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+//								dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
 								listDetail.add(dtoD);
 								session.setAttribute("listDetail", listDetail);
 								return "redirect:/transaksi/add";							
@@ -316,6 +317,7 @@ public class TransaksiCtl {
 						}
 					}
 				}
+				model.addAttribute("stat", 1);
 				model.addAttribute("kodeTerakhir", kodeTerakhirDetail());
 				model.addAttribute("usr", kar.getNamaKaryawan());
 				model.addAttribute("dtoD", dtoD);
@@ -335,7 +337,7 @@ public class TransaksiCtl {
 							model.addAttribute("error", "Stok barang tidak tercukupi");
 						} else {
 							dtoD.setNamaBarang(br.getNamaBarang());
-							dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+//							dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
 							listDetail.add(dtoD);
 							session.setAttribute("listDetail", listDetail);
 							return "redirect:/transaksi/edit/"+session.getAttribute("noNota");						
@@ -351,7 +353,7 @@ public class TransaksiCtl {
 							TrHeaderPenjualanDto dtoH =  (TrHeaderPenjualanDto) session.getAttribute("dtoH");
 							listDetail = svcT.findAllDetail(dtoH.getNoNota());
 							dtoD.setNamaBarang(br.getNamaBarang());
-							dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
+//							dtoD.setSubtotal((dtoD.getHargaSatuan()*dtoD.getQty()) - (dtoD.getHargaSatuan()*dtoD.getQty()*dtoD.getDiskon()/100));
 							listDetail.add(dtoD);
 							session.setAttribute("listDetail", listDetail);
 							return "redirect:/transaksi/edit/"+session.getAttribute("noNota");						
@@ -360,6 +362,7 @@ public class TransaksiCtl {
 				}
 				
 			}
+			model.addAttribute("stat", 1);
 			model.addAttribute("usr", kar.getNamaKaryawan());
 			model.addAttribute("dtoD", dtoD);
 			model.addAttribute("barang", listbarang);

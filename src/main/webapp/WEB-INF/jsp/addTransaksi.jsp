@@ -114,8 +114,8 @@
 							  	
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Karyawan</h1>
-									<f:input type="text" class="form-control" path="kodeKaryawan" placeholder="Masukan karyawan" readonly="true" />
-									<f:errors path="kodeKaryawan" class="h7 mb-0 text-danger"/>
+									<f:input type="text" class="form-control" path="namaKaryawan" placeholder="Masukan karyawan" readonly="true" />
+									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 						  		
 						  		<div class="mb-3">

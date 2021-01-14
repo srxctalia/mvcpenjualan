@@ -83,27 +83,21 @@
 								    <h1 class="h6 mb-0 text-gray-600">${error}</h1>
 							  	</div>
 		  					</c:if>
-<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dtoH">
+						<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dtoH">
 						<div class="card shadow mb-4">
 						<div class="card-header py-3">
 						<h6 class="m-0 font-weight-bold text-primary">	
 						<h1 class="h5 mb-0 text-gray-800">Header Transaksi</h1></h6>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3">
-								<div class="mb-3">
+                        <div class="row">
+                        	<div class="col col-md-4">
+                        		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">No Nota</h1>
 									<f:input type="text" path="noNota" class="form-control" placeholder="Masukan No Nota${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
 									<f:errors path="noNota" class="h7 mb-0 text-danger"/>
 						  		</div>
-					  		
 						  		<div class="mb-3">
-						    		<h1 class="h6 mb-2 text-gray-900">Tanggal Transaksi</h1>
-									<f:input type="date" class="form-control" path="tanggalTransaksi" placeholder="Masukan tanggal transaksi" readonly="true" />
-									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-danger"/>
-						  		</div>
-							  		
-							  	<div class="mb-3">
 								      <h1 class="h6 mb-2 text-gray-900">Customer</h1>
 								      <f:select path="kodeCustomer" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 								        <option disabled selected value> -- select an option -- </option>
@@ -113,14 +107,21 @@
 								      </f:select>
 								      <f:errors path="kodeCustomer" class="h7 mb-0 text-danger"/>		
 						  		</div>
-							  	
+                        	</div>
+                        	<div class="col col-md-4">
+                        		<div class="mb-3">
+						    		<h1 class="h6 mb-2 text-gray-900">Tanggal Transaksi</h1>
+									<f:input type="date" class="form-control" path="tanggalTransaksi" placeholder="Masukan tanggal transaksi" readonly="true" />
+									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-danger"/>
+						  		</div>
+						  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Karyawan</h1>
 									<f:input type="text" class="form-control" path="namaKaryawan" placeholder="Masukan karyawan" readonly="true" />
 									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
-						  		
-					</div>
+                        	</div>
+                        </div>
                 </div> 
         	</div>
         	
@@ -157,7 +158,7 @@
 									    <td>${d.hargaSatuan}</td>
 									    <td>${d.qty}</td>
 									    <td>${d.diskon} </td>
-									    <td>${d.subtotal} </td>
+									    <td><a>Rp. </a><fmt:formatNumber value = "${d.subtotal}" groupingUsed="true" /></td>
 									    <td>
 									    	<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/transaksi/deleteDetail/${d.kodeDetail}';">
 									    </td>
@@ -175,28 +176,38 @@
 						<h6 class="m-0 font-weight-bold text-primary">	
 						<h1 class="h5 mb-0 text-gray-800">Result</h1></h6>	
                         </div>
-        	                <div class="card-body">     	                	
-                            	<div class="mb-3">
-						    	<h1 class="h6 mb-2 text-gray-900">Global Diskon (%)</h1>
-						    	
-								<f:input type="text" class="form-control" path="globalDiskon" id="gdiskon" 
-								onchange="ttl.value= ${total}-${total}*gdiskon.value/100"/>
-								
-						  		<f:errors path="globalDiskon" class="h7 mb-0 text-danger"/>
-								</div>
-								<div class="mb-3">
-								<h1 class="h6 mb-2 text-gray-900">Total Harga</h1>
-								<f:input class="form-control" type="number" id="ttl" path="hargaTotal" readonly="true"/> 
-								</div>
-								<div class="mb-3">
+        	                <div class="card-body"> 
+        	                <div class="row mx-5 my-3">
+	        	                <div class="col col-md-5">
+	                            	<div class="mb-3">
+							    	<h1 class="h6 mb-2 text-gray-900">Global Diskon (%)</h1>
+									<f:input type="text" class="form-control" path="globalDiskon" id="gdiskon" 
+									onchange="ttl.value= ${total}-${total}*gdiskon.value/100"/>
+							  		<f:errors path="globalDiskon" class="h7 mb-0 text-danger"/>
+									</div>
+	        	                </div>
+	        	                 <div class="col col-md-5">
+									<div class="mb-3">
+									<h1 class="h6 mb-2 text-gray-900">Total Harga</h1>
+									<f:input class="form-control" type="number" id="ttl" path="hargaTotal" readonly="true"/> 
+									</div>
+	        	                </div>
+        	                </div>    	                	
+					</div>
+                </div>
+                <div class="mb-3">
 								<input type="submit" value="Save" class="btn btn-primary">
 								<input type="button" class="btn btn-secondary" value="Cancel" 
 								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';">
 								</div>
-					</div>
-                </div>
-                </div>                
+                </div>                                
 </f:form>        	
 <jsp:include page="footer.jsp" />
+						<script language="javascript">
+							function addDetail(){
+								document.forms[0].action = '${pageContext.request.contextPath}/transaksi/addDetail';
+								document.forms[0].submit();
+							}
+						</script>	
 </body>
 </html>

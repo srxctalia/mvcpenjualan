@@ -115,7 +115,7 @@
                     
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-1r">
-                        <h1 class="h3 mb-0 text-gray-800">Add Karyawan</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Edit Transaksi</h1>
                     </div>
                     
                     <!-- Topbar Navbar -->
@@ -152,11 +152,7 @@
 			<!-- Page Heading -->
 			<p class="mb-4">Silahkan isi data pada form berikut</p>
 
-				<!-- DataTables Example -->
-				<div class="card shadow mb-4">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">	
-									   
+				<!-- DataTables Example -->  
 						<div class="container">
 							<c:set var="cek"  value="${stat}"/>  <!-- CHEK SINI AMA CTL ADD NYA -->
 							<c:if test="${cek == 1}">	 
@@ -167,18 +163,20 @@
 		  					</c:if>
 		  					
 							<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dtoH">
-								<div class="mb-3">
+						<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">	
+						<h1 class="h5 mb-0 text-gray-800">Header Transaksi</h1></h6>
+                        </div>
+                        <div class="card-body">
+                        <div class="row">
+                        	<div class="col col-md-4">
+                        		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">No Nota</h1>
-									<f:input type="text" path="noNota" class="form-control" placeholder="Masukan No Nota${kodeTerakhir}" readonly="true" />
+									<f:input type="text" path="noNota" readonly="true" class="form-control" placeholder="Masukan No Nota${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
+									<f:errors path="noNota" class="h7 mb-0 text-danger"/>
 						  		</div>
-					  		
 						  		<div class="mb-3">
-						    		<h1 class="h6 mb-2 text-gray-900">Tanggal Transaksi</h1>
-									<f:input type="date" class="form-control" path="tanggalTransaksi" placeholder="Masukan tanggal transaksi" readonly="true" />
-									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-danger"/>
-						  		</div>
-							  		
-							  	<div class="mb-3">
 								      <h1 class="h6 mb-2 text-gray-900">Customer</h1>
 								      <f:select path="kodeCustomer" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 								        <option disabled selected value> -- select an option -- </option>
@@ -188,26 +186,40 @@
 								      </f:select>
 								      <f:errors path="kodeCustomer" class="h7 mb-0 text-danger"/>		
 						  		</div>
-							  	
+                        	</div>
+                        	<div class="col col-md-4">
+                        		<div class="mb-3">
+						    		<h1 class="h6 mb-2 text-gray-900">Tanggal Transaksi</h1>
+									<f:input type="date" class="form-control" path="tanggalTransaksi" placeholder="Masukan tanggal transaksi" readonly="true" />
+									<f:errors path="tanggalTransaksi" class="h7 mb-0 text-danger"/>
+						  		</div>
+						  		
 						  		<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">Karyawan</h1>
 									<f:input type="text" class="form-control" path="namaKaryawan" placeholder="Masukan karyawan" readonly="true" />
 									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
-								
-						  		<div class="card-body">
-		                        	<h3 style="text-align:center">Detail</h3>
-		                            <div class="float-sm-right mb-3">
-		                            <input type="button" value="Tambah Detail" class="btn btn-primary mr-2"
-									onclick="javascript:addDetail();">
-									</div>
-			                   	</div>
-						  		
-						  		<!-- Detail table area -->
+                        	</div>
+                        </div>
+                </div> 
+        	</div>
+        	
+        				<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<div class="float-sm-right">						
+						<input type="button" value="Tambah Detail" class="btn btn-primary"
+						onclick="javascript:addDetail();">
+						</div>
+						<div class="d-sm-flex align-items-center justify-content-between">
+	                    <h1 class="h5 mt-2 text-gray-800">Detail Transaksi</h1>
+	                   	</div>
+                        </div>
+        	                <div class="card-body">
+                            <div class="mb-3">
 						  		<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 								<thead>
-								  <tr class="table-success">
+								  <tr>
 								    <th>Kode Detail</th>
 								    <th>Nama Barang</th>
 								    <th>Harga Satuan</th>
@@ -225,7 +237,7 @@
 									    <td>${d.hargaSatuan}</td>
 									    <td>${d.qty}</td>
 									    <td>${d.diskon} </td>
-									    <td>${d.subtotal} </td>
+									    <td><a>Rp. </a><fmt:formatNumber value = "${d.subtotal}" groupingUsed="true" /></td>
 									    <td>
 									    	<input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='${pageContext.request.contextPath}/transaksi/deleteDetail/${d.kodeDetail}';">
 									    </td>
@@ -234,55 +246,47 @@
 								</tbody>
 								</table>
 						  		</div>
+					</div>
+                </div>
+                </div>
+                
+        				<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">	
+						<h1 class="h5 mb-0 text-gray-800">Result</h1></h6>	
+                        </div>
+        	                <div class="card-body"> 
+        	                <div class="row mx-5 my-3">
+	        	                <div class="col col-md-5">
+	                            	<div class="mb-3">
+							    	<h1 class="h6 mb-2 text-gray-900">Global Diskon (%)</h1>
+									<f:input type="text" class="form-control" path="globalDiskon" id="gdiskon" 
+									onchange="ttl.value= ${total}-${total}*gdiskon.value/100"/>
+							  		<f:errors path="globalDiskon" class="h7 mb-0 text-danger"/>
+									</div>
+	        	                </div>
+	        	                 <div class="col col-md-5">
+									<div class="mb-3">
+									<h1 class="h6 mb-2 text-gray-900">Total Harga</h1>
+									<f:input class="form-control" type="number" id="ttl" path="hargaTotal" readonly="true"/> 
+									</div>
+	        	                </div>
+        	                </div>    	                	
+					</div>
+                </div>
+                <div class="mb-3">
 								<input type="submit" value="Save" class="btn btn-primary">
 								<input type="button" class="btn btn-secondary" value="Cancel" 
-								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';"><br><br>
-														
-							</f:form>
-						</div>
-						
-						<script language="javascript">
-							function addDetail(){
-								document.forms[0].action = '${pageContext.request.contextPath}/transaksi/addDetail';
-								document.forms[0].submit();
-							}
-						</script>		
-
-					  <!-- Optional JavaScript; choose one of the two! -->
-					
-					    <!-- Option 1: Bootstrap Bundle with Popper -->
-					    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-					
-					    <!-- Option 2: Separate Popper and Bootstrap JS -->
-					    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-					    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>											
-                        </div>
-                </div>
-        	</div>
-        	
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/karyawan/login">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';">
+								</div>
+                </div>                
+		</f:form>        	
+		<jsp:include page="footer.jsp" />
+		<script language="javascript">
+			function addDetail(){
+				document.forms[0].action = '${pageContext.request.contextPath}/transaksi/addDetail';
+				document.forms[0].submit();
+			}
+		</script>	
 </body>
 </html>

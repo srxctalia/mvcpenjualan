@@ -74,11 +74,7 @@
 			<!-- Page Heading -->
 			<p class="mb-4">Silahkan isi data pada form berikut</p>
 
-				<!-- DataTables Example -->
-				<div class="card shadow mb-4">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">	
-									   
+				<!-- DataTables Example -->				   
 						<div class="container">
 							<c:set var="cek" value="${stat}"/>  <!-- CHEK SINI AMA CTL ADD NYA -->
 							<c:if test="${cek == 1}">	 
@@ -87,8 +83,14 @@
 								    <h1 class="h6 mb-0 text-gray-600">${error}</h1>
 							  	</div>
 		  					</c:if>
-		  					
-							<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dtoH">
+<f:form action="${pageContext.request.contextPath}/transaksi/save" modelAttribute="dtoH">
+						<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">	
+						<h1 class="h5 mb-0 text-gray-800">Header Transaksi</h1></h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
 								<div class="mb-3">
 						    		<h1 class="h6 mb-2 text-gray-900">No Nota</h1>
 									<f:input type="text" path="noNota" class="form-control" placeholder="Masukan No Nota${kodeTerakhir}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"/>
@@ -118,30 +120,26 @@
 									<f:errors path="namaKaryawan" class="h7 mb-0 text-danger"/>
 						  		</div>
 						  		
-						  		<div class="mb-3">
-						    		<h1 class="h6 mb-2 text-gray-900">Global Diskon (%)</h1>
-									<f:input type="text" class="form-control" path="globalDiskon" placeholder="Masukan Global Diskon"/>
-						  			<f:errors path="globalDiskon" class="h7 mb-0 text-danger"/>
-						  		</div>
-						  		
-<!-- 								<input type="submit" value="Save" class="btn btn-primary"> -->
-<!-- 								<input type="button" class="btn btn-secondary" value="Cancel"  -->
-<%-- 								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';"><br><br> --%>
-								
-								
-						  		<div class="card-body">
-		                        	<h3 style="text-align:center">Detail</h3>
-		                            <div class="float-sm-right mb-3">
-		                            <input type="button" value="Tambah Detail" class="btn btn-primary mr-2"
-									onclick="javascript:addDetail();">
-									</div>
-			                   	</div>
-						  		
-						  		<!-- Detail table area -->
+					</div>
+                </div> 
+        	</div>
+        	
+        				<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<div class="float-sm-right">						
+						<input type="button" value="Tambah Detail" class="btn btn-primary"
+						onclick="javascript:addDetail();">
+						</div>
+						<div class="d-sm-flex align-items-center justify-content-between">
+	                    <h1 class="h5 mt-2 text-gray-800">Detail Transaksi</h1>
+	                   	</div>
+                        </div>
+        	                <div class="card-body">
+                            <div class="mb-3">
 						  		<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 								<thead>
-								  <tr class="table-success">
+								  <tr>
 								    <th>Kode Detail</th>
 								    <th>Nama Barang</th>
 								    <th>Harga Satuan</th>
@@ -168,18 +166,43 @@
 								</tbody>
 								</table>
 						  		</div>
+					</div>
+                </div>
+                </div>
+                
+        				<div class="card shadow mb-4">
+						<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">	
+						<h1 class="h5 mb-0 text-gray-800">Result</h1></h6>	
+                        </div>
+        	                <div class="card-body">
+        	                	<%! int grandTotal = 0; %>
+        	                	<c:forEach items="${dtoH.detailTransaksi}" var="d">
+        	                	<!-- Masih gagal -->
+        	                	</c:forEach>
+        	                	
+                            	<div class="mb-3">
+						    	<h1 class="h6 mb-2 text-gray-900">Global Diskon (%)</h1>
+						    	
+								<f:input type="text" class="form-control" path="globalDiskon" 
+								onchange="ttl= cek"/>
+								
+						  		<f:errors path="globalDiskon" class="h7 mb-0 text-danger"/>
+								</div>
+								<div class="mb-3">
+								<h1 class="h6 mb-2 text-gray-900">Total Harga</h1>
+								<%-- <f:input id="ttl" path="ttl" readonly="true"/> --%>
+								</div>
+								<div class="mb-3">
 								<input type="submit" value="Save" class="btn btn-primary">
 								<input type="button" class="btn btn-secondary" value="Cancel" 
-								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';"><br><br>
-														
-							</f:form>
-						</div>
-						
-						<!-- Script -->										
-                        </div>
+								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';">
+								</div>
+
+					</div>
                 </div>
-        	</div>
-        	
+                </div>                
+</f:form>        	
 <jsp:include page="footer.jsp" />
 </body>
 </html>

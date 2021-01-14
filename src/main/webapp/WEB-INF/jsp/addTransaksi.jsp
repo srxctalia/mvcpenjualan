@@ -175,30 +175,24 @@
 						<h6 class="m-0 font-weight-bold text-primary">	
 						<h1 class="h5 mb-0 text-gray-800">Result</h1></h6>	
                         </div>
-        	                <div class="card-body">
-        	                	<%! int grandTotal = 0; %>
-        	                	<c:forEach items="${dtoH.detailTransaksi}" var="d">
-        	                	<!-- Masih gagal -->
-        	                	</c:forEach>
-        	                	
+        	                <div class="card-body">     	                	
                             	<div class="mb-3">
 						    	<h1 class="h6 mb-2 text-gray-900">Global Diskon (%)</h1>
 						    	
-								<f:input type="text" class="form-control" path="globalDiskon" 
-								onchange="ttl= cek"/>
+								<f:input type="text" class="form-control" path="globalDiskon" id="gdiskon" 
+								onchange="ttl.value= ${total}-${total}*gdiskon.value/100"/>
 								
 						  		<f:errors path="globalDiskon" class="h7 mb-0 text-danger"/>
 								</div>
 								<div class="mb-3">
 								<h1 class="h6 mb-2 text-gray-900">Total Harga</h1>
-								<%-- <f:input id="ttl" path="ttl" readonly="true"/> --%>
+								<f:input class="form-control" type="number" id="ttl" path="hargaTotal" readonly="true"/> 
 								</div>
 								<div class="mb-3">
 								<input type="submit" value="Save" class="btn btn-primary">
 								<input type="button" class="btn btn-secondary" value="Cancel" 
 								onclick="location.href='${pageContext.request.contextPath}/transaksi/all';">
 								</div>
-
 					</div>
                 </div>
                 </div>                

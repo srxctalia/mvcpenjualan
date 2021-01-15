@@ -109,7 +109,6 @@ public class TransaksiCtl {
 		if (kar == null) {
 			return "redirect:/karyawan/login";
 		}
-//		try {
 		if(kar.getLevel().equals("1")){
 			model.addAttribute("level", "Admin");
 		}if(kar.getLevel().equals("2")){
@@ -141,12 +140,6 @@ public class TransaksiCtl {
 		session.setAttribute("kondisi", "add");
 		
 		return "addTransaksi";
-			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			return "addTransaksi";
-//		}
-
 	}
 	
 	@RequestMapping("/save")
@@ -163,7 +156,6 @@ public class TransaksiCtl {
 		}if(kar.getLevel().equals("2")){
 			model.addAttribute("level", "Staff");
 		}	
-//		try {
 				String kondisi = (String)session.getAttribute("kondisi");
 				List<MstCustomerDto> listCustomer = svcC.findAll();
 				if (kondisi.equalsIgnoreCase("add")){
@@ -228,10 +220,6 @@ public class TransaksiCtl {
 					model.addAttribute("stat", 1);
 					return "redirect:/transaksi/edit/"+dtoH.getNoNota();
 				}
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				return "redirect:/transaksi/all";
-//			}
 	}
 
 	@RequestMapping("/addDetail")
@@ -272,7 +260,6 @@ public class TransaksiCtl {
 			BindingResult result, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MstKaryawanLoginDto kar = (MstKaryawanLoginDto) session.getAttribute("loginUser");
-//		try {
 			if (kar == null) {
 				return "redirect:/karyawan/login";
 			}
@@ -281,11 +268,6 @@ public class TransaksiCtl {
 			}if(kar.getLevel().equals("2")){
 				model.addAttribute("level", "Staff");
 			}	
-//			if(dtoD.getKodeDetail().isEmpty()){
-//				model.addAttribute("stat", 1);
-//				model.addAttribute("validasi", "Harap Isi Semua Data, Jika tidak ada diskon cukup beri 0");
-//				return "redirect:/transaksi/addDetail";
-//			}
 			String kondisi = (String)session.getAttribute("kondisi");
 			List<TrDetailPenjualanDto> listDetail = new ArrayList<TrDetailPenjualanDto>();
 			MstBarangDto br = svcB.findOneBarang(dtoD.getKodeBarang());
@@ -374,11 +356,6 @@ public class TransaksiCtl {
 			model.addAttribute("dtoD", dtoD);
 			model.addAttribute("barang", listbarang);
 			return "addTransaksiDetail";			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//			return "redirect:/transaksi/all";
-//		}
 		
 		 
 	}
